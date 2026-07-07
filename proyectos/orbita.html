@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orbita — Caso de estudio · Mateo Espinosa</title>
+  <meta name="description" content="Design system multi-marca y rediseño del dashboard de analytics Orbita. -30% en tiempo de desarrollo de features." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../case-study.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23e8541f'/></svg>" />
+</head>
+<body class="case-page">
+
+  <div class="case-progress" id="caseProgress" aria-hidden="true"></div>
+
+  <header class="site-header case-header" id="siteHeader">
+    <nav class="nav container" aria-label="Navegación del caso de estudio">
+      <a href="../index.html#proyectos" class="case-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Todos los proyectos
+      </a>
+      <div class="nav__actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema" title="Cambiar tema">
+          <svg class="theme-toggle__icon theme-toggle__icon--sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="theme-toggle__icon theme-toggle__icon--moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+        </button>
+        <a href="../index.html#contacto" class="btn btn--primary btn--sm nav__cta">Hablemos</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="case-hero">
+      <div class="case-hero__media case-hero__media--b">
+        <svg viewBox="0 0 640 440" class="project__art" role="img" aria-hidden="true">
+          <rect x="90" y="70" width="460" height="310" rx="18" class="art-device"/>
+          <rect x="90" y="70" width="120" height="310" rx="18" class="art-block"/>
+          <rect x="234" y="136" width="290" height="110" rx="14" class="art-accent"/>
+          <rect x="234" y="264" width="136" height="86" rx="14" class="art-block"/>
+          <rect x="388" y="264" width="136" height="86" rx="14" class="art-block"/>
+          <circle cx="560" cy="110" r="36" class="art-accent"/>
+        </svg>
+      </div>
+      <div class="container case-hero__content">
+        <p class="case-hero__eyebrow reveal">SaaS B2B · Design System · 2024</p>
+        <h1 class="case-hero__title reveal">Orbita</h1>
+        <p class="case-hero__subtitle reveal">Analytics para equipos de producto que necesitan decidir, no solo mirar datos.</p>
+      </div>
+      <a href="#contenido" class="case-hero__scroll" aria-label="Bajar al contenido">
+        <span>Scroll</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </a>
+    </section>
+
+    <div class="case-meta" id="contenido">
+      <div class="container">
+        <div class="case-meta__grid">
+          <div class="case-meta__item reveal">
+            <span class="case-meta__label">Cliente</span>
+            <span class="case-meta__value">Orbita Analytics</span>
+          </div>
+          <div class="case-meta__item reveal">
+            <span class="case-meta__label">Mi rol</span>
+            <span class="case-meta__value">Product Designer · DS Lead</span>
+          </div>
+          <div class="case-meta__item reveal">
+            <span class="case-meta__label">Duración</span>
+            <span class="case-meta__value">6 meses</span>
+          </div>
+          <div class="case-meta__item reveal">
+            <span class="case-meta__label">Servicios</span>
+            <span class="case-meta__value">Design System, UX, Dashboard</span>
+          </div>
+          <div class="case-meta__item reveal">
+            <span class="case-meta__label">Año</span>
+            <span class="case-meta__value">2024</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="case-intro">
+      <div class="container case-intro__inner">
+        <span class="case-intro__num reveal">01</span>
+        <p class="case-intro__text reveal">
+          Construimos un design system multi-marca y rediseñamos el dashboard para que los equipos de producto pasaran de <em>mirar métricas</em> a tomar decisiones accionables.
+        </p>
+      </div>
+    </section>
+
+    <section class="case-section case-section--alt">
+      <div class="container">
+        <div class="case-section__head">
+          <span class="case-section__num reveal">02</span>
+          <h2 class="case-section__title reveal">El <em>reto</em></h2>
+        </div>
+        <div class="case-section__body">
+          <div class="case-section__col reveal">
+            <p>Orbita servía a 3 marcas white-label con interfaces inconsistentes. Cada feature nueva requería decisiones de diseño desde cero, duplicando esfuerzo entre equipos.</p>
+            <p>Los product managers reportaban que el dashboard mostraba demasiados datos sin jerarquía — el time-to-insight promedio era de 12 minutos por sesión.</p>
+          </div>
+          <div class="case-section__col reveal">
+            <p>Auditamos 180 pantallas existentes, identificamos 340 componentes únicos (con 60% de duplicación) y entrevistamos a 15 PMs sobre sus flujos de análisis diarios.</p>
+            <p>El patrón más común: abrir 4 pestañas, exportar a Excel, y cruzar datos manualmente para responder una sola pregunta.</p>
+          </div>
+        </div>
+        <div class="case-insights">
+          <article class="case-insight reveal">
+            <span class="case-insight__num">→</span>
+            <h3 class="case-insight__title">Fragmentación visual</h3>
+            <p class="case-insight__desc">3 marcas con 3 paletas, 3 tipografías y 0 componentes compartidos.</p>
+          </article>
+          <article class="case-insight reveal">
+            <span class="case-insight__num">→</span>
+            <h3 class="case-insight__title">Parálisis por datos</h3>
+            <p class="case-insight__desc">El dashboard mostraba 40+ métricas sin priorización contextual.</p>
+          </article>
+          <article class="case-insight reveal">
+            <span class="case-insight__num">→</span>
+            <h3 class="case-insight__title">Deuda de diseño</h3>
+            <p class="case-insight__desc">Cada sprint de ingeniería incluía 30% de tiempo en decisiones de UI ad-hoc.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container">
+        <div class="case-section__head">
+          <span class="case-section__num reveal">03</span>
+          <h2 class="case-section__title reveal">La <em>solución</em></h2>
+        </div>
+        <div class="case-section__body">
+          <div class="case-section__col reveal">
+            <p>Creamos "Orbita Core", un design system con tokens semánticos que se adaptan a cada marca mediante theming — un solo componente, tres identidades visuales.</p>
+            <p>El nuevo dashboard usa un modelo de "insights prioritarios": la IA sugiere las 3 métricas más relevantes según el contexto del usuario y su rol.</p>
+          </div>
+          <div class="case-section__col reveal">
+            <p>Diseñamos widgets modulares que se pueden combinar en vistas personalizadas, con drag-and-drop y templates por industria.</p>
+            <p>La documentación del DS incluye guías de uso, do's & don'ts y playground interactivo — adoptado por el 90% del equipo de ingeniería en 2 meses.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-gallery">
+      <div class="container">
+        <div class="case-gallery__item case-gallery__item--wide case-gallery__item--b reveal">
+          <div class="case-gallery__placeholder">
+            <svg viewBox="0 0 640 440" class="project__art" aria-hidden="true">
+              <rect x="60" y="50" width="520" height="340" rx="18" class="art-device"/>
+              <rect x="60" y="50" width="100" height="340" rx="18" class="art-block"/>
+              <rect x="180" y="80" width="200" height="100" rx="14" class="art-accent"/>
+              <rect x="400" y="80" width="150" height="100" rx="14" class="art-block"/>
+              <rect x="180" y="200" width="180" height="120" rx="14" class="art-block"/>
+              <rect x="380" y="200" width="170" height="120" rx="14" class="art-accent"/>
+            </svg>
+          </div>
+        </div>
+        <p class="case-gallery__caption reveal">Dashboard rediseñado — insights prioritarios y widgets modulares</p>
+      </div>
+      <div class="container" style="margin-top: 1.5rem;">
+        <div class="case-gallery__grid">
+          <div class="case-gallery__item case-gallery__item--b reveal">
+            <div class="case-gallery__placeholder">
+              <svg viewBox="0 0 640 440" class="project__art" aria-hidden="true">
+                <rect x="100" y="60" width="440" height="320" rx="18" class="art-device"/>
+                <rect x="130" y="100" width="80" height="80" rx="12" class="art-accent"/>
+                <rect x="230" y="100" width="80" height="80" rx="12" class="art-block"/>
+                <rect x="330" y="100" width="80" height="80" rx="12" class="art-accent"/>
+                <rect x="430" y="100" width="80" height="80" rx="12" class="art-block"/>
+                <rect x="130" y="200" width="380" height="140" rx="14" class="art-block"/>
+              </svg>
+            </div>
+          </div>
+          <div class="case-gallery__item case-gallery__item--b reveal">
+            <div class="case-gallery__placeholder">
+              <svg viewBox="0 0 640 440" class="project__art" aria-hidden="true">
+                <rect x="120" y="80" width="400" height="280" rx="18" class="art-device"/>
+                <rect x="150" y="120" width="160" height="20" rx="10" class="art-line"/>
+                <rect x="150" y="160" width="340" height="16" rx="8" class="art-line"/>
+                <rect x="150" y="190" width="300" height="16" rx="8" class="art-line"/>
+                <rect x="150" y="240" width="120" height="40" rx="20" class="art-accent"/>
+                <rect x="290" y="240" width="120" height="40" rx="20" class="art-block"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <p class="case-gallery__caption reveal">Orbita Core — tokens, componentes y theming multi-marca</p>
+      </div>
+    </section>
+
+    <section class="case-metrics">
+      <div class="container">
+        <div class="case-metrics__grid">
+          <div class="reveal">
+            <span class="case-metric__num">-30%</span>
+            <span class="case-metric__label">Tiempo de desarrollo de features</span>
+          </div>
+          <div class="reveal">
+            <span class="case-metric__num">90%</span>
+            <span class="case-metric__label">Adopción del design system</span>
+          </div>
+          <div class="reveal">
+            <span class="case-metric__num">-65%</span>
+            <span class="case-metric__label">Time-to-insight por sesión</span>
+          </div>
+          <div class="reveal">
+            <span class="case-metric__num">120+</span>
+            <span class="case-metric__label">Componentes documentados</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container">
+        <div class="case-section__head">
+          <span class="case-section__num reveal">04</span>
+          <h2 class="case-section__title reveal">Proceso de <em>diseño</em></h2>
+        </div>
+        <div class="case-process reveal">
+          <div class="case-step">
+            <span class="case-step__num">01</span>
+            <h3 class="case-step__title">Auditoría</h3>
+            <p class="case-step__desc">Inventario de componentes, análisis de inconsistencias y entrevistas con PMs.</p>
+          </div>
+          <div class="case-step">
+            <span class="case-step__num">02</span>
+            <h3 class="case-step__title">Fundamentos</h3>
+            <p class="case-step__desc">Tokens de diseño, tipografía, color y espaciado con theming multi-marca.</p>
+          </div>
+          <div class="case-step">
+            <span class="case-step__num">03</span>
+            <h3 class="case-step__title">Componentes</h3>
+            <p class="case-step__desc">Librería en Figma + Storybook con documentación y playground interactivo.</p>
+          </div>
+          <div class="case-step">
+            <span class="case-step__num">04</span>
+            <h3 class="case-step__title">Dashboard</h3>
+            <p class="case-step__desc">Rediseño del dashboard principal con widgets modulares y vistas personalizadas.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-quote">
+      <div class="container">
+        <blockquote class="case-quote__text reveal">"Antes tardaba 15 minutos en encontrar lo que buscaba. Ahora abro Orbita y la respuesta está ahí."</blockquote>
+        <cite class="case-quote__author reveal">— Product Manager, cliente enterprise</cite>
+      </div>
+    </section>
+
+    <section class="case-credits">
+      <div class="container">
+        <div class="case-credits__grid reveal">
+          <div class="case-credits__item"><strong>Equipo</strong> 3 diseñadores, 6 devs, 2 PMs</div>
+          <div class="case-credits__item"><strong>Herramientas</strong> Figma, Storybook, Zeroheight</div>
+          <div class="case-credits__item"><strong>Plataforma</strong> Web · Responsive</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-next">
+      <a href="kuna.html" class="case-next__link">
+        <div class="case-next__info">
+          <span class="case-next__label">Siguiente proyecto</span>
+          <h2 class="case-next__title">Kuna</h2>
+          <span class="case-next__arrow">Ver caso de estudio
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
+          </span>
+        </div>
+        <div class="case-next__preview case-next__preview--c">
+          <svg viewBox="0 0 640 440" class="project__art" aria-hidden="true">
+            <rect x="330" y="90" width="180" height="270" rx="18" class="art-device"/>
+            <rect x="352" y="118" width="136" height="130" rx="14" class="art-accent"/>
+            <rect x="352" y="292" width="136" height="36" rx="18" class="art-block"/>
+          </svg>
+        </div>
+      </a>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>© 2026 Mateo Espinosa. Diseñado y construido con cariño.</p>
+      <a href="../index.html#proyectos" class="footer__top">Todos los proyectos ↑</a>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

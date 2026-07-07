@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kuna — Caso de estudio · Mateo Espinosa</title>
+  <meta name="description" content="Investigación con +60 usuarios y rediseño del checkout de Kuna. +28% en conversión móvil en el primer trimestre." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../case-study.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23e8541f'/></svg>" />
+</head>
+<body class="case-page">
+
+  <div class="case-progress" id="caseProgress" aria-hidden="true"></div>
+
+  <header class="site-header case-header" id="siteHeader">
+    <nav class="nav container" aria-label="Navegación del caso de estudio">
+      <a href="../index.html#proyectos" class="case-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Todos los proyectos
+      </a>
+      <div class="nav__actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema" title="Cambiar tema">
+          <svg class="theme-toggle__icon theme-toggle__icon--sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="theme-toggle__icon theme-toggle__icon--moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+        </button>
+        <a href="../index.html#contacto" class="btn btn--primary btn--sm nav__cta">Hablemos</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="case-hero">
+      <div class="case-hero__media case-hero__media--c">
+        <svg viewBox="0 0 640 440" class="project__art" role="img" aria-hidden="true">
+          <rect x="120" y="90" width="180" height="270" rx="18" class="art-block"/>
+          <rect x="330" y="90" width="180" height="270" rx="18" class="art-device"/>
+          <rect x="352" y="118" width="136" height="130" rx="14" class="art-accent"/>
+          <rect x="352" y="292" width="136" height="36" rx="18" class="art-block"/>
+          <circle cx="540" cy="330" r="46" class="art-accent"/>
+        </svg>
+      </div>
+      <div class="container case-hero__content">
+        <p class="case-hero__eyebrow reveal">E-commerce · UX Research · 2023</p>
+        <h1 class="case-hero__title reveal">Kuna</h1>
+        <p class="case-hero__subtitle reveal">Marketplace de diseño local que conecta creadores con compradores conscientes.</p>
+      </div>
+      <a href="#contenido" class="case-hero__scroll" aria-label="Bajar al contenido">
+        <span>Scroll</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </a>
+    </section>
+
+    <div class="case-meta" id="contenido">
+      <div class="container">
+        <div class="case-meta__grid">
+          <div class="case-meta__item reveal">
+            <span class="case-meta__label">Cliente</span>
+            <span class="case-meta__value">Kuna Marketplace</span>
+          </div>
+          <div class="case-meta__item reveal">
+            <span class="case-meta__label">Mi rol</span>
+            <span class="case-meta__value">UX Researcher · Product Designer</span>
+          </div>
+          <div class="case-meta__item reveal">
+            <span class="case-meta__label">Duración</span>
+            <span class="case-meta__value">5 meses</span>
+          </div>
+          <div class="case-meta__item reveal">
+            <span class="case-meta__label">Servicios</span>
+            <span class="case-meta__value">Research, UX, Checkout redesign</span>
+          </div>
+          <div class="case-meta__item reveal">
+            <span class="case-meta__label">Año</span>
+            <span class="case-meta__value">2023</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="case-intro">
+      <div class="container case-intro__inner">
+        <span class="case-intro__num reveal">01</span>
+        <p class="case-intro__text reveal">
+          Investigamos con más de 60 usuarios y rediseñamos el checkout móvil para convertir la compra local en una experiencia tan fluida como <em>comprar en Amazon</em>.
+        </p>
+      </div>
+    </section>
+
+    <section class="case-section case-section--alt">
+      <div class="container">
+        <div class="case-section__head">
+          <span class="case-section__num reveal">02</span>
+          <h2 class="case-section__title reveal">El <em>reto</em></h2>
+        </div>
+        <div class="case-section__body">
+          <div class="case-section__col reveal">
+            <p>Kuna conectaba diseñadores locales con compradores, pero el 73% del tráfico era móvil y la conversión en checkout era 3x menor que en desktop. Los usuarios abandonaban al ver costos de envío inesperados.</p>
+            <p>El marketplace competía con gigantes del e-commerce sin poder igualar logística — necesitaba ganar en experiencia y confianza.</p>
+          </div>
+          <div class="case-section__col reveal">
+            <p>Condujimos 32 entrevistas en profundidad, 28 sesiones de test de usabilidad y un diary study con 15 compradores frecuentes durante 3 semanas.</p>
+            <p>Descubrimos que los usuarios valoraban la historia del creador, pero el checkout genérico no transmitía ese valor — se sentía como "cualquier tienda online".</p>
+          </div>
+        </div>
+        <div class="case-insights">
+          <article class="case-insight reveal">
+            <span class="case-insight__num">→</span>
+            <h3 class="case-insight__title">Sorpresa en envío</h3>
+            <p class="case-insight__desc">El 45% abandonaba al descubrir costos de envío solo en el último paso.</p>
+          </article>
+          <article class="case-insight reveal">
+            <span class="case-insight__num">→</span>
+            <h3 class="case-insight__title">Confianza del creador</h3>
+            <p class="case-insight__desc">Los compradores querían "conocer" al diseñador antes de pagar, no solo ver el producto.</p>
+          </article>
+          <article class="case-insight reveal">
+            <span class="case-insight__num">→</span>
+            <h3 class="case-insight__title">Fricción en móvil</h3>
+            <p class="case-insight__desc">Formularios largos y teclados que cambiaban de tipo generaban errores constantes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container">
+        <div class="case-section__head">
+          <span class="case-section__num reveal">03</span>
+          <h2 class="case-section__title reveal">La <em>solución</em></h2>
+        </div>
+        <div class="case-section__body">
+          <div class="case-section__col reveal">
+            <p>Rediseñamos el checkout como un flujo de 4 pasos con estimación de envío visible desde el carrito. Cada paso muestra progreso y permite volver sin perder datos.</p>
+            <p>Integramos una "tarjeta del creador" en el checkout: foto, historia breve y rating — humanizando la transacción.</p>
+          </div>
+          <div class="case-section__col reveal">
+            <p>Optimizamos inputs para móvil: teclados contextuales, autocompletado de dirección y validación inline que no interrumpe el flujo.</p>
+            <p>El rediseño de la página de producto incluye galería swipeable, variantes con preview visual y CTA sticky que respeta el scroll.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-gallery">
+      <div class="container">
+        <div class="case-gallery__item case-gallery__item--wide case-gallery__item--c reveal">
+          <div class="case-gallery__placeholder">
+            <svg viewBox="0 0 640 440" class="project__art" aria-hidden="true">
+              <rect x="180" y="40" width="280" height="400" rx="30" class="art-device"/>
+              <rect x="204" y="70" width="232" height="140" rx="14" class="art-accent"/>
+              <rect x="204" y="230" width="160" height="14" rx="7" class="art-line"/>
+              <rect x="204" y="260" width="232" height="50" rx="25" class="art-accent"/>
+              <rect x="204" y="330" width="232" height="80" rx="14" class="art-block"/>
+            </svg>
+          </div>
+        </div>
+        <p class="case-gallery__caption reveal">Página de producto — galería swipeable y CTA sticky</p>
+      </div>
+      <div class="container" style="margin-top: 1.5rem;">
+        <div class="case-gallery__grid">
+          <div class="case-gallery__item case-gallery__item--c reveal">
+            <div class="case-gallery__placeholder">
+              <svg viewBox="0 0 640 440" class="project__art" aria-hidden="true">
+                <rect x="200" y="30" width="240" height="420" rx="28" class="art-device"/>
+                <rect x="222" y="60" width="60" height="8" rx="4" class="art-accent"/>
+                <rect x="222" y="90" width="196" height="80" rx="14" class="art-block"/>
+                <rect x="222" y="190" width="196" height="60" rx="14" class="art-accent-soft"/>
+                <rect x="222" y="270" width="140" height="14" rx="7" class="art-line"/>
+                <rect x="222" y="340" width="196" height="50" rx="25" class="art-accent"/>
+              </svg>
+            </div>
+          </div>
+          <div class="case-gallery__item case-gallery__item--c reveal">
+            <div class="case-gallery__placeholder">
+              <svg viewBox="0 0 640 440" class="project__art" aria-hidden="true">
+                <rect x="200" y="30" width="240" height="420" rx="28" class="art-device"/>
+                <rect x="222" y="70" width="196" height="100" rx="14" class="art-block"/>
+                <circle cx="270" cy="120" r="24" class="art-accent"/>
+                <rect x="310" y="108" width="80" height="10" rx="5" class="art-line"/>
+                <rect x="310" y="128" width="60" height="8" rx="4" class="art-line"/>
+                <rect x="222" y="200" width="196" height="14" rx="7" class="art-line"/>
+                <rect x="222" y="230" width="196" height="14" rx="7" class="art-line"/>
+                <rect x="222" y="280" width="196" height="50" rx="25" class="art-accent"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <p class="case-gallery__caption reveal">Checkout rediseñado — tarjeta del creador y envío transparente</p>
+      </div>
+    </section>
+
+    <section class="case-metrics">
+      <div class="container">
+        <div class="case-metrics__grid">
+          <div class="reveal">
+            <span class="case-metric__num">+28%</span>
+            <span class="case-metric__label">Conversión móvil (Q1)</span>
+          </div>
+          <div class="reveal">
+            <span class="case-metric__num">-40%</span>
+            <span class="case-metric__label">Abandono en checkout</span>
+          </div>
+          <div class="reveal">
+            <span class="case-metric__num">60+</span>
+            <span class="case-metric__label">Usuarios investigados</span>
+          </div>
+          <div class="reveal">
+            <span class="case-metric__num">+18%</span>
+            <span class="case-metric__label">Ticket promedio</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container">
+        <div class="case-section__head">
+          <span class="case-section__num reveal">04</span>
+          <h2 class="case-section__title reveal">Proceso de <em>diseño</em></h2>
+        </div>
+        <div class="case-process reveal">
+          <div class="case-step">
+            <span class="case-step__num">01</span>
+            <h3 class="case-step__title">Research</h3>
+            <p class="case-step__desc">Entrevistas, diary study, análisis de funnel y mapa de empatía comprador-creador.</p>
+          </div>
+          <div class="case-step">
+            <span class="case-step__num">02</span>
+            <h3 class="case-step__title">Síntesis</h3>
+            <p class="case-step__desc">Affinity mapping, journey maps y priorización de pain points por impacto.</p>
+          </div>
+          <div class="case-step">
+            <span class="case-step__num">03</span>
+            <h3 class="case-step__title">Diseño</h3>
+            <p class="case-step__desc">Wireframes mobile-first, prototipos interactivos y tests iterativos.</p>
+          </div>
+          <div class="case-step">
+            <span class="case-step__num">04</span>
+            <h3 class="case-step__title">Lanzamiento</h3>
+            <p class="case-step__desc">Rollout gradual con A/B testing y monitoreo de métricas de conversión.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-quote">
+      <div class="container">
+        <blockquote class="case-quote__text reveal">"Me encanta saber quién hizo lo que compro. Siento que apoyo a alguien real, no a una empresa."</blockquote>
+        <cite class="case-quote__author reveal">— Compradora frecuente, entrevista #18</cite>
+      </div>
+    </section>
+
+    <section class="case-credits">
+      <div class="container">
+        <div class="case-credits__grid reveal">
+          <div class="case-credits__item"><strong>Equipo</strong> 2 diseñadores, 3 devs, 1 researcher</div>
+          <div class="case-credits__item"><strong>Herramientas</strong> Figma, Maze, Dovetail</div>
+          <div class="case-credits__item"><strong>Plataforma</strong> Web móvil · PWA</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-next">
+      <a href="vita.html" class="case-next__link">
+        <div class="case-next__info">
+          <span class="case-next__label">Siguiente proyecto</span>
+          <h2 class="case-next__title">Vita</h2>
+          <span class="case-next__arrow">Ver caso de estudio
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
+          </span>
+        </div>
+        <div class="case-next__preview case-next__preview--d">
+          <svg viewBox="0 0 640 440" class="project__art" aria-hidden="true">
+            <rect x="230" y="50" width="220" height="400" rx="30" class="art-device"/>
+            <circle cx="340" cy="170" r="62" class="art-accent"/>
+            <rect x="268" y="292" width="184" height="60" rx="14" class="art-block"/>
+          </svg>
+        </div>
+      </a>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>© 2026 Mateo Espinosa. Diseñado y construido con cariño.</p>
+      <a href="../index.html#proyectos" class="footer__top">Todos los proyectos ↑</a>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

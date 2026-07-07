@@ -18,15 +18,26 @@
   const initialTheme = storedTheme || (systemDark ? "dark" : "light");
   root.setAttribute("data-theme", initialTheme);
 
-  themeToggle.addEventListener("click", () => {
-    const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    root.setAttribute("data-theme", next);
-    localStorage.setItem("theme", next);
-  });
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    });
+  }
 
   /* ---------- Header con blur al hacer scroll ---------- */
   const header = document.getElementById("siteHeader");
-  const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 12);
+  const caseProgress = document.getElementById("caseProgress");
+
+  const onScroll = () => {
+    if (header) header.classList.toggle("is-scrolled", window.scrollY > 12);
+    if (caseProgress) {
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollHeight > 0 ? (window.scrollY / scrollHeight) * 100 : 0;
+      caseProgress.style.width = `${progress}%`;
+    }
+  };
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
@@ -34,18 +45,20 @@
   const burger = document.getElementById("navBurger");
   const navLinks = document.getElementById("navLinks");
 
-  burger.addEventListener("click", () => {
-    const open = navLinks.classList.toggle("is-open");
-    burger.setAttribute("aria-expanded", String(open));
-    burger.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
-  });
+  if (burger && navLinks) {
+    burger.addEventListener("click", () => {
+      const open = navLinks.classList.toggle("is-open");
+      burger.setAttribute("aria-expanded", String(open));
+      burger.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+    });
 
-  navLinks.addEventListener("click", (e) => {
-    if (e.target.closest("a")) {
-      navLinks.classList.remove("is-open");
-      burger.setAttribute("aria-expanded", "false");
-    }
-  });
+    navLinks.addEventListener("click", (e) => {
+      if (e.target.closest("a")) {
+        navLinks.classList.remove("is-open");
+        burger.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
 
   /* ---------- Reveal on scroll (con stagger por grupo) ---------- */
   const revealEls = document.querySelectorAll(".reveal");
@@ -102,20 +115,22 @@
     counters.forEach((el) => countObserver.observe(el));
   }
 
-  /* ---------- Nav link activo según sección visible ---------- */
+  /* ---------- Nav link activo según sección visible (solo homepage) ---------- */
   const sections = document.querySelectorAll("section[id]");
   const linkFor = (id) => document.querySelector(`.nav__link[href="#${id}"]`);
 
-  const activeObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        document.querySelectorAll(".nav__link.is-active").forEach((l) => l.classList.remove("is-active"));
-        const link = linkFor(entry.target.id);
-        if (link) link.classList.add("is-active");
-      });
-    },
-    { rootMargin: "-40% 0px -55% 0px" }
-  );
-  sections.forEach((s) => activeObserver.observe(s));
+  if (sections.length && linkFor(sections[0].id)) {
+    const activeObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          document.querySelectorAll(".nav__link.is-active").forEach((l) => l.classList.remove("is-active"));
+          const link = linkFor(entry.target.id);
+          if (link) link.classList.add("is-active");
+        });
+      },
+      { rootMargin: "-40% 0px -55% 0px" }
+    );
+    sections.forEach((s) => activeObserver.observe(s));
+  }
 })();
