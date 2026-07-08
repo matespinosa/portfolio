@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Light theme — "IDE claro" */
+  --bg: #f6f7f4;
+  --bg-elev: #ffffff;
+  --line: #e4e6e0;
+  --ink: #111311;
+  --ink-soft: #55605a;
+  --ink-faint: #8a938c;
+  --accent: #1f9d47;
+  --grid: rgba(17, 19, 17, 0.045);
+}
+
+.dark {
+  /* Dark theme — "terminal / GitHub dark" */
+  --bg: #0a0c0a;
+  --bg-elev: #12151a;
+  --line: #23272e;
+  --ink: #e9eee8;
+  --ink-soft: #9aa4a0;
+  --ink-faint: #5d6660;
+  --accent: #39d353;
+  --grid: rgba(255, 255, 255, 0.035);
+}
+
+* {
+  border-color: var(--line);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Utilidades basadas en variables (para usar con tokens del tema) */
+.bg-app {
+  background-color: var(--bg);
+}
+.bg-elev {
+  background-color: var(--bg-elev);
+}
+.text-ink {
+  color: var(--ink);
+}
+.text-soft {
+  color: var(--ink-soft);
+}
+.text-faint {
+  color: var(--ink-faint);
+}
+.border-line {
+  border-color: var(--line);
+}
+.text-accent {
+  color: var(--accent);
+}
+.bg-accent {
+  background-color: var(--accent);
+}
+
+::selection {
+  background: var(--accent);
+  color: #04120a;
+}
+
+/* Grid de fondo tipo blueprint */
+.grid-bg {
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* Scrollbar sutil */
+.dark ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #23272e;
+  border-radius: 999px;
+}
+.dark ::-webkit-scrollbar-track {
+  background: #0a0c0a;
+}
+
+/* Texto con gradiente animado para el acento del hero */
+.accent-gradient {
+  background: linear-gradient(
+    90deg,
+    var(--accent),
+    #8957e5,
+    var(--accent)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
