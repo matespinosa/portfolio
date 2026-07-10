@@ -3,37 +3,33 @@
 @tailwind utilities;
 
 :root {
-  /* Light — lienzo lavanda suave */
-  --bg: #f7f6fb;
-  --bg-elev: #ffffff;
-  --line: #e5e2f0;
-  --ink: #16131f;
-  --ink-soft: #5b5669;
-  --ink-faint: #948fa6;
-  --accent: #7c3aed;
-  --g1: #7c3aed; /* violeta */
-  --g2: #06b6d4; /* cian */
-  --g3: #ec4899; /* magenta */
-  --glass: rgba(255, 255, 255, 0.6);
-  --aurora-opacity: 0.16;
-  --spot: rgba(124, 58, 237, 0.08);
+  /* Light — blanco, negro, un acento (lima) */
+  --bg: #ffffff;
+  --bg-elev: #f4f4f2;
+  --line: #e2e2df;
+  --ink: #0a0a08;
+  --ink-soft: #52524e;
+  --ink-faint: #8c8c86;
+  --accent: #cbff2e;
+  --accent-ink: #0a0a08; /* texto sobre el acento */
+  --glass: rgba(255, 255, 255, 0.72);
+  --spot: rgba(10, 10, 8, 0.05);
+  --grid-line: rgba(10, 10, 8, 0.06);
 }
 
 .dark {
-  /* Dark — negro violeta profundo */
-  --bg: #0a0812;
-  --bg-elev: #14111f;
-  --line: #272138;
-  --ink: #f1eff8;
-  --ink-soft: #a59fbb;
-  --ink-faint: #675f80;
-  --accent: #a78bfa;
-  --g1: #8b5cf6;
-  --g2: #22d3ee;
-  --g3: #f472b6;
-  --glass: rgba(20, 17, 31, 0.55);
-  --aurora-opacity: 0.22;
-  --spot: rgba(139, 92, 246, 0.14);
+  /* Dark — negro, blanco, el mismo acento */
+  --bg: #0a0a08;
+  --bg-elev: #131311;
+  --line: #232320;
+  --ink: #f6f6f2;
+  --ink-soft: #a6a69f;
+  --ink-faint: #6b6b64;
+  --accent: #cbff2e;
+  --accent-ink: #0a0a08;
+  --glass: rgba(10, 10, 8, 0.62);
+  --spot: rgba(203, 255, 46, 0.08);
+  --grid-line: rgba(246, 246, 242, 0.06);
 }
 
 * {
@@ -72,81 +68,80 @@ body {
 .text-faint { color: var(--ink-faint); }
 .border-line { border-color: var(--line); }
 .text-accent { color: var(--accent); }
+.bg-accent { background-color: var(--accent); }
 
 ::selection {
-  background: var(--g1);
-  color: #fff;
+  background: var(--accent);
+  color: var(--accent-ink);
 }
 
-/* ---- texto degradado ---- */
-.gradient-text {
-  background: linear-gradient(100deg, var(--g1), var(--g2) 50%, var(--g3));
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradient-pan 7s ease infinite;
+/* ---- acento sólido (reemplaza el degradado multicolor) ---- */
+.accent-text {
+  color: var(--accent);
 }
 
-@keyframes gradient-pan {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-/* ---- borde degradado (glass card destacada) ---- */
+/* ---- borde de acento (antes "gradient-border") ---- */
 .gradient-border {
   position: relative;
   background: var(--bg-elev);
-  background-clip: padding-box;
-  border: 1px solid transparent;
 }
 .gradient-border::before {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, var(--g1), var(--g2), var(--g3));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0.7;
+  border: 1.5px solid var(--accent);
+  opacity: 0.55;
   pointer-events: none;
 }
 
-/* ---- aurora ---- */
-.aurora {
+/* ---- grid de fondo tipo blueprint (motivo agencia/awwwards) ---- */
+.grid-bg {
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ---- marca "+" en las esquinas (motivo suizo/agencia) ---- */
+.plus-mark {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+.plus-mark::before,
+.plus-mark::after {
+  content: "";
+  position: absolute;
+  background: var(--ink-faint);
+}
+.plus-mark::before {
+  left: 50%;
+  top: 0;
+  width: 1.5px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+.plus-mark::after {
+  top: 50%;
+  left: 0;
+  height: 1.5px;
+  width: 100%;
+  transform: translateY(-50%);
+}
+
+/* ---- halo único de acento (reemplaza la aurora multicolor) ---- */
+.accent-glow {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(110px);
-  opacity: var(--aurora-opacity);
+  background: var(--accent);
+  filter: blur(120px);
+  opacity: 0.16;
   pointer-events: none;
-  will-change: transform;
 }
-.aurora--1 {
-  background: var(--g1);
-  animation: drift-1 18s ease-in-out infinite alternate;
-}
-.aurora--2 {
-  background: var(--g2);
-  animation: drift-2 22s ease-in-out infinite alternate;
-}
-.aurora--3 {
-  background: var(--g3);
-  animation: drift-3 26s ease-in-out infinite alternate;
-}
-
-@keyframes drift-1 {
-  from { transform: translate(0, 0) scale(1); }
-  to { transform: translate(12vw, 8vh) scale(1.15); }
-}
-@keyframes drift-2 {
-  from { transform: translate(0, 0) scale(1.1); }
-  to { transform: translate(-10vw, -6vh) scale(0.9); }
-}
-@keyframes drift-3 {
-  from { transform: translate(0, 0) scale(0.95); }
-  to { transform: translate(8vw, -10vh) scale(1.2); }
+.dark .accent-glow {
+  opacity: 0.14;
 }
 
 /* ---- grano ---- */
@@ -156,7 +151,7 @@ body {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.05;
+  opacity: 0.045;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
 }
 
@@ -195,6 +190,20 @@ body {
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
+}
+
+/* ---- puntos "escribiendo…" de la consola IA ---- */
+.typing-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: currentColor;
+  animation: typing-bounce 1.1s ease-in-out infinite;
+}
+@keyframes typing-bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-3px); opacity: 1; }
 }
 
 .no-scrollbar::-webkit-scrollbar { display: none; }

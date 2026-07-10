@@ -16,7 +16,7 @@ export function Experience() {
           </Reveal>
           <Reveal delay={0.05}>
             <h2 className="font-display text-[clamp(1.9rem,4.6vw,3.2rem)] font-bold tracking-[-0.03em]">
-              Trayectoria <span className="gradient-text">profesional</span>
+              Trayectoria <span className="accent-text">profesional</span>
             </h2>
           </Reveal>
         </div>
@@ -29,7 +29,7 @@ export function Experience() {
                   <span className="font-mono text-[13px] text-faint">{e.period}</span>
                   <div>
                     <h3 className="font-display text-lg font-bold tracking-tight md:text-xl">
-                      {e.role} <span className="gradient-text">@ {e.company}</span>
+                      {e.role} <span className="accent-text">@ {e.company}</span>
                     </h3>
                     <p className="mt-1.5 max-w-2xl text-[14.5px] text-soft">{e.desc}</p>
                   </div>

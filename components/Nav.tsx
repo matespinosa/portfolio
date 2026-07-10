@@ -6,8 +6,9 @@ import { ThemeToggle } from "./ThemeToggle";
 
 const links = [
   { href: "#home", label: "Home" },
-  { href: "#workflow", label: "Workflow IA" },
+  { href: "#ask", label: "Pregúntale" },
   { href: "#work", label: "Proyectos" },
+  { href: "#workflow", label: "Workflow IA" },
   { href: "#experience", label: "Experiencia" },
   { href: "#contact", label: "Contacto" },
 ];
@@ -37,13 +38,10 @@ export function Nav() {
         }}
       >
         <a href="#home" className="flex items-center gap-2 font-display text-[15px] font-bold tracking-tight">
-          <span
-            className="grid h-7 w-7 place-items-center rounded-full text-[13px] font-extrabold text-white"
-            style={{ background: "linear-gradient(135deg, var(--g1), var(--g3))" }}
-          >
+          <span className="grid h-7 w-7 place-items-center rounded-full bg-accent text-[13px] font-extrabold text-[var(--accent-ink)]">
             M
           </span>
-          mateo<span className="gradient-text">.ai</span>
+          mateo<span className="accent-text">.ai</span>
         </a>
 
         <ul className="hidden items-center gap-0.5 md:flex">
@@ -63,8 +61,7 @@ export function Nav() {
           <ThemeToggle />
           <a
             href="#contact"
-            className="hidden rounded-full text-[13.5px] font-semibold text-white transition-transform hover:-translate-y-0.5 sm:block"
-            style={{ background: "linear-gradient(135deg, var(--g1), var(--g3))", padding: "0.6rem 1.15rem" }}
+            className="hidden rounded-full bg-accent px-[1.15rem] py-[0.6rem] text-[13.5px] font-semibold text-[var(--accent-ink)] transition-transform hover:-translate-y-0.5 sm:block"
           >
             Hablemos
           </a>

@@ -7,7 +7,7 @@ export function Footer() {
         <p>© 2026 {profile.name}. Diseñado, codeado y AI-assisted.</p>
         <div className="flex items-center gap-5">
           <span className="flex items-center gap-1.5">
-            <span className="gradient-text font-semibold">✦</span>
+            <span className="accent-text font-semibold">✦</span>
             Next.js · Framer Motion · Claude
           </span>
           <a href="#home" className="font-medium transition-colors hover:text-accent">

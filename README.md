@@ -1,9 +1,10 @@
 # Portfolio — AI-native Product Designer (Next.js)
 
 Tercera variante del portafolio: **senior product designer + frontend developer que construye
-producto con IA**, con un workflow AI-enhanced como pieza central. UI llamativa y moderna
-inspirada en referentes de Awwwards (Navbar Digital, Amphora, Kudos): tipografía display grande,
-aurora de degradados, glassmorphism, bento grid e interacciones en desktop y mobile.
+producto con IA**. Dirección visual minimalista — negro, blanco y un solo color de acento —
+inspirada en agencias digitales tipo Awwwards SOTD (referente: navbardigital.com): tipografía
+display muy grande, grid de fondo tipo blueprint, marcas "+" de esquina y una consola de IA como
+pieza central del hero.
 
 > Esta variante vive en la rama `claude/portfolio-ai-enhanced`.
 > Las otras: `claude/designer-portfolio-site-k6xxz7` (v1 estática editorial) y
@@ -11,24 +12,30 @@ aurora de degradados, glassmorphism, bento grid e interacciones en desktop y mob
 
 ## Concepto visual
 
-- **Dark mode**: negro violeta profundo con aurora violeta → cian → magenta y grano sutil.
-- **Light mode**: lienzo lavanda suave con los mismos degradados.
-- Tipografía: **Sora** (display) + **Inter** (texto) + **JetBrains Mono** (labels/prompts).
+- **Monocromo + un acento**: negro/blanco como base, un único verde lima (`--accent`) para todo
+  el énfasis — sin degradados multicolor. Mismo acento en ambos temas.
+- **Dark mode**: negro casi puro, grid sutil, halo de acento único (no aurora multicolor).
+- **Light mode**: blanco puro, misma estructura.
+- Tipografía: **Sora** (display) + **Inter** (texto) + **JetBrains Mono** (labels/consola).
 
 ## Secciones e interacciones
 
-1. **Home** — palabra rotatoria con degradado animado, aurora en movimiento, botones magnéticos,
-   barra de progreso de scroll con gradiente.
-2. **Workflow AI-enhanced** (protagonista) — pipeline interactivo de 5 fases
-   (Descubrir → Idear → Diseñar → Construir → Lanzar) con tabs que auto-avanzan,
-   herramientas de IA por fase, "AI boost" y un mock de prompt con caret vivo.
-3. **Proyectos** — bento grid asimétrico con *spotlight* que sigue el cursor y nota de
-   cómo la IA aceleró cada proyecto.
-4. **Experiencia** — cards glass con spotlight.
-5. **Contacto** — CTA con forma de input de chat de IA (borde degradado) → mailto.
+1. **Home + consola IA** (pieza central) — el hero incluye una **consola interactiva estilo
+   VS Code/Cursor** (`components/AIConsole.tsx`) donde el visitante pregunta en lenguaje natural
+   ("¿Qué proyectos ha hecho?", "¿Cuál es su experiencia?", "¿En qué áreas ha trabajado?", "¿Cómo
+   usa la IA en su proceso?", "¿Cómo lo contacto?") o escribe su propia pregunta. La respuesta se
+   genera localmente (sin backend, `lib/ai-console.ts`) a partir del contenido real del
+   portafolio en `lib/data.ts`, con formato tipo bloque de código (`const proyectos = [...]`) y
+   enlaces directos a la sección correspondiente — así no hay que navegar todo el sitio para
+   entender qué ha hecho Mateo.
+2. **Workflow AI-enhanced** — pipeline interactivo de 5 fases (Descubrir → Idear → Diseñar →
+   Construir → Lanzar) con tabs que auto-avanzan, herramientas de IA por fase y un mock de prompt.
+3. **Proyectos** — bento grid con *spotlight* que sigue el cursor.
+4. **Experiencia** — cards con spotlight.
+5. **Contacto** — CTA con forma de input de chat de IA → mailto.
 
-Todas las animaciones respetan `prefers-reduced-motion`; las interacciones de hover
-degradan bien en touch (tabs y cards funcionan por tap).
+Todas las animaciones respetan `prefers-reduced-motion`; las interacciones de hover degradan
+bien en touch (tabs, chips de la consola y cards funcionan por tap).
 
 ## Stack
 
@@ -48,4 +55,6 @@ npm run build    # build de producción
 ## Personalización
 
 Contenido (perfil, workflow, proyectos, experiencia) en [`lib/data.ts`](lib/data.ts).
-Colores y tokens en [`app/globals.css`](app/globals.css) (`:root` y `.dark`).
+Respuestas de la consola IA en [`lib/ai-console.ts`](lib/ai-console.ts) — se derivan
+automáticamente de `lib/data.ts`, así que al editar proyectos/experiencia las respuestas se
+actualizan solas. Colores y tokens en [`app/globals.css`](app/globals.css) (`:root` y `.dark`).

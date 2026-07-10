@@ -99,7 +99,6 @@ export type Project = {
   stat: { value: string; label: string };
   aiNote: string;
   size: "lg" | "sm";
-  hue: number; // tono base para el arte del placeholder
 };
 
 export const projects: Project[] = [
@@ -112,7 +111,6 @@ export const projects: Project[] = [
     stat: { value: "+47%", label: "activación" },
     aiNote: "Research sintetizado con IA · UI construida con Claude Code",
     size: "lg",
-    hue: 262,
   },
   {
     id: "orbita",
@@ -123,7 +121,6 @@ export const projects: Project[] = [
     stat: { value: "-30%", label: "tiempo de dev" },
     aiNote: "Design system con tokens generados asistidos por IA",
     size: "sm",
-    hue: 199,
   },
   {
     id: "kuna",
@@ -134,7 +131,6 @@ export const projects: Project[] = [
     stat: { value: "+28%", label: "conversión móvil" },
     aiNote: "400+ reviews clasificadas con IA para priorizar el roadmap",
     size: "sm",
-    hue: 330,
   },
   {
     id: "vita",
@@ -145,7 +141,6 @@ export const projects: Project[] = [
     stat: { value: "4.8★", label: "en stores" },
     aiNote: "Prototipos funcionales en código desde el sprint 1",
     size: "lg",
-    hue: 160,
   },
 ];
 

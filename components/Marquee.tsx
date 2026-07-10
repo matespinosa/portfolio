@@ -16,7 +16,7 @@ export function Marquee() {
             {items.map((s, i) => (
               <span key={i} className="flex items-center gap-7 whitespace-nowrap font-display text-sm font-semibold uppercase tracking-[0.14em] text-soft">
                 {s}
-                <span className="gradient-text text-base">✦</span>
+                <span className="accent-text text-base">✦</span>
               </span>
             ))}
           </div>

@@ -3,7 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { heroStats, profile, rotatingWords } from "@/lib/data";
-import { MagneticButton } from "./MagneticButton";
+import { AIConsole } from "./AIConsole";
 
 function RotatingWord() {
   const reduce = useReducedMotion();
@@ -28,7 +28,7 @@ function RotatingWord() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: "-105%", opacity: 0 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="gradient-text col-start-1 row-start-1 whitespace-nowrap"
+          className="accent-text col-start-1 row-start-1 whitespace-nowrap"
         >
           {rotatingWords[index]}
         </motion.span>
@@ -39,13 +39,15 @@ function RotatingWord() {
 
 export function Hero() {
   return (
-    <section id="home" className="relative flex min-h-[100svh] items-center overflow-hidden">
-      {/* aurora */}
-      <div className="aurora aurora--1 left-[-10%] top-[-15%] h-[55vh] w-[55vw]" />
-      <div className="aurora aurora--2 right-[-15%] top-[15%] h-[60vh] w-[50vw]" />
-      <div className="aurora aurora--3 bottom-[-25%] left-[20%] h-[50vh] w-[45vw]" />
+    <section id="home" className="relative overflow-hidden pb-20 pt-32 md:pt-36">
+      <div className="grid-bg pointer-events-none absolute inset-0" />
+      <div className="accent-glow left-1/2 top-[-10%] h-[50vh] w-[70vw] -translate-x-1/2" />
 
-      <div className="relative z-10 mx-auto w-[min(1100px,100%-2.5rem)] pb-16 pt-32 text-center md:pt-36">
+      {/* marcas de esquina, motivo suizo/agencia */}
+      <span className="plus-mark left-6 top-24 hidden md:block" />
+      <span className="plus-mark right-6 top-24 hidden md:block" />
+
+      <div className="relative z-10 mx-auto w-[min(1100px,100%-2.5rem)] text-center">
         <motion.p
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
@@ -54,8 +56,8 @@ export function Hero() {
           style={{ backgroundColor: "var(--glass)", backdropFilter: "blur(12px)" }}
         >
           <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-70" style={{ backgroundColor: "var(--g2)" }} />
-            <span className="relative inline-flex h-2 w-2 rounded-full" style={{ backgroundColor: "var(--g2)" }} />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-70" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
           </span>
           Product Design × Código × IA — disponible para proyectos
         </motion.p>
@@ -64,7 +66,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto max-w-[13ch] font-display text-[clamp(2.6rem,8.5vw,6rem)] font-bold leading-[1.02] tracking-[-0.035em]"
+          className="mx-auto max-w-[13ch] font-display text-[clamp(2.4rem,7.5vw,5.4rem)] font-bold leading-[1.02] tracking-[-0.035em]"
         >
           Diseño y construyo producto <RotatingWord />
         </motion.h1>
@@ -73,49 +75,31 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto mt-7 max-w-xl text-balance text-lg text-soft"
+          className="mx-auto mt-6 max-w-xl text-balance text-lg text-soft"
         >
           Soy <strong className="text-ink">{profile.name}</strong>, {profile.role.toLowerCase()}.{" "}
           {profile.tagline}
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-10 flex flex-wrap items-center justify-center gap-4"
+          transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-12"
         >
-          <MagneticButton
-            href="#workflow"
-            className="relative inline-flex items-center gap-2 overflow-hidden rounded-full px-7 py-3.5 text-[15px] font-semibold text-white shadow-xl transition-shadow hover:shadow-[0_8px_40px_-8px_var(--g1)]"
-          >
-            <span
-              className="absolute inset-0 -z-10 rounded-full"
-              style={{ background: "linear-gradient(135deg, var(--g1), var(--g3))" }}
-            />
-            Ver mi workflow con IA
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 5v14M5 12l7 7 7-7" />
-            </svg>
-          </MagneticButton>
-          <MagneticButton
-            href="#work"
-            className="inline-flex items-center gap-2 rounded-full border border-line px-7 py-3.5 text-[15px] font-semibold text-ink transition-colors hover:border-accent"
-          >
-            Proyectos
-          </MagneticButton>
+          <AIConsole />
         </motion.div>
 
         <motion.ul
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto mt-16 flex max-w-lg items-stretch justify-center divide-x divide-[var(--line)]"
+          transition={{ duration: 0.7, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="mx-auto mt-14 flex max-w-lg items-stretch justify-center divide-x divide-[var(--line)]"
         >
           {heroStats.map((s) => (
             <li key={s.label} className="flex-1 px-4 md:px-7">
               <p className="font-display text-2xl font-bold tracking-tight md:text-3xl">
-                <span className="gradient-text">{s.value}</span>
+                <span className="accent-text">{s.value}</span>
               </p>
               <p className="mt-1 text-xs text-faint md:text-[13px]">{s.label}</p>
             </li>

@@ -4,23 +4,15 @@ import { projects, type Project } from "@/lib/data";
 import { Reveal } from "./Reveal";
 import { SpotlightCard } from "./SpotlightCard";
 
-function ProjectArt({ hue }: { hue: number }) {
+function ProjectArt() {
   return (
-    <div
-      className="relative h-44 overflow-hidden rounded-2xl transition-transform duration-500 ease-out group-hover:scale-[1.02] md:h-52"
-      style={{
-        background: `linear-gradient(135deg, hsl(${hue} 70% 62% / 0.35), hsl(${(hue + 60) % 360} 70% 58% / 0.25))`,
-      }}
-    >
-      {/* mockup abstracto */}
-      <div className="absolute inset-x-8 top-8 rounded-t-2xl border border-white/25 bg-white/50 p-4 backdrop-blur-sm transition-transform duration-500 ease-out group-hover:-translate-y-2 dark:bg-white/10">
-        <div className="mb-3 h-2 w-14 rounded-full bg-black/20 dark:bg-white/25" />
+    <div className="grid-bg relative h-44 overflow-hidden rounded-2xl border border-line bg-app transition-transform duration-500 ease-out group-hover:scale-[1.02] md:h-52">
+      {/* mockup abstracto, monocromo con un solo detalle de acento */}
+      <div className="absolute inset-x-8 top-8 rounded-t-2xl border border-line bg-elev p-4 backdrop-blur-sm transition-transform duration-500 ease-out group-hover:-translate-y-2">
+        <div className="mb-3 h-2 w-14 rounded-full bg-[var(--line)]" />
         <div className="flex gap-2.5">
-          <div
-            className="h-14 flex-1 rounded-lg"
-            style={{ background: `hsl(${hue} 75% 60% / 0.55)` }}
-          />
-          <div className="h-14 flex-1 rounded-lg bg-black/10 dark:bg-white/15" />
+          <div className="h-14 flex-1 rounded-lg bg-accent/80" />
+          <div className="h-14 flex-1 rounded-lg bg-[var(--line)]" />
         </div>
       </div>
     </div>
@@ -33,14 +25,14 @@ function Card({ p }: { p: Project }) {
       className="group h-full rounded-3xl border border-line bg-elev transition-shadow duration-300 hover:shadow-2xl hover:shadow-black/10"
     >
       <a href="#" className="relative z-[2] block h-full p-5 md:p-6">
-        <ProjectArt hue={p.hue} />
+        <ProjectArt />
         <div className="mt-5 flex items-start justify-between gap-3">
           <div>
             <h3 className="font-display text-xl font-bold tracking-tight transition-colors group-hover:text-accent">
               {p.title} <span className="font-sans font-normal text-soft">— {p.subtitle}</span>
             </h3>
             <p className="mt-2 flex items-center gap-1.5 text-[13px] text-faint">
-              <span className="gradient-text font-semibold">✦</span>
+              <span className="accent-text font-semibold">✦</span>
               {p.aiNote}
             </p>
           </div>
@@ -55,7 +47,7 @@ function Card({ p }: { p: Project }) {
             </span>
           ))}
           <span className="ml-auto flex items-baseline gap-1.5">
-            <span className="gradient-text font-display text-lg font-bold">{p.stat.value}</span>
+            <span className="accent-text font-display text-lg font-bold">{p.stat.value}</span>
             <span className="text-[12px] text-faint">{p.stat.label}</span>
           </span>
         </div>
@@ -67,8 +59,7 @@ function Card({ p }: { p: Project }) {
 export function Projects() {
   return (
     <section id="work" className="relative scroll-mt-28 py-24 md:py-32">
-      <div className="aurora aurora--2 right-[-20%] top-[10%] h-[45vh] w-[40vw]" />
-      <div className="relative mx-auto w-[min(1100px,100%-2.5rem)]">
+      <div className="mx-auto w-[min(1100px,100%-2.5rem)]">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
           <div>
             <Reveal>
@@ -78,7 +69,7 @@ export function Projects() {
             </Reveal>
             <Reveal delay={0.05}>
               <h2 className="font-display text-[clamp(1.9rem,4.6vw,3.2rem)] font-bold tracking-[-0.03em]">
-                Producto que <span className="gradient-text">mueve métricas</span>
+                Producto que <span className="accent-text">mueve métricas</span>
               </h2>
             </Reveal>
           </div>
