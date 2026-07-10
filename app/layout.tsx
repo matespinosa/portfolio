@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Sora, Inter, JetBrains_Mono } from "next/font/google";
 import { Providers } from "./providers";
 import "./globals.css";
 
-const sans = Space_Grotesk({
+const display = Sora({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const sans = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
@@ -16,9 +22,9 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mateo Espinosa — Product & Frontend Designer",
+  title: "Mateo Espinosa — Product Designer · AI-native builder",
   description:
-    "Senior Product Designer y Frontend Designer. Diseño productos digitales y los llevo hasta el código.",
+    "Senior Product Designer que diseña y construye producto con un workflow potenciado por IA: del research al código en producción.",
 };
 
 export default function RootLayout({
@@ -27,8 +33,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" suppressHydrationWarning className={`${sans.variable} ${mono.variable}`}>
-      <body className="font-sans antialiased">
+    <html
+      lang="es"
+      suppressHydrationWarning
+      className={`${display.variable} ${sans.variable} ${mono.variable}`}
+    >
+      <body className="grain font-sans antialiased">
         <Providers>{children}</Providers>
       </body>
     </html>

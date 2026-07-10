@@ -11,18 +11,11 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       colors: {
-        // GitHub-contribution / terminal green, works in both themes
-        accent: {
-          DEFAULT: "#2ea043",
-          bright: "#39d353",
-          soft: "#3fb950",
-        },
-        violet: {
-          DEFAULT: "#8957e5",
-        },
+        accent: "var(--accent)",
       },
       keyframes: {
         "gradient-x": {

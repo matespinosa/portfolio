@@ -1,93 +1,126 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import { profile } from "@/lib/data";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { heroStats, profile, rotatingWords } from "@/lib/data";
 import { MagneticButton } from "./MagneticButton";
 
-const HeroCanvas = dynamic(() => import("./HeroCanvas"), { ssr: false });
+function RotatingWord() {
+  const reduce = useReducedMotion();
+  const [index, setIndex] = useState(0);
 
-export function Hero() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-  const yType = useTransform(scrollYProgress, [0, 1], [0, 120]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const yCanvas = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  useEffect(() => {
+    if (reduce) return;
+    const id = setInterval(() => setIndex((i) => (i + 1) % rotatingWords.length), 2600);
+    return () => clearInterval(id);
+  }, [reduce]);
 
   return (
-    <section ref={ref} id="home" className="relative min-h-[100svh] overflow-hidden">
-      <div className="grid-bg pointer-events-none absolute inset-0" />
+    <span className="relative inline-grid overflow-hidden align-bottom">
+      {/* fantasma para reservar el ancho de la palabra más larga */}
+      <span className="invisible col-start-1 row-start-1 whitespace-nowrap">
+        {rotatingWords.reduce((a, b) => (a.length >= b.length ? a : b))}
+      </span>
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.span
+          key={rotatingWords[index]}
+          initial={{ y: "105%", opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: "-105%", opacity: 0 }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="gradient-text col-start-1 row-start-1 whitespace-nowrap"
+        >
+          {rotatingWords[index]}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+}
 
-      {/* Canvas 3D con parallax */}
-      <motion.div
-        style={{ y: yCanvas }}
-        className="pointer-events-none absolute right-[-10%] top-1/2 h-[560px] w-[560px] -translate-y-1/2 opacity-90 md:right-[2%] md:h-[680px] md:w-[680px]"
-      >
-        <HeroCanvas />
-      </motion.div>
+export function Hero() {
+  return (
+    <section id="home" className="relative flex min-h-[100svh] items-center overflow-hidden">
+      {/* aurora */}
+      <div className="aurora aurora--1 left-[-10%] top-[-15%] h-[55vh] w-[55vw]" />
+      <div className="aurora aurora--2 right-[-15%] top-[15%] h-[60vh] w-[50vw]" />
+      <div className="aurora aurora--3 bottom-[-25%] left-[20%] h-[50vh] w-[45vw]" />
 
-      {/* halo del acento */}
-      <div
-        className="pointer-events-none absolute right-[8%] top-[30%] h-[420px] w-[420px] rounded-full blur-[120px]"
-        style={{ background: "radial-gradient(circle, var(--accent), transparent 70%)", opacity: 0.14 }}
-      />
-
-      <motion.div
-        style={{ y: yType, opacity }}
-        className="relative mx-auto flex min-h-[100svh] w-[min(1180px,100%-2.5rem)] flex-col justify-center pt-24"
-      >
+      <div className="relative z-10 mx-auto w-[min(1100px,100%-2.5rem)] pb-16 pt-32 text-center md:pt-36">
         <motion.p
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-6 inline-flex w-fit items-center gap-2.5 rounded-full border border-line bg-elev px-3.5 py-1.5 font-mono text-[13px] text-soft"
+          transition={{ duration: 0.6, delay: 0.05 }}
+          className="mx-auto mb-7 inline-flex items-center gap-2.5 rounded-full border border-line px-4 py-2 text-[13px] font-medium text-soft"
+          style={{ backgroundColor: "var(--glass)", backdropFilter: "blur(12px)" }}
         >
           <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-70" style={{ backgroundColor: "var(--g2)" }} />
+            <span className="relative inline-flex h-2 w-2 rounded-full" style={{ backgroundColor: "var(--g2)" }} />
           </span>
-          Disponible para proyectos · {profile.location}
+          Product Design × Código × IA — disponible para proyectos
         </motion.p>
 
-        <p className="mb-4 font-mono text-sm text-accent">{"// product designer that ships code"}</p>
+        <motion.h1
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          className="mx-auto max-w-[13ch] font-display text-[clamp(2.6rem,8.5vw,6rem)] font-bold leading-[1.02] tracking-[-0.035em]"
+        >
+          Diseño y construyo producto <RotatingWord />
+        </motion.h1>
 
-        <h1 className="max-w-[16ch] text-[clamp(2.7rem,8vw,6.2rem)] font-semibold leading-[0.98] tracking-[-0.03em] text-ink">
-          {"Diseño, "}
-          <span className="accent-gradient animate-gradient-x">construyo</span>
-          {" y envío productos digitales"}
-        </h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="mx-auto mt-7 max-w-xl text-balance text-lg text-soft"
+        >
+          Soy <strong className="text-ink">{profile.name}</strong>, {profile.role.toLowerCase()}.{" "}
+          {profile.tagline}
+        </motion.p>
 
-        <div className="mt-8 flex max-w-xl flex-col gap-8 md:flex-row md:items-end md:justify-between">
-          <p className="max-w-md text-lg text-soft">
-            Soy <strong className="text-ink">{profile.name}</strong>. {profile.tagline}
-          </p>
-        </div>
-
-        <div className="mt-10 flex flex-wrap items-center gap-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-10 flex flex-wrap items-center justify-center gap-4"
+        >
           <MagneticButton
-            href="#work"
-            className="group inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 font-mono text-sm font-semibold text-[#04120a] transition-shadow hover:shadow-[0_0_30px_-6px_var(--accent)]"
+            href="#workflow"
+            className="relative inline-flex items-center gap-2 overflow-hidden rounded-full px-7 py-3.5 text-[15px] font-semibold text-white shadow-xl transition-shadow hover:shadow-[0_8px_40px_-8px_var(--g1)]"
           >
-            Ver proyectos
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-              <path d="M7 17L17 7M17 7H8M17 7v9" />
+            <span
+              className="absolute inset-0 -z-10 rounded-full"
+              style={{ background: "linear-gradient(135deg, var(--g1), var(--g3))" }}
+            />
+            Ver mi workflow con IA
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 5v14M5 12l7 7 7-7" />
             </svg>
           </MagneticButton>
           <MagneticButton
-            href="#contact"
-            className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3 font-mono text-sm text-ink transition-colors hover:border-accent hover:text-accent"
+            href="#work"
+            className="inline-flex items-center gap-2 rounded-full border border-line px-7 py-3.5 text-[15px] font-semibold text-ink transition-colors hover:border-accent"
           >
-            Contáctame
+            Proyectos
           </MagneticButton>
-        </div>
-      </motion.div>
+        </motion.div>
 
-      <div className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 font-mono text-[11px] uppercase tracking-[0.25em] text-faint md:block">
-        scroll ↓
+        <motion.ul
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="mx-auto mt-16 flex max-w-lg items-stretch justify-center divide-x divide-[var(--line)]"
+        >
+          {heroStats.map((s) => (
+            <li key={s.label} className="flex-1 px-4 md:px-7">
+              <p className="font-display text-2xl font-bold tracking-tight md:text-3xl">
+                <span className="gradient-text">{s.value}</span>
+              </p>
+              <p className="mt-1 text-xs text-faint md:text-[13px]">{s.label}</p>
+            </li>
+          ))}
+        </motion.ul>
       </div>
     </section>
   );

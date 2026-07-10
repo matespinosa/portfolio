@@ -1,36 +1,41 @@
-# Portfolio — Product & Frontend Designer (Next.js)
+# Portfolio — AI-native Product Designer (Next.js)
 
-Versión alternativa del portafolio con una identidad visual de **product designer + frontend designer**:
-temática de código y actividad de repositorio estilo GitHub, con animaciones ricas
-pero controladas. Inspirado en referentes de [Awwwards](https://www.awwwards.com/).
+Tercera variante del portafolio: **senior product designer + frontend developer que construye
+producto con IA**, con un workflow AI-enhanced como pieza central. UI llamativa y moderna
+inspirada en referentes de Awwwards (Navbar Digital, Amphora, Kudos): tipografía display grande,
+aurora de degradados, glassmorphism, bento grid e interacciones en desktop y mobile.
 
-> Esta es la variante en la rama `claude/portfolio-frontend-nextjs`.
-> La versión estática (HTML/CSS/JS) vive en la rama `claude/designer-portfolio-site-k6xxz7`.
+> Esta variante vive en la rama `claude/portfolio-ai-enhanced`.
+> Las otras: `claude/designer-portfolio-site-k6xxz7` (v1 estática editorial) y
+> `claude/portfolio-frontend-nextjs` (v2 temática GitHub/terminal).
 
 ## Concepto visual
 
-- **Dark mode**: fondo casi negro, verde terminal/GitHub (`#39d353`) como acento, grid tipo blueprint.
-- **Light mode**: "IDE claro", limpio, con el mismo verde de acento.
-- Tipografía: **Space Grotesk** (display) + **JetBrains Mono** (código/UI técnica).
+- **Dark mode**: negro violeta profundo con aurora violeta → cian → magenta y grano sutil.
+- **Light mode**: lienzo lavanda suave con los mismos degradados.
+- Tipografía: **Sora** (display) + **Inter** (texto) + **JetBrains Mono** (labels/prompts).
 
-## Secciones
+## Secciones e interacciones
 
-1. **Home** — hero con esfera de partículas 3D (Three.js), parallax al scroll y botones magnéticos.
-2. **Sobre mí** — bloque tipo editor de código (`const designer = {…}`) con syntax highlighting.
-3. **Proyectos** — tarjetas con parallax individual y stats de impacto al hover.
-4. **Actividad (building in public)** — la sección estrella: **grafo de contribuciones estilo GitHub**
-   que se anima celda por celda al hacer scroll, stats, barra de lenguajes y feed de actividad reciente.
-5. **Experiencia** — timeline con hover.
-6. **Contacto** — terminal interactiva con cursor parpadeante.
+1. **Home** — palabra rotatoria con degradado animado, aurora en movimiento, botones magnéticos,
+   barra de progreso de scroll con gradiente.
+2. **Workflow AI-enhanced** (protagonista) — pipeline interactivo de 5 fases
+   (Descubrir → Idear → Diseñar → Construir → Lanzar) con tabs que auto-avanzan,
+   herramientas de IA por fase, "AI boost" y un mock de prompt con caret vivo.
+3. **Proyectos** — bento grid asimétrico con *spotlight* que sigue el cursor y nota de
+   cómo la IA aceleró cada proyecto.
+4. **Experiencia** — cards glass con spotlight.
+5. **Contacto** — CTA con forma de input de chat de IA (borde degradado) → mailto.
 
-## Stack técnico
+Todas las animaciones respetan `prefers-reduced-motion`; las interacciones de hover
+degradan bien en touch (tabs y cards funcionan por tap).
 
-- [Next.js 14](https://nextjs.org/) (App Router) + React 18 + TypeScript
-- [Tailwind CSS](https://tailwindcss.com/) con tokens de tema en CSS variables
-- [Framer Motion](https://www.framer.com/motion/) — reveals, parallax, stagger, botones magnéticos
-- [Three.js](https://threejs.org/) + [@react-three/fiber](https://docs.pmnd.rs/react-three-fiber) — hero 3D
-- [next-themes](https://github.com/pacocoursey/next-themes) — dark/light con persistencia
-- Respeta `prefers-reduced-motion` en todas las animaciones
+## Stack
+
+- Next.js 14 (App Router) + React 18 + TypeScript
+- Tailwind CSS con tokens de tema en CSS variables
+- Framer Motion (reveals, AnimatePresence, springs, scroll progress)
+- next-themes (dark/light persistente)
 
 ## Desarrollo
 
@@ -38,15 +43,9 @@ pero controladas. Inspirado en referentes de [Awwwards](https://www.awwwards.com
 npm install
 npm run dev      # http://localhost:3000
 npm run build    # build de producción
-npm run start    # sirve el build
 ```
 
 ## Personalización
 
-Todo el contenido (perfil, proyectos, experiencia, stats, lenguajes) vive en
-[`lib/data.ts`](lib/data.ts). Los colores y tokens del tema están en
-[`app/globals.css`](app/globals.css) (`:root` y `.dark`).
-
-El grafo de contribuciones se genera de forma determinista en
-[`lib/contributions.ts`](lib/contributions.ts) — se puede conectar a la API real de
-GitHub para mostrar datos en vivo.
+Contenido (perfil, workflow, proyectos, experiencia) en [`lib/data.ts`](lib/data.ts).
+Colores y tokens en [`app/globals.css`](app/globals.css) (`:root` y `.dark`).

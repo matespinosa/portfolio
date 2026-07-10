@@ -15,7 +15,7 @@ export function ThemeToggle() {
       aria-label="Cambiar tema"
       title="Cambiar tema"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="grid h-10 w-10 place-items-center rounded-full border border-line text-ink transition-colors hover:border-accent hover:text-accent"
+      className="grid h-10 w-10 place-items-center rounded-full text-ink transition-colors hover:bg-elev hover:text-accent"
     >
       {!mounted ? (
         <span className="h-[18px] w-[18px]" />

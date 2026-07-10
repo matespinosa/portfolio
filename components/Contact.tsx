@@ -6,82 +6,75 @@ import { MagneticButton } from "./MagneticButton";
 
 export function Contact() {
   return (
-    <section id="contact" className="scroll-mt-24 border-t border-line py-24 md:py-32">
-      <div className="mx-auto w-[min(1180px,100%-2.5rem)]">
-        <div className="grid gap-12 md:grid-cols-2 md:items-center">
-          <div>
-            <Reveal>
-              <p className="mb-4 font-mono text-sm text-accent">05 — contacto</p>
-            </Reveal>
-            <Reveal delay={0.05}>
-              <h2 className="text-[clamp(2.2rem,6vw,4.2rem)] font-semibold leading-[1.02] tracking-[-0.03em] text-ink">
-                ¿Construimos
-                <br />
-                algo <span className="accent-gradient animate-gradient-x">juntos?</span>
-              </h2>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <p className="mt-6 max-w-md text-lg text-soft">
-                Producto, frontend o esa idea que no te deja dormir. Respondo en menos de 24 horas.
-              </p>
-            </Reveal>
-            <Reveal delay={0.15}>
-              <div className="mt-8 flex flex-wrap gap-3">
-                {socials.map((s) => (
-                  <a
-                    key={s.label}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-full border border-line px-4 py-2 font-mono text-sm text-soft transition-colors hover:border-accent hover:text-accent"
-                  >
-                    {s.label}
-                  </a>
-                ))}
-              </div>
-            </Reveal>
+    <section id="contact" className="relative scroll-mt-28 overflow-hidden py-24 md:py-36">
+      <div className="aurora aurora--1 bottom-[-30%] left-[-10%] h-[50vh] w-[45vw]" />
+      <div className="aurora aurora--3 bottom-[-20%] right-[-10%] h-[45vh] w-[40vw]" />
+
+      <div className="relative mx-auto w-[min(820px,100%-2.5rem)] text-center">
+        <Reveal>
+          <p className="mb-4 font-mono text-[13px] uppercase tracking-[0.2em] text-accent">
+            04 · Contacto
+          </p>
+        </Reveal>
+        <Reveal delay={0.05}>
+          <h2 className="mx-auto max-w-[16ch] font-display text-[clamp(2.2rem,6.5vw,4.4rem)] font-bold leading-[1.03] tracking-[-0.035em]">
+            ¿Tienes un producto en mente? <span className="gradient-text">Hablemos.</span>
+          </h2>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <p className="mx-auto mt-6 max-w-md text-lg text-soft">
+            Escríbeme como le escribirías a tu IA favorita — pero con respuesta humana en menos de 24h.
+          </p>
+        </Reveal>
+
+        {/* "prompt input" — el CTA con forma de chat de IA */}
+        <Reveal delay={0.15}>
+          <div className="gradient-border mx-auto mt-10 flex max-w-xl items-center gap-3 rounded-full p-2 pl-6 text-left shadow-2xl shadow-black/5">
+            <span className="hidden truncate text-[15px] text-faint sm:block">
+              Hola Mateo, quiero construir…
+            </span>
+            <span className="caret hidden sm:inline-block" />
+            <MagneticButton
+              href={`mailto:${profile.email}`}
+              className="relative ml-auto inline-flex shrink-0 items-center gap-2 overflow-hidden rounded-full px-6 py-3 text-[14.5px] font-semibold text-white"
+            >
+              <span
+                className="absolute inset-0 -z-10"
+                style={{ background: "linear-gradient(135deg, var(--g1), var(--g3))" }}
+              />
+              Enviar mensaje
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+              </svg>
+            </MagneticButton>
           </div>
+        </Reveal>
 
-          {/* terminal */}
-          <Reveal delay={0.1}>
-            <div className="overflow-hidden rounded-xl border border-line bg-elev shadow-2xl shadow-black/5">
-              <div className="flex items-center gap-2 border-b border-line px-4 py-3">
-                <span className="h-3 w-3 rounded-full bg-[#ff5f56]" />
-                <span className="h-3 w-3 rounded-full bg-[#ffbd2e]" />
-                <span className="h-3 w-3 rounded-full bg-[#27c93f]" />
-                <span className="ml-3 font-mono text-xs text-faint">~ / contacto</span>
-              </div>
-              <div className="space-y-2 p-5 font-mono text-[13px] md:text-sm">
-                <p className="text-soft">
-                  <span className="text-accent">➜</span> <span className="text-violet">~</span> whoami
-                </p>
-                <p className="text-ink">{profile.name} · {profile.role} {profile.subrole}</p>
-                <p className="text-soft">
-                  <span className="text-accent">➜</span> <span className="text-violet">~</span> cat email.txt
-                </p>
-                <a href={`mailto:${profile.email}`} className="block break-all text-accent hover:underline">
-                  {profile.email}
+        <Reveal delay={0.2}>
+          <a
+            href={`mailto:${profile.email}`}
+            className="mt-6 inline-block font-mono text-sm text-soft underline-offset-4 transition-colors hover:text-accent hover:underline"
+          >
+            {profile.email}
+          </a>
+        </Reveal>
+
+        <Reveal delay={0.25}>
+          <ul className="mt-10 flex flex-wrap items-center justify-center gap-3">
+            {socials.map((s) => (
+              <li key={s.label}>
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block rounded-full border border-line bg-elev px-5 py-2.5 text-[13.5px] font-medium text-soft transition-all hover:-translate-y-0.5 hover:border-accent hover:text-ink"
+                >
+                  {s.label}
                 </a>
-                <p className="text-soft">
-                  <span className="text-accent">➜</span> <span className="text-violet">~</span> ./say-hi.sh
-                  <span className="ml-1 inline-block h-4 w-2 translate-y-0.5 animate-blink bg-accent" />
-                </p>
-
-                <div className="pt-3">
-                  <MagneticButton
-                    href={`mailto:${profile.email}`}
-                    className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-[#04120a]"
-                  >
-                    Enviar mensaje
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M7 17L17 7M17 7H8M17 7v9" />
-                    </svg>
-                  </MagneticButton>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-        </div>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
       </div>
     </section>
   );
