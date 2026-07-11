@@ -46,7 +46,7 @@ export function buildDemoAnswer(query: string): string {
 
   if (includesAny(q, CONTACT_WORDS)) {
     return [
-      `${profile.availability}. La mejor vía es el formulario de contacto o escribir directo a ${profile.email} — responde en menos de 24 horas.`,
+      "Sí. La vía más directa es el formulario de contacto o escribirle por email:",
       "",
       "[[cta:contact]]",
       "",

@@ -44,7 +44,7 @@ export function ChatWidget() {
     (status === "streaming" && (lastMessage?.role !== "assistant" || !getText(lastMessage)));
 
   useEffect(() => {
-    if (!open) return;
+    if (!open || messages.length === 0) return;
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight });
   }, [messages, open, status]);
 

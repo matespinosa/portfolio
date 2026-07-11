@@ -24,17 +24,57 @@ npm run dev
 
 Abre [http://localhost:3000](http://localhost:3000).
 
+## Chat del portafolio
+
+El chat es un asistente conversacional que responde **solo con el contenido del sitio**
+(casos de estudio, experiencia, skills) y devuelve respuestas ricas: tarjetas de
+proyecto con miniatura y métrica, chips de preguntas de seguimiento y CTA de contacto.
+
+### Cómo funciona
+
+```
+Usuario → ChatWidget (useChat, streaming SSE)
+        → POST /api/chat  (rate limit por IP + validación)
+        → lib/chatModel.ts  elige el proveedor según env
+        → streamText() con system prompt generado desde content/ (lib/systemPrompt.ts)
+        → El modelo responde markdown + marcadores: [[project:slug]] [[cta:contact]] [[suggest:…]]
+        → AssistantMessage.tsx parsea el stream y pinta tarjetas/chips en vivo
+```
+
+No hay base de datos vectorial: todo el contenido tipado de `content/` cabe en el
+system prompt (RAG "de contexto completo"). Si el portafolio crece mucho, el paso
+natural es filtrar proyectos por relevancia antes de armar el prompt.
+
+### Proveedores de LLM
+
+Se elige con `CHAT_PROVIDER` o auto-detección por key disponible (ver `.env.example`):
+
+| Proveedor | Modelo default | Costo | Notas |
+|---|---|---|---|
+| `anthropic` | claude-haiku-4-5 | De pago (bajo) | Mejor calidad y manejo de instrucciones |
+| `groq` | llama-3.3-70b-versatile | **Gratis** (free tier) | Open source, muy rápido — recomendado si quieres $0 |
+| `openrouter` | llama-3.3-70b-instruct:free | **Gratis** (con límites) | Acceso a muchos modelos open source |
+| `ollama` | llama3.2 | **Gratis** (local) | Corre en tu máquina; no sirve en Vercel |
+| `demo` | — | Gratis | Sin LLM: retrieval por keywords sobre `content/` |
+
+Sin ninguna key, el chat entra en **modo demo** automáticamente: sigue funcionando
+con respuestas predefinidas, ideal para desarrollo y previews.
+
 ## Variables de entorno
 
 | Variable | Uso |
 |---|---|
-| `ANTHROPIC_API_KEY` | Chat (solo servidor) |
+| `CHAT_PROVIDER` | Forzar proveedor del chat (opcional) |
+| `CHAT_MODEL` | Sobrescribir modelo (opcional) |
+| `ANTHROPIC_API_KEY` / `GROQ_API_KEY` / `OPENROUTER_API_KEY` | Key del proveedor elegido |
+| `OLLAMA_BASE_URL` | URL de Ollama local (opcional) |
 | `RESEND_API_KEY` | Email del formulario |
 | `CONTACT_TO_EMAIL` | Destino (default: matespinosa09@gmail.com) |
 | `CONTACT_FROM_EMAIL` | Remitente verificado en Resend |
 | `SITE_URL` | Base para metadata / sitemap |
 
-Sin keys, la home y los casos de estudio funcionan; contacto y chat devolverán 503 hasta configurarlas.
+Sin keys, la home y los casos de estudio funcionan; el contacto devuelve 503 y el
+chat usa el modo demo.
 
 ## Contenido
 

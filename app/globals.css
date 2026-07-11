@@ -752,11 +752,6 @@ em { font-family: var(--font-serif); font-style: italic; font-weight: 400; }
   .hero__scroll { display: none; }
   .about__skills { padding: 1.6rem; }
   .contact-form__row { grid-template-columns: 1fr; }
-  .case-hero__meta { grid-template-columns: 1fr; }
-  .case-gallery { grid-template-columns: 1fr; }
-  .case-results { grid-template-columns: 1fr; }
-  .case-nav__inner { grid-template-columns: 1fr; text-align: center; }
-  .case-nav__link--next { text-align: center; }
 }
 
 /* ---------- Utilities ---------- */
@@ -958,6 +953,13 @@ em { font-family: var(--font-serif); font-style: italic; font-weight: 400; }
   .case-grid { grid-template-columns: 1fr; }
 }
 
+@media (max-width: 720px) {
+  .case-hero__meta { grid-template-columns: 1fr; }
+  .case-gallery { grid-template-columns: 1fr; }
+  .case-results { grid-template-columns: 1fr; }
+  .case-nav__inner { grid-template-columns: 1fr; text-align: center; }
+  .case-nav__link--next { text-align: center; }
+}
 
 /* ---------- Chat: asistente del portafolio ---------- */
 .chat-widget {

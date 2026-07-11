@@ -119,9 +119,9 @@ function ContactCard() {
         <strong>{profile.availability}.</strong> Respondo en menos de 24 horas.
       </p>
       <div className="chat-cta__actions">
-        <a className="btn btn--primary btn--sm" href="/#contacto">
+        <Link className="btn btn--primary btn--sm" href="/#contacto">
           Ir al formulario
-        </a>
+        </Link>
         <a className="btn btn--ghost btn--sm" href={`mailto:${profile.email}`}>
           Escribir email
         </a>
