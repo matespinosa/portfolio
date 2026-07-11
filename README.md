@@ -1,12 +1,23 @@
 # Portfolio — Mateo Espinosa
 
 Portafolio de Senior Product Designer migrado a **Next.js 15 (App Router) + TypeScript**.
-Misma estética editorial (tokens CSS, Space Grotesk + Instrument Serif). Sin Tailwind.
+Tres variantes visuales conmutables (sin Tailwind): Editorial, Agency y Terminal.
+
+## Variantes visuales
+
+Pill flotante abajo a la izquierda para cambiar de skin (persiste en `localStorage`):
+
+| Skin | Origen de rama | Look |
+|---|---|---|
+| **Editorial** | `designer-portfolio` + `case-study-pages` | Cálida, Space Grotesk + Instrument Serif, acento terracota |
+| **Agency** | `portfolio-ai-enhanced` | Monocromo + lima, Sora/Inter, grid blueprint |
+| **Terminal** | `portfolio-frontend-nextjs` | IDE/GitHub, verde terminal, JetBrains Mono |
 
 ## Stack
 
 - Next.js 15 + React 19
 - Contenido tipado en `content/`
+- Skins CSS vía `data-skin` (`lib/skins.ts` + `components/layout/VisualPill.tsx`)
 - Framer Motion (transiciones de página suaves)
 - Formulario de contacto → Resend
 - Chat / búsqueda en lenguaje natural → Vercel AI SDK con proveedor intercambiable (Claude, Groq/Llama, OpenRouter, Ollama o modo demo sin key)

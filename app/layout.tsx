@@ -1,7 +1,14 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Space_Grotesk } from "next/font/google";
+import {
+  Instrument_Serif,
+  Inter,
+  JetBrains_Mono,
+  Sora,
+  Space_Grotesk,
+} from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { VisualPill } from "@/components/layout/VisualPill";
 import { ChatWidgetLazy } from "@/components/chat/ChatWidgetLazy";
 import { profile } from "@/content/profile";
 import "./globals.css";
@@ -21,6 +28,27 @@ const instrumentSerif = Instrument_Serif({
   style: ["normal", "italic"],
 });
 
+const sora = Sora({
+  subsets: ["latin"],
+  variable: "--font-sora",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
+  display: "swap",
+  weight: ["400", "500", "600"],
+});
+
 export const metadata: Metadata = {
   title: profile.meta.title,
   description: profile.meta.description,
@@ -30,10 +58,16 @@ export const metadata: Metadata = {
 const themeBootScript = `
 (function(){
   try {
-    var stored = localStorage.getItem('theme');
+    var root = document.documentElement;
+    var storedTheme = localStorage.getItem('theme');
     var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    var theme = stored || (systemDark ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', theme);
+    root.setAttribute('data-theme', storedTheme || (systemDark ? 'dark' : 'light'));
+
+    var storedSkin = localStorage.getItem('visual-skin');
+    var skin = (storedSkin === 'agency' || storedSkin === 'terminal' || storedSkin === 'editorial')
+      ? storedSkin
+      : 'editorial';
+    root.setAttribute('data-skin', skin);
   } catch (e) {}
 })();
 `;
@@ -46,7 +80,14 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${spaceGrotesk.variable} ${instrumentSerif.variable}`}
+      className={[
+        spaceGrotesk.variable,
+        instrumentSerif.variable,
+        sora.variable,
+        inter.variable,
+        jetbrainsMono.variable,
+      ].join(" ")}
+      data-skin="editorial"
       suppressHydrationWarning
     >
       <head>
@@ -60,6 +101,7 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
+        <VisualPill />
         <ChatWidgetLazy />
       </body>
     </html>
