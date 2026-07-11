@@ -83,14 +83,21 @@ export async function POST(req: Request) {
       return demoStreamResponse(buildDemoAnswer(question));
     }
 
-    const result = streamText({
-      model: resolved.model,
-      system: buildSystemPrompt(),
-      messages: await convertToModelMessages(messages),
-      maxOutputTokens: 900,
-    });
+    try {
+      const result = streamText({
+        model: resolved.model,
+        system: buildSystemPrompt(),
+        messages: await convertToModelMessages(messages),
+        maxOutputTokens: 900,
+      });
 
-    return result.toUIMessageStreamResponse();
+      return result.toUIMessageStreamResponse();
+    } catch (llmErr) {
+      // Key inválida, cuota agotada, proveedor caído, etc. → demo
+      // para que el chat del portafolio no se rompa en producción.
+      console.error("[chat] LLM falló; usando modo demo:", llmErr);
+      return demoStreamResponse(buildDemoAnswer(question));
+    }
   } catch (err) {
     console.error(err);
     return Response.json({ error: "Error en el chat." }, { status: 500 });

@@ -21,6 +21,29 @@ function getText(message: { parts?: Array<{ type: string; text?: string }>; cont
     .join("");
 }
 
+function friendlyChatError(error: { message?: string; statusCode?: number } | Error): string {
+  const message = (error.message || "").toLowerCase();
+  const status =
+    "statusCode" in error && typeof error.statusCode === "number" ? error.statusCode : undefined;
+
+  if (
+    status === 401 ||
+    status === 403 ||
+    message.includes("protected deployment") ||
+    message.includes("unauthorized") ||
+    message.includes("forbidden")
+  ) {
+    return "Este deploy de Vercel está protegido (Vercel Authentication). Desactívalo en Project Settings → Deployment Protection para Production, o inicia sesión en Vercel y recarga.";
+  }
+  if (status === 429 || message.includes("rate") || message.includes("límite")) {
+    return "Límite de mensajes alcanzado por ahora. Prueba más tarde o usa el formulario de contacto.";
+  }
+  if (message.includes("failed to fetch") || message.includes("network")) {
+    return "No hubo respuesta del servidor. Revisa la conexión o que el deploy de Vercel esté público.";
+  }
+  return error.message || "No se pudo completar la respuesta.";
+}
+
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
@@ -186,7 +209,7 @@ export function ChatWidget() {
             ) : null}
             {error ? (
               <p className="chat-error" role="alert">
-                {error.message || "No se pudo completar la respuesta."}
+                {friendlyChatError(error)}
               </p>
             ) : null}
           </div>
