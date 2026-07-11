@@ -1,45 +1,56 @@
-# Portfolio — Senior Product Designer
+# Portfolio — Mateo Espinosa
 
-Sitio de portafolio para un Senior Product Designer. Estética editorial inspirada
-en referentes de [Awwwards](https://www.awwwards.com/) y [Siteinspire](https://www.siteinspire.com/):
-tipografía grande, mucho espacio en blanco, un solo color de acento y
-micro-interacciones sutiles (nada de animación exagerada).
-
-## Secciones
-
-- **Home** — hero con titular editorial, badge de disponibilidad y stats animadas
-- **Proyectos** — tarjetas de casos de estudio con mockups SVG y métricas de impacto
-- **Sobre mí** — bio + servicios (sección recomendada para portafolios senior)
-- **Experiencia** — timeline profesional + herramientas
-- **Contacto** — email destacado y redes sociales
+Portafolio de Senior Product Designer migrado a **Next.js 15 (App Router) + TypeScript**.
+Misma estética editorial (tokens CSS, Space Grotesk + Instrument Serif). Sin Tailwind.
 
 ## Stack
 
-HTML + CSS + JavaScript puro. Sin frameworks ni dependencias — solo Google Fonts
-(Space Grotesk + Instrument Serif).
+- Next.js 15 + React 19
+- Contenido tipado en `content/`
+- Framer Motion (transiciones de página suaves)
+- Formulario de contacto → Resend
+- Chat / búsqueda en lenguaje natural → Vercel AI SDK con proveedor intercambiable (Claude, Groq/Llama, OpenRouter, Ollama o modo demo sin key)
 
-Características:
+## Desarrollo
 
-- Tema claro/oscuro con persistencia en `localStorage` (respeta `prefers-color-scheme`)
-- Reveals al hacer scroll con `IntersectionObserver` (stagger automático)
-- Respeta `prefers-reduced-motion`
-- Totalmente responsive (menú móvil incluido)
-- Navegación con estado activo según la sección visible
-
-## Cómo verlo
-
-Es un sitio estático: abre `index.html` en el navegador o sirve la carpeta:
+Requiere Node **≥ 18.18** (recomendado 20+). Con nvm:
 
 ```bash
-npx serve .
-# o
-python3 -m http.server 8000
+nvm use 22
+cp .env.example .env.local
+npm install
+npm run dev
 ```
 
-Listo para desplegar en GitHub Pages, Netlify o Vercel sin build.
+Abre [http://localhost:3000](http://localhost:3000).
 
-## Personalización
+## Variables de entorno
 
-- **Contenido**: todo el texto vive en `index.html` (proyectos, experiencia, bio).
-- **Colores y tipografía**: tokens CSS al inicio de `styles.css` (`:root` y `[data-theme="dark"]`).
-- **Imágenes reales**: reemplaza los `<svg class="project__art">` por `<img>` de tus proyectos.
+| Variable | Uso |
+|---|---|
+| `ANTHROPIC_API_KEY` | Chat (solo servidor) |
+| `RESEND_API_KEY` | Email del formulario |
+| `CONTACT_TO_EMAIL` | Destino (default: matespinosa09@gmail.com) |
+| `CONTACT_FROM_EMAIL` | Remitente verificado en Resend |
+| `SITE_URL` | Base para metadata / sitemap |
+
+Sin keys, la home y los casos de estudio funcionan; contacto y chat devolverán 503 hasta configurarlas.
+
+## Contenido
+
+Edita:
+
+- `content/profile.ts` — bio, stats, redes
+- `content/projects.ts` — proyectos y casos (marcados `isPlaceholder: true` hasta reemplazar)
+- `content/experience.ts` — timeline y tools
+
+## Deploy (Vercel)
+
+1. Conecta el repo a un proyecto Vercel.
+2. Copia las variables de `.env.example` a Production + Preview.
+3. En Resend, verifica dominio o usa el FROM de prueba en preview.
+4. En Anthropic Console, pon alerta de presupuesto (endpoint público).
+
+## Legacy
+
+La versión estática original está en `_legacy/` como referencia.
