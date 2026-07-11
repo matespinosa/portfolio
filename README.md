@@ -91,6 +91,29 @@ Edita:
 3. En Resend, verifica dominio o usa el FROM de prueba en preview.
 4. En Anthropic Console, pon alerta de presupuesto (endpoint público).
 
+### URLs del proyecto
+
+- Producción (alias del equipo): `https://portfolio-matespinosas-projects.vercel.app`
+- Rama `main` / default: `https://portfolio-git-main-matespinosas-projects.vercel.app`
+- La URL antigua `portfolio-plum-ten-p857rtimra.vercel.app` ya no existe (404).
+
+### Si el sitio pide login de Vercel o el chat falla
+
+El chat **sí funciona** en modo demo sin API keys. Si en Vercel ves login de Vercel
+o el chat responde con error 401 / "Protected deployment", el proyecto tiene
+**Deployment Protection (Vercel Authentication)** activo en Production.
+
+Arréglalo en el dashboard (no se puede cambiar desde el repo):
+
+1. Abre el proyecto en [vercel.com](https://vercel.com) → **Settings** → **Deployment Protection**.
+2. En Production, pon protección en **None** (o solo Preview Deployments).
+3. Guarda y abre de nuevo el alias de producción (sin SSO).
+4. El botón **Pregúntame** debería responder aunque no haya `ANTHROPIC_API_KEY` /
+   `GROQ_API_KEY` (modo demo).
+
+Opcional: añade una key (`GROQ_API_KEY` recomendado si quieres $0) para respuestas
+con LLM real en vez del retrieval por keywords.
+
 ## Legacy
 
 La versión estática original está en `_legacy/` como referencia.
