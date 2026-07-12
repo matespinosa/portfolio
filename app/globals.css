@@ -3599,7 +3599,7 @@ html[data-skin="mono"] .section--contact { background: var(--bg-alt); }
 @media (max-width: 980px) {
   .mono-hero {
     min-height: auto;
-    overflow: visible;
+    overflow: hidden;
     padding-top: calc(var(--header-h) + 1.5rem);
     padding-bottom: 1.75rem;
   }
@@ -3674,14 +3674,22 @@ html[data-skin="mono"] .section--contact { background: var(--bg-alt); }
     color: color-mix(in srgb, var(--ink-soft) 80%, var(--ink));
   }
 
-  /* Cursores visibles alrededor del retrato circular */
+  /* Cursores visibles alrededor del retrato circular, recortados al hero */
   html[data-skin="mono"] .mono-hero .hero-cursors {
     display: block;
-    overflow: visible;
+    overflow: hidden;
+    inset: 0;
+    contain: paint;
   }
   html[data-skin="mono"] .hero-cursor__label {
     font-size: 0.62rem;
     padding: 0.2rem 0.5rem;
+  }
+
+  /* En el cursor derecho el label va a la izquierda para no rozar el borde */
+  html[data-skin="mono"] .mono-hero .hero-cursor:nth-child(2) .hero-cursor__label {
+    left: auto;
+    right: 14px;
   }
 
   .mono-about__grid,
