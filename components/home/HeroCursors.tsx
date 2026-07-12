@@ -27,14 +27,23 @@ const NAMES = [
 const COLORS = ["#8b5cf6", "#ec4899", "#38bdf8", "#34d399", "#f59e0b", "#f43f5e"];
 
 /** Zonas (en % del hero) donde vive cada cursor, alrededor del contenido. */
-const ZONES = [
+const ZONES_DESKTOP = [
   { x: 7, y: 22, w: 15, h: 22 },
   { x: 72, y: 16, w: 17, h: 20 },
   { x: 5, y: 58, w: 15, h: 18 },
   { x: 74, y: 54, w: 16, h: 18 },
 ];
 
+/** En móvil orbitan el retrato circular (mitad inferior del banner). */
+const ZONES_MOBILE = [
+  { x: 6, y: 62, w: 22, h: 16 },
+  { x: 68, y: 58, w: 24, h: 18 },
+  { x: 12, y: 82, w: 28, h: 12 },
+  { x: 58, y: 84, w: 30, h: 10 },
+];
+
 type CursorConfig = { name: string; color: string };
+type Zone = { x: number; y: number; w: number; h: number };
 
 function shuffle<T>(list: T[]): T[] {
   const copy = [...list];
@@ -54,11 +63,21 @@ export function HeroCursors() {
   const rootRef = useRef<HTMLDivElement>(null);
   const nodesRef = useRef<(HTMLDivElement | null)[]>([]);
   const arrowsRef = useRef<(SVGSVGElement | null)[]>([]);
+  const zonesRef = useRef<Zone[]>(ZONES_DESKTOP);
 
   useEffect(() => {
-    const names = shuffle(NAMES).slice(0, ZONES.length);
+    const mq = window.matchMedia("(max-width: 980px)");
+    const applyZones = () => {
+      zonesRef.current = mq.matches ? ZONES_MOBILE : ZONES_DESKTOP;
+    };
+    applyZones();
+    mq.addEventListener("change", applyZones);
+
+    const names = shuffle(NAMES).slice(0, ZONES_DESKTOP.length);
     const colors = shuffle(COLORS);
     setCursors(names.map((name, i) => ({ name, color: colors[i % colors.length] })));
+
+    return () => mq.removeEventListener("change", applyZones);
   }, []);
 
   useEffect(() => {
@@ -67,14 +86,15 @@ export function HeroCursors() {
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let rect = root.getBoundingClientRect();
+    const zones = zonesRef.current;
 
-    const randomIn = (zone: (typeof ZONES)[number]) => ({
+    const randomIn = (zone: Zone) => ({
       x: zone.x + Math.random() * zone.w,
       y: zone.y + Math.random() * zone.h,
     });
 
     const now = performance.now();
-    const states = ZONES.map((zone, i) => {
+    const states = zones.map((zone, i) => {
       const start = randomIn(zone);
       const target = randomIn(zone);
       return {

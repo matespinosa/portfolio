@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import mateoLandscape from "@/assets/masteo-landscape.png";
+import mateoPortrait from "@/assets/mateo-mono-clean.png";
 import { profile } from "@/content/profile";
 import { useSkin } from "@/lib/useSkin";
 import { useChatLauncher } from "@/components/chat/ChatProvider";
@@ -18,6 +19,7 @@ const PARTNERS = ["Rappi", "Kapital Bank", "Credicorp Capital", "Modyo"];
  * Hero del skin Mono: retrato B&N integrado con mix-blend sobre gris papel,
  * tipografía gigante fantasma detrás de la persona, streaks de motion blur,
  * cursores colaborativos y CTA hacia el asistente de IA.
+ * En móvil el retrato pasa a círculo con más aire entre bloques.
  */
 export function MonoHero() {
   const skin = useSkin();
@@ -29,6 +31,7 @@ export function MonoHero() {
     if (!root || skin !== "mono" || prefersReducedMotion()) return;
 
     const { gsap, ScrollTrigger } = getGsap();
+    const isCompact = window.matchMedia("(max-width: 980px)").matches;
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
@@ -43,7 +46,21 @@ export function MonoHero() {
           { y: 18, autoAlpha: 0, stagger: 0.07, duration: 0.55 },
           0.55,
         )
-        .fromTo(
+        .from(
+          ".mono-hero__card, .mono-hero__partners, .mono-hero__meta > *",
+          { y: 22, autoAlpha: 0, stagger: 0.08, duration: 0.6 },
+          0.85,
+        );
+
+      if (isCompact) {
+        tl.fromTo(
+          ".mono-hero__portrait",
+          { autoAlpha: 0, scale: 0.86, y: 18 },
+          { autoAlpha: 1, scale: 1, y: 0, duration: 0.85, ease: "power3.out" },
+          0.45,
+        );
+      } else {
+        tl.fromTo(
           ".mono-hero__img",
           {
             clipPath: "inset(62% 10% 0% 10%)",
@@ -59,54 +76,48 @@ export function MonoHero() {
           },
           0.3,
         )
-        .from(
-          ".mono-hero__ghost span",
-          { yPercent: 62, autoAlpha: 0, stagger: 0.05, duration: 0.75 },
-          0.72,
-        )
-        .fromTo(
-          ".mono-hero__streak--a",
-          { xPercent: -46, autoAlpha: 0 },
-          { xPercent: 26, autoAlpha: 1, duration: 1, ease: "power2.out" },
-          0.55,
-        )
-        .to(".mono-hero__streak--a", { autoAlpha: 0, duration: 0.7 }, 1.35)
-        .fromTo(
-          ".mono-hero__streak--b",
-          { xPercent: 42, autoAlpha: 0 },
-          { xPercent: -18, autoAlpha: 0.8, duration: 1.05, ease: "power2.out" },
-          0.7,
-        )
-        .to(".mono-hero__streak--b", { autoAlpha: 0, duration: 0.7 }, 1.5)
-        .from(
-          ".mono-hero__card, .mono-hero__partners, .mono-hero__meta > *",
-          { y: 22, autoAlpha: 0, stagger: 0.08, duration: 0.6 },
-          0.9,
-        );
+          .from(
+            ".mono-hero__ghost span",
+            { yPercent: 62, autoAlpha: 0, stagger: 0.05, duration: 0.75 },
+            0.72,
+          )
+          .fromTo(
+            ".mono-hero__streak--a",
+            { xPercent: -46, autoAlpha: 0 },
+            { xPercent: 26, autoAlpha: 1, duration: 1, ease: "power2.out" },
+            0.55,
+          )
+          .to(".mono-hero__streak--a", { autoAlpha: 0, duration: 0.7 }, 1.35)
+          .fromTo(
+            ".mono-hero__streak--b",
+            { xPercent: 42, autoAlpha: 0 },
+            { xPercent: -18, autoAlpha: 0.8, duration: 1.05, ease: "power2.out" },
+            0.7,
+          )
+          .to(".mono-hero__streak--b", { autoAlpha: 0, duration: 0.7 }, 1.5);
 
-      // Parallax de scroll: la persona sube, las letras se hunden
-      gsap.to(".mono-hero__img", {
-        yPercent: -7,
-        ease: "none",
-        scrollTrigger: { trigger: root, start: "top top", end: "bottom top", scrub: true },
-      });
-      gsap.to(".mono-hero__ghost", {
-        yPercent: 30,
-        autoAlpha: 0.4,
-        ease: "none",
-        scrollTrigger: { trigger: root, start: "top top", end: "bottom top", scrub: true },
-      });
-      gsap.to(".mono-hero__meta", {
-        autoAlpha: 0,
-        ease: "none",
-        scrollTrigger: { trigger: root, start: "12% top", end: "45% top", scrub: true },
-      });
-
+        gsap.to(".mono-hero__img", {
+          yPercent: -7,
+          ease: "none",
+          scrollTrigger: { trigger: root, start: "top top", end: "bottom top", scrub: true },
+        });
+        gsap.to(".mono-hero__ghost", {
+          yPercent: 30,
+          autoAlpha: 0.4,
+          ease: "none",
+          scrollTrigger: { trigger: root, start: "top top", end: "bottom top", scrub: true },
+        });
+        gsap.to(".mono-hero__meta", {
+          autoAlpha: 0,
+          ease: "none",
+          scrollTrigger: { trigger: root, start: "12% top", end: "45% top", scrub: true },
+        });
+      }
     }, root);
 
-    // Parallax sutil con el mouse (solo dispositivos con hover)
+    // Parallax sutil con el mouse (solo desktop con hover)
     let removeMove: (() => void) | undefined;
-    if (window.matchMedia("(hover: hover)").matches) {
+    if (!isCompact && window.matchMedia("(hover: hover)").matches) {
       const imgX = gsap.quickTo(".mono-hero__img", "x", { duration: 0.7, ease: "power3.out" });
       const ghostX = gsap.quickTo(".mono-hero__ghost", "x", { duration: 0.9, ease: "power3.out" });
       const onMove = (event: PointerEvent) => {
@@ -205,14 +216,23 @@ export function MonoHero() {
               src={mateoLandscape}
               alt="Mateo Espinosa con gafas, retratado en blanco y negro con efecto de movimiento"
               priority
-              sizes="(max-width: 720px) 118vw, (max-width: 1100px) 94vw, 980px"
+              sizes="(max-width: 980px) 1px, (max-width: 1100px) 94vw, 980px"
               className="mono-hero__img"
+            />
+          </div>
+          <div className="mono-hero__portrait">
+            <Image
+              src={mateoPortrait}
+              alt="Mateo Espinosa, retrato en blanco y negro"
+              priority
+              sizes="(max-width: 980px) 220px, 1px"
+              className="mono-hero__portrait-img"
             />
           </div>
           <span className="mono-hero__streak mono-hero__streak--a" aria-hidden="true" />
           <span className="mono-hero__streak mono-hero__streak--b" aria-hidden="true" />
           <figcaption className="sr-only">
-            Mateo Espinosa — retrato horizontal en blanco y negro con efecto de movimiento.
+            Mateo Espinosa — retrato en blanco y negro con efecto de movimiento.
           </figcaption>
         </figure>
 
