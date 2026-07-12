@@ -9,7 +9,8 @@ import {
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { VisualPill } from "@/components/layout/VisualPill";
-import { ChatWidgetLazy } from "@/components/chat/ChatWidgetLazy";
+import { ChatProvider } from "@/components/chat/ChatProvider";
+import { ChatFab } from "@/components/chat/ChatFab";
 import { profile } from "@/content/profile";
 import "./globals.css";
 
@@ -64,7 +65,7 @@ const themeBootScript = `
     root.setAttribute('data-theme', storedTheme || (systemDark ? 'dark' : 'light'));
 
     var storedSkin = localStorage.getItem('visual-skin');
-    var skin = (storedSkin === 'agency' || storedSkin === 'terminal' || storedSkin === 'editorial')
+    var skin = (storedSkin === 'agency' || storedSkin === 'terminal' || storedSkin === 'editorial' || storedSkin === 'signal')
       ? storedSkin
       : 'editorial';
     root.setAttribute('data-skin', skin);
@@ -98,11 +99,13 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        <VisualPill />
-        <ChatWidgetLazy />
+        <ChatProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+          <VisualPill />
+          <ChatFab />
+        </ChatProvider>
       </body>
     </html>
   );

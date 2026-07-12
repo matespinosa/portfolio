@@ -7,7 +7,7 @@ export function ProjectsSection() {
     <section className="section" id="proyectos">
       <div className="container">
         <Reveal className="section__head">
-          <p className="section__eyebrow">01 — Proyectos</p>
+          <p className="section__eyebrow">Proyectos</p>
           <h2 className="section__title">
             Trabajo <em>seleccionado</em>
           </h2>

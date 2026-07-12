@@ -15,7 +15,11 @@
 
 # next.js
 /.next/
+/.next.nosync/
 /out/
+
+# accidental absolute-path cache nests (iCloud / misconfigured distDir)
+/Users/
 
 # production
 /build

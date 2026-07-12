@@ -9,7 +9,7 @@ export function AboutSection() {
         <div className="about">
           <div className="about__text">
             <Reveal as="p" className="section__eyebrow">
-              02 — Sobre mí
+              Sobre mí
             </Reveal>
             <Reveal as="h2" className="section__title">
               Diseño con <em>intención</em>,

@@ -76,10 +76,14 @@ export function Header() {
   const [activeId, setActiveId] = useState("home");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const marker = document.querySelector<HTMLElement>(".hero__badge, .case-hero");
+    if (!marker) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setScrolled(!entry.isIntersecting),
+      { rootMargin: "-12px 0px 0px 0px", threshold: 0 },
+    );
+    observer.observe(marker);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {

@@ -58,9 +58,9 @@ export function buildDemoAnswer(query: string): string {
   if (includesAny(q, EXPERIENCE_WORDS)) {
     const lines = experience
       .slice(0, 3)
-      .map((e) => `- **${e.period}** — ${e.role} en ${e.company}. ${e.description}`);
+      .map((e) => `- **${e.period}**: ${e.role} en ${e.company}. ${e.description}`);
     return [
-      `Mateo lleva **+8 años** diseñando productos digitales, de startups tempranas a productos con millones de usuarios. Lo más reciente:`,
+      `Mateo es **Product Designer** con trayectoria en fintech, banca B2B y marketplaces (Rappi, Kapital, Credicorp, Modyo). Lo más reciente:`,
       "",
       ...lines,
       "",
@@ -101,14 +101,14 @@ export function buildDemoAnswer(query: string): string {
   }
 
   if (includesAny(q, SKILL_WORDS)) {
-    const skills = profile.skills.map((s) => `- **${s.title}** — ${s.description}`);
+    const skills = profile.skills.map((s) => `- **${s.title}**: ${s.description}`);
     return [
       "Su práctica cubre cuatro frentes:",
       "",
       ...skills,
       "",
       "Un ejemplo aplicado de design systems:",
-      `[[project:orbita]]`,
+      `[[project:modyo-platform]]`,
       "",
       "[[suggest:¿Qué proyectos de fintech ha hecho?]]",
       "[[suggest:Cuéntame su trayectoria]]",
@@ -121,7 +121,7 @@ export function buildDemoAnswer(query: string): string {
     "",
     "Estos son dos casos de estudio para empezar:",
     `[[project:${projects[0].slug}]]`,
-    `[[project:${projects[3].slug}]]`,
+    `[[project:${projects[1].slug}]]`,
     "",
     "[[suggest:¿Tiene experiencia con design systems?]]",
     "[[suggest:¿Cómo es su proceso de research?]]",

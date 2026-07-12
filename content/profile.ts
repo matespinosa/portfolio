@@ -2,72 +2,69 @@ import type { Skill, SocialLink, Stat } from "./types";
 
 export const profile = {
   name: "Mateo Espinosa",
-  role: "Senior Product Designer",
+  role: "Product Designer",
   email: "matespinosa09@gmail.com",
-  availability: "Disponible para nuevos proyectos",
-  location: "LATAM · Remoto",
+  phone: "3144868891",
+  availability: "Disponible para trabajar",
+  location: "Bogotá, Colombia",
   intro:
-    "Soy Mateo Espinosa, Senior Product Designer con +8 años transformando problemas complejos en experiencias simples, útiles y memorables.",
+    "Product Designer que convierte flujos complejos de fintech y banca B2B en experiencias claras, medibles y orientadas a crecimiento.",
   about: [
-    "Creo que el buen diseño es invisible: se siente, no se nota. Mi enfoque combina investigación rigurosa, pensamiento sistémico y una obsesión sana por los detalles de interacción.",
-    "He trabajado con startups en etapa temprana y con productos de millones de usuarios, liderando equipos de diseño y colaborando codo a codo con producto e ingeniería.",
+    "Soy Product Designer y entusiasta del desarrollo, con mentalidad de negocio y mucha curiosidad por los usuarios. Desde Bogotá combino liderazgo, pensamiento analítico e investigación hands-on para diseñar y construir experiencias digitales con impacto real.",
+    "Creo experiencias investigadas y medibles, alineadas a objetivos de negocio — y salto al código cuando ayuda a shippear mejores soluciones más rápido.",
   ] as const,
   heroLines: [
-    { html: "Diseño productos" },
-    { html: "<em>digitales</em> que las" },
-    { html: "personas <em>aman usar</em>" },
+    { html: "Hi! I'm Mateo" },
+    { html: "Product Designer" },
   ] as const,
   marquee: [
     "Product Design",
-    "UX Research",
-    "Design Systems",
-    "Prototipado",
-    "Estrategia UX",
+    "UX Design",
     "UI Design",
+    "Research",
+    "Data",
+    "VSCode",
   ] as const,
   stats: [
-    { value: 8, label: "años de experiencia", plus: true },
-    { value: 40, label: "proyectos lanzados", plus: true },
-    { value: 12, label: "industrias distintas" },
-    { value: 5, label: "design systems creados" },
+    { value: 5, label: "años diseñando producto", plus: true },
+    { value: 4, label: "empresas fintech & banca" },
+    { value: 3, label: "mercados LATAM" },
+    { value: 1, label: "design system de plataforma" },
   ] satisfies Stat[],
   skills: [
     {
       num: "01",
-      title: "Diseño de producto",
+      title: "Product Design",
       description:
-        "De la idea al lanzamiento: flujos, wireframes, UI de alta fidelidad y handoff impecable.",
+        "Strategy → research → prototype → shipped results en fintech, banca y marketplaces.",
     },
     {
       num: "02",
-      title: "UX Research",
+      title: "UX Design",
       description:
-        "Entrevistas, tests de usabilidad y análisis de datos para decidir con evidencia.",
+        "Flujos end-to-end de onboarding, tools merchant, factoring y canales enterprise — claros y medibles.",
     },
     {
       num: "03",
-      title: "Design Systems",
+      title: "UI Design",
       description:
-        "Sistemas escalables con tokens, componentes y documentación que los equipos adoptan de verdad.",
+        "Interfaces de alta fidelidad y design systems (Figma + Storybook) listos para que el equipo shippee.",
     },
     {
       num: "04",
-      title: "Liderazgo de diseño",
+      title: "Research & Data",
       description:
-        "Mentoría, procesos de crítica y cultura de diseño en equipos multidisciplinarios.",
+        "Benchmarks, entrevistas, tests y journey maps para alinear producto con usuarios y negocio.",
     },
   ] satisfies Skill[],
   socials: [
-    { label: "LinkedIn", href: "https://www.linkedin.com/" },
-    { label: "Dribbble", href: "https://dribbble.com/" },
-    { label: "Behance", href: "https://www.behance.net/" },
-    { label: "X / Twitter", href: "https://x.com/" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/mateo-espinosa/" },
   ] satisfies SocialLink[],
   contactBlurb:
-    "Cuéntame sobre tu producto, tu equipo o esa idea que no te deja dormir. Respondo en menos de 24 horas.",
+    "Let's grow together. Cuéntame sobre tu producto o el reto de diseño que tienes — respondo en menos de 24 horas.",
   meta: {
-    title: "Mateo Espinosa — Senior Product Designer",
+    title: "Mateo Espinosa — Product Designer",
     description:
-      "Senior Product Designer con +8 años creando productos digitales centrados en las personas. Diseño de producto, sistemas de diseño y estrategia UX.",
+      "Product Designer en Bogotá. Flujos complejos de fintech y banca B2B convertidos en experiencias claras y medibles. Rappi, Kapital Bank, Credicorp Capital, Modyo.",
   },
 } as const;

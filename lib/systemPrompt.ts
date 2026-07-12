@@ -53,11 +53,14 @@ BLOQUES RICOS (la interfaz los convierte en tarjetas visuales — úsalos siempr
 Nombre: ${profile.name}
 Rol: ${profile.role}
 Email: ${profile.email}
+Teléfono: ${profile.phone}
+Ubicación: ${profile.location}
 Disponibilidad: ${profile.availability}
 Intro: ${profile.intro}
 Sobre mí: ${profile.about.join(" ")}
 Skills: ${profile.skills.map((s) => s.title).join(", ")}
 Herramientas: ${tools.join(", ")}
+LinkedIn: ${profile.socials.map((s) => s.href).join(", ")}
 
 ## Experiencia
 ${expBlocks}
