@@ -10,6 +10,12 @@ import { MonoHero } from "@/components/mono/MonoHero";
 import { MonoAbout } from "@/components/mono/MonoAbout";
 import { MonoJourney } from "@/components/mono/MonoJourney";
 import { MonoShowcase } from "@/components/mono/MonoShowcase";
+import { TermHero } from "@/components/terminal/TermHero";
+import { TermLogos } from "@/components/terminal/TermLogos";
+import { TermProjects } from "@/components/terminal/TermProjects";
+import { TermAbout } from "@/components/terminal/TermAbout";
+import { TermExperience } from "@/components/terminal/TermExperience";
+import { TermContact } from "@/components/terminal/TermContact";
 
 export default function HomePage() {
   return (
@@ -17,9 +23,13 @@ export default function HomePage() {
       {/* Skin Mono (rama portfolio-professional-black-and-white) */}
       <MonoHero />
 
-      {/* Resto de skins (ocultos en mono vía CSS) */}
+      {/* Skin Terminal v2 — dev mode (secciones propias, ocultas en otros skins) */}
+      <TermHero />
+
+      {/* Resto de skins (ocultos en mono/terminal vía CSS) */}
       <Hero />
       <Marquee />
+      <TermLogos />
 
       {/* Compartido: asistente IA justo debajo del hero */}
       <ChatSection />
@@ -28,6 +38,12 @@ export default function HomePage() {
       <MonoAbout />
       <MonoJourney />
       <MonoShowcase />
+
+      {/* Storytelling terminal: repos → about dev → git log → ssh */}
+      <TermProjects />
+      <TermAbout />
+      <TermExperience />
+      <TermContact />
 
       <ProjectsSection />
       <AboutSection />
