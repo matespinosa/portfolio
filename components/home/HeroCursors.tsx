@@ -34,11 +34,14 @@ const ZONES_DESKTOP = [
   { x: 74, y: 54, w: 16, h: 18 },
 ];
 
-/** En móvil orbitan el retrato circular (mitad inferior del banner). */
+/** En móvil orbitan el retrato circular, con margen seguro para labels. */
 const ZONES_MOBILE = [
-  { x: 2, y: 64, w: 18, h: 12 },
-  { x: 78, y: 66, w: 18, h: 12 },
+  { x: 12, y: 62, w: 18, h: 14 },
+  { x: 58, y: 64, w: 16, h: 14 },
 ];
+
+/** Padding interno (px) para que flecha + label no se salgan del hero. */
+const EDGE_PAD = { desktop: 8, mobile: 72 };
 
 type CursorConfig = { name: string; color: string };
 type Zone = { x: number; y: number; w: number; h: number };
@@ -84,12 +87,19 @@ export function HeroCursors() {
     if (!root || !cursors) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const compact = window.matchMedia("(max-width: 980px)").matches;
+    const edgePad = compact ? EDGE_PAD.mobile : EDGE_PAD.desktop;
     let rect = root.getBoundingClientRect();
     const zones = zonesRef.current;
 
     const randomIn = (zone: Zone) => ({
       x: zone.x + Math.random() * zone.w,
       y: zone.y + Math.random() * zone.h,
+    });
+
+    const clampPoint = (xPx: number, yPx: number) => ({
+      x: Math.min(Math.max(xPx, edgePad), Math.max(edgePad, rect.width - edgePad)),
+      y: Math.min(Math.max(yPx, edgePad), Math.max(edgePad, rect.height - edgePad)),
     });
 
     const now = performance.now();
@@ -117,8 +127,9 @@ export function HeroCursors() {
       states.forEach((st, i) => {
         const node = nodesRef.current[i];
         if (!node) return;
-        const px = (st.x / 100) * rect.width + st.ox;
-        const py = (st.y / 100) * rect.height + st.oy;
+        const rawX = (st.x / 100) * rect.width + st.ox;
+        const rawY = (st.y / 100) * rect.height + st.oy;
+        const { x: px, y: py } = clampPoint(rawX, rawY);
         node.style.transform = `translate3d(${px.toFixed(1)}px, ${py.toFixed(1)}px, 0)`;
         const arrow = arrowsRef.current[i];
         if (arrow) arrow.style.transform = `rotate(${st.rot.toFixed(1)}deg)`;
@@ -146,6 +157,8 @@ export function HeroCursors() {
 
     const clickTimeouts: ReturnType<typeof setTimeout>[] = [];
     let frame = 0;
+    const avoidRadius = compact ? 110 : 150;
+    const avoidForce = compact ? 18 : 30;
 
     const tick = (time: number) => {
       states.forEach((st, i) => {
@@ -178,8 +191,8 @@ export function HeroCursors() {
         const dist = Math.hypot(dpx, dpy);
         let toX = 0;
         let toY = 0;
-        if (dist > 0.001 && dist < 150) {
-          const force = ((150 - dist) / 150) * 30;
+        if (dist > 0.001 && dist < avoidRadius) {
+          const force = ((avoidRadius - dist) / avoidRadius) * avoidForce;
           toX = (dpx / dist) * force;
           toY = (dpy / dist) * force;
         }
