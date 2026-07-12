@@ -24,7 +24,7 @@ Pill flotante abajo a la izquierda para cambiar de skin (persiste en `localStora
 
 ## Desarrollo
 
-Requiere Node **≥ 18.18** (recomendado 20+). Con nvm:
+Requiere Node **22.x** (AI SDK 7 y sus proveedores no soportan versiones anteriores). Con nvm:
 
 ```bash
 nvm use 22
@@ -103,9 +103,10 @@ Edita:
 ## Deploy (Vercel)
 
 1. Conecta el repo a un proyecto Vercel.
-2. Copia las variables de `.env.example` a Production + Preview.
-3. En Resend, verifica dominio o usa el FROM de prueba en preview.
-4. En Anthropic Console, pon alerta de presupuesto (endpoint público).
+2. Confirma en **Settings → Build and Deployment** que la versión de Node sea **22.x**.
+3. Copia las variables de `.env.example` a Production + Preview.
+4. En Resend, verifica dominio o usa el FROM de prueba en preview.
+5. En Anthropic Console, pon alerta de presupuesto (endpoint público).
 
 ### URLs del proyecto
 
