@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { profile } from "@/content/profile";
+import { useSkin } from "@/lib/useSkin";
 
 const NAV = [
   { id: "home", label: "Home", hash: "/#home" },
@@ -12,6 +13,9 @@ const NAV = [
   { id: "experiencia", label: "Experiencia", hash: "/#experiencia" },
   { id: "contacto", label: "Contacto", hash: "/#contacto" },
 ] as const;
+
+/** Secciones con contraparte propia en el skin Mono (id + sufijo -mono). */
+const MONO_SECTIONS = new Set(["home", "proyectos", "sobre-mi", "experiencia"]);
 
 function ThemeToggle() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
@@ -71,12 +75,18 @@ function ThemeToggle() {
 export function Header() {
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const skin = useSkin();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeId, setActiveId] = useState("home");
 
   useEffect(() => {
-    const marker = document.querySelector<HTMLElement>(".hero__badge, .case-hero");
+    // Toma como marcador el primer candidato visible en el skin activo
+    const candidates = document.querySelectorAll<HTMLElement>(
+      ".mono-hero__label, .hero__badge, .case-hero",
+    );
+    const marker =
+      Array.from(candidates).find((el) => el.offsetParent !== null) ?? candidates[0];
     if (!marker) return;
     const observer = new IntersectionObserver(
       ([entry]) => setScrolled(!entry.isIntersecting),
@@ -84,7 +94,7 @@ export function Header() {
     );
     observer.observe(marker);
     return () => observer.disconnect();
-  }, []);
+  }, [skin]);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -101,7 +111,7 @@ export function Header() {
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          setActiveId(entry.target.id);
+          setActiveId(entry.target.id.replace(/-mono$/, ""));
         });
       },
       { rootMargin: "-40% 0px -55% 0px" },
@@ -121,7 +131,11 @@ export function Header() {
           {NAV.map((item) => (
             <li key={item.id}>
               <Link
-                href={item.hash}
+                href={
+                  skin === "mono" && MONO_SECTIONS.has(item.id)
+                    ? `${item.hash}-mono`
+                    : item.hash
+                }
                 className={`nav__link${activeId === item.id ? " is-active" : ""}`}
                 onClick={() => setMenuOpen(false)}
               >

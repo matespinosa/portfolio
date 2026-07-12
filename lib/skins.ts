@@ -1,4 +1,4 @@
-export type SkinId = "editorial" | "agency" | "terminal" | "signal";
+export type SkinId = "editorial" | "agency" | "terminal" | "signal" | "mono";
 
 export type SkinOption = {
   id: SkinId;
@@ -43,9 +43,17 @@ export const SKINS: SkinOption[] = [
     swatch: "#8b5cf6",
     source: "senior product designer + design engineer",
   },
+  {
+    id: "mono",
+    label: "Mono Studio",
+    short: "Mono",
+    description: "B&N profesional - foto editorial + GSAP",
+    swatch: "#111111",
+    source: "portfolio-professional-black-and-white",
+  },
 ];
 
-export const DEFAULT_SKIN: SkinId = "editorial";
+export const DEFAULT_SKIN: SkinId = "mono";
 export const SKIN_STORAGE_KEY = "visual-skin";
 
 export function isSkinId(value: string | null | undefined): value is SkinId {
@@ -53,6 +61,7 @@ export function isSkinId(value: string | null | undefined): value is SkinId {
     value === "editorial" ||
     value === "agency" ||
     value === "terminal" ||
-    value === "signal"
+    value === "signal" ||
+    value === "mono"
   );
 }

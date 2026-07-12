@@ -1702,16 +1702,25 @@ em { font-family: var(--font-serif); font-style: italic; font-weight: 400; }
 }
 
 /* ---------- Chat: sección en la home ---------- */
-@property --chat-halo-angle {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
-}
-
 .chat-home {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   background:
-    radial-gradient(ellipse 58% 58% at 50% 4%, color-mix(in srgb, var(--accent-soft) 62%, transparent) 0%, transparent 72%),
+    radial-gradient(ellipse 44% 50% at 18% 18%, color-mix(in srgb, var(--accent-soft) 64%, transparent) 0%, transparent 72%),
+    radial-gradient(ellipse 42% 48% at 84% 74%, color-mix(in srgb, var(--accent-comp) 14%, transparent) 0%, transparent 70%),
     var(--bg);
+}
+.chat-home::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 13% 8% auto;
+  height: 68%;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--surface) 48%, transparent);
+  filter: blur(56px);
+  pointer-events: none;
 }
 .chat-home__inner {
   max-width: 880px;
@@ -1748,12 +1757,11 @@ em { font-family: var(--font-serif); font-style: italic; font-weight: 400; }
   width: 100%;
   margin-top: 2.5rem;
 }
+.chat-home__status { display: none; }
 .chat-home__composer-shell {
-  --chat-halo-angle: 0deg;
   position: relative;
-  isolation: isolate;
   width: 100%;
-  border-radius: 20px;
+  border-radius: 26px;
   transition: transform 0.35s var(--ease-out);
 }
 .chat-home__composer-shell::before,
@@ -1761,70 +1769,66 @@ em { font-family: var(--font-serif); font-style: italic; font-weight: 400; }
   content: "";
   position: absolute;
   pointer-events: none;
-  animation: chat-halo-orbit 7.5s linear infinite;
 }
 .chat-home__composer-shell::before {
-  z-index: 0;
-  inset: -2px;
+  z-index: -1;
+  inset: -20% 7% -24%;
   border-radius: inherit;
-  background: conic-gradient(
-    from var(--chat-halo-angle),
-    var(--accent) 0%,
-    color-mix(in srgb, var(--accent) 45%, var(--accent-comp)) 24%,
-    var(--accent-comp) 48%,
-    color-mix(in srgb, var(--accent-comp) 42%, var(--accent)) 72%,
-    var(--accent) 100%
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in srgb, var(--accent) 20%, transparent),
+    transparent 68%
   );
+  filter: blur(30px);
+  opacity: 0.7;
+  transition: opacity 0.3s ease, transform 0.45s var(--ease-out);
 }
 .chat-home__composer-shell::after {
-  z-index: -1;
-  inset: -12px;
-  border-radius: 26px;
-  background: conic-gradient(
-    from var(--chat-halo-angle),
-    transparent 0 10%,
-    color-mix(in srgb, var(--accent) 58%, transparent) 19%,
-    transparent 34% 51%,
-    color-mix(in srgb, var(--accent-comp) 58%, transparent) 62%,
-    transparent 78% 100%
-  );
-  filter: blur(14px);
-  opacity: 0.42;
-  transition: opacity 0.25s ease, filter 0.25s ease;
+  z-index: 2;
+  inset: 1px 6% auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, white 78%, transparent), transparent);
+  opacity: 0.8;
 }
 .chat-home__composer-shell:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
-.chat-home__composer-shell:hover::after,
-.chat-home__composer-shell:focus-within::after {
-  filter: blur(16px);
-  opacity: 0.62;
+.chat-home__composer-shell:hover::before,
+.chat-home__composer-shell:focus-within::before {
+  opacity: 0.95;
+  transform: scale(1.04);
 }
 .chat-home__composer {
   position: relative;
   z-index: 1;
   width: 100%;
   overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--ink) 18%, var(--line));
-  border-radius: 18px;
-  background: var(--surface);
-  transition: border-color 0.25s ease;
+  border: 1px solid color-mix(in srgb, var(--ink) 20%, transparent);
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--surface) 68%, transparent);
+  -webkit-backdrop-filter: blur(24px) saturate(135%);
+  backdrop-filter: blur(24px) saturate(135%);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 72%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, var(--ink) 5%, transparent);
+  transition: border-color 0.25s ease, background-color 0.25s ease;
 }
 .chat-home__composer:hover {
-  border-color: color-mix(in srgb, var(--ink) 34%, var(--line));
+  border-color: color-mix(in srgb, var(--ink) 34%, transparent);
+  background: color-mix(in srgb, var(--surface) 76%, transparent);
 }
 .chat-home__composer:focus-within {
-  border-color: color-mix(in srgb, var(--accent) 72%, var(--line));
+  border-color: color-mix(in srgb, var(--accent) 70%, transparent);
 }
 .chat-home__composer > input {
   width: 100%;
-  min-height: 76px;
+  min-height: 94px;
   border: 0;
   background: transparent;
   color: var(--ink);
   font: inherit;
   font-size: clamp(1rem, 2vw, 1.1rem);
-  padding: 1.3rem 1.35rem 1rem;
+  padding: 1.45rem 1.45rem 1.15rem;
 }
 .chat-home__composer > input:focus { outline: none; }
 .chat-home__composer > input::placeholder { color: var(--ink-soft); opacity: 1; }
@@ -1833,9 +1837,9 @@ em { font-family: var(--font-serif); font-style: italic; font-weight: 400; }
   align-items: center;
   gap: 0.65rem;
   min-width: 0;
-  padding: 0.55rem 0.65rem;
-  border-top: 1px solid var(--line);
-  background: color-mix(in srgb, var(--bg-alt) 52%, var(--surface));
+  padding: 0.65rem 0.7rem 0.72rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  background: color-mix(in srgb, var(--surface) 38%, transparent);
 }
 .chat-home__topics {
   display: flex;
@@ -1852,9 +1856,9 @@ em { font-family: var(--font-serif); font-style: italic; font-weight: 400; }
   align-items: center;
   gap: 0.38rem;
   flex: 0 0 auto;
-  min-height: 36px;
-  padding: 0.45rem 0.68rem;
-  border: 0;
+  min-height: 38px;
+  padding: 0.48rem 0.72rem;
+  border: 1px solid transparent;
   border-radius: 999px;
   background: transparent;
   color: var(--ink-soft);
@@ -1875,13 +1879,14 @@ em { font-family: var(--font-serif); font-style: italic; font-weight: 400; }
 }
 .chat-topic:hover {
   color: var(--ink);
-  background: var(--bg-alt);
+  background: color-mix(in srgb, var(--surface) 72%, transparent);
+  border-color: color-mix(in srgb, var(--ink) 10%, transparent);
   transform: translateY(-1px);
 }
 .chat-topic:hover > span { transform: rotate(-6deg) scale(1.08); }
 .chat-topic:active { transform: translateY(0) scale(0.97); }
 .chat-topic.is-active {
-  background: var(--accent-soft);
+  background: color-mix(in srgb, var(--accent-soft) 74%, transparent);
   color: color-mix(in srgb, var(--accent) 76%, var(--ink));
 }
 .chat-topic.is-active::after {
@@ -1903,7 +1908,7 @@ em { font-family: var(--font-serif); font-style: italic; font-weight: 400; }
   display: flex;
   align-items: flex-start;
   gap: 0.8rem;
-  margin-top: 1rem;
+  margin-top: 1.15rem;
   padding-inline: 0.25rem;
 }
 .chat-home__suggestions > span {
@@ -1942,8 +1947,10 @@ em { font-family: var(--font-serif); font-style: italic; font-weight: 400; }
     calc(1.2s + var(--i, 0) * 0.8s) infinite;
 }
 .chat-chip--lg {
-  padding: 0.48rem 0.85rem;
-  background: transparent;
+  padding: 0.52rem 0.9rem;
+  background: color-mix(in srgb, var(--surface) 30%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   font-size: 0.82rem;
 }
 .chat-home__questions .chat-chip:hover {
@@ -1963,9 +1970,6 @@ em { font-family: var(--font-serif); font-style: italic; font-weight: 400; }
   color: var(--ink-soft);
 }
 
-@keyframes chat-halo-orbit {
-  to { --chat-halo-angle: 1turn; }
-}
 @keyframes chat-topic-enter {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: none; }
@@ -2801,4 +2805,824 @@ html[data-skin="signal"] .contact__socials a { border-radius: 5px; }
 
 @media (prefers-reduced-motion: reduce) {
   .visual-pill__menu { animation: none; }
+}
+
+/* =========================================================
+   Mono Studio — portfolio profesional blanco & negro
+   (rama: portfolio-professional-black-and-white)
+   ========================================================= */
+
+/* Ocultas por defecto; solo el skin mono las muestra */
+.mono-hero,
+.mono-about,
+.mono-journey,
+.mono-showcase { display: none; }
+
+html[data-skin="mono"] {
+  --bg: #ececea;
+  --bg-alt: #e3e3e0;
+  --surface: #f6f6f4;
+  --ink: #101010;
+  --ink-soft: #4f4f4c;
+  --ink-faint: #8b8b86;
+  --accent: #101010;
+  --accent-comp: #5a5a56;
+  --accent-ink: #f4f4f2;
+  --accent-soft: #dbdbd7;
+  --line: #cfcfca;
+  --radius: 18px;
+  --radius-sm: 12px;
+  --font-sans: var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;
+  --font-serif: var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;
+  --font-display: var(--font-sora), "Sora", system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, monospace;
+  --mono-card-bg: #101010;
+  --mono-card-ink: #f2f2ef;
+  --mono-ghost-a: #d4d4cf;
+  --mono-ghost-b: #a0a09a;
+}
+
+html[data-skin="mono"][data-theme="dark"] {
+  --bg: #0e0e0d;
+  --bg-alt: #131311;
+  --surface: #181816;
+  --ink: #f1f1ee;
+  --ink-soft: #b4b4ae;
+  --ink-faint: #767671;
+  --accent: #f1f1ee;
+  --accent-comp: #9a9a94;
+  --accent-ink: #121210;
+  --accent-soft: #262624;
+  --line: #2b2b28;
+  --mono-card-bg: #1a1a18;
+  --mono-card-ink: #f1f1ee;
+  --mono-ghost-a: #404046;
+  --mono-ghost-b: #222226;
+}
+
+/* En mono, fuera las secciones de los otros skins */
+html[data-skin="mono"] .hero,
+html[data-skin="mono"] .marquee,
+html[data-skin="mono"] #proyectos,
+html[data-skin="mono"] #sobre-mi,
+html[data-skin="mono"] #experiencia { display: none; }
+
+html[data-skin="mono"] .mono-hero { display: flex; }
+html[data-skin="mono"] .mono-about,
+html[data-skin="mono"] .mono-journey,
+html[data-skin="mono"] .mono-showcase { display: block; }
+
+/* Utilidades mono */
+.mono-container { width: min(1280px, 100% - 3.4rem); margin-inline: auto; }
+.mono-eyebrow {
+  margin-bottom: 1.1rem;
+  font: 500 0.72rem/1 var(--font-mono);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.mono-section-head { max-width: 720px; margin-bottom: 3.4rem; }
+.mono-section-head h2 {
+  font: 600 clamp(2rem, 3.8vw, 3.3rem)/1.04 var(--font-display);
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.mono-section-head__meta {
+  margin-top: 0.9rem;
+  color: var(--ink-faint);
+  font: 500 0.76rem/1.5 var(--font-mono);
+}
+.mono-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 0.92rem;
+  text-decoration: none;
+  border-bottom: 1.5px solid color-mix(in srgb, var(--ink) 30%, transparent);
+  padding-bottom: 0.2rem;
+  transition: border-color 0.2s ease, gap 0.25s var(--ease-out);
+}
+.mono-link:hover { border-color: var(--ink); gap: 0.7rem; }
+.mono-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.9rem 1.45rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--ink);
+  font: 600 0.9rem/1 var(--font-sans);
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.3s var(--ease-out), background-color 0.2s ease,
+              color 0.2s ease, border-color 0.2s ease;
+}
+.mono-btn--solid { background: var(--ink); color: var(--bg); }
+.mono-btn--ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--ink) 30%, transparent);
+}
+.mono-btn--solid:hover,
+.mono-btn--ghost:hover { transform: translateY(-2px); }
+.mono-btn--ghost:hover { border-color: var(--ink); }
+
+/* ---------- Hero mono ---------- */
+.mono-hero {
+  position: relative;
+  flex-direction: column;
+  min-height: 100dvh;
+  overflow: hidden;
+  background:
+    radial-gradient(90% 60% at 50% -8%, color-mix(in srgb, #ffffff 55%, transparent), transparent 70%),
+    var(--bg);
+  padding-top: calc(var(--header-h) + 1.8rem);
+}
+html[data-skin="mono"][data-theme="dark"] .mono-hero {
+  --ink-soft: #c0c0ba;
+  --ink-faint: #8c8c86;
+  --mono-ghost-a: #4a4a50;
+  --mono-ghost-b: #27272b;
+  background:
+    radial-gradient(90% 60% at 50% -8%, color-mix(in srgb, #ffffff 5%, transparent), transparent 70%),
+    var(--bg);
+}
+.mono-hero__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: min(1280px, 100% - 3.4rem);
+  margin-inline: auto;
+}
+.mono-hero__top {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(230px, 0.42fr);
+  gap: 2rem;
+  align-items: start;
+}
+.mono-hero__intro { position: relative; }
+html[data-skin="mono"][data-theme="dark"] .mono-hero__intro {
+  isolation: isolate;
+}
+html[data-skin="mono"][data-theme="dark"] .mono-hero__intro::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -1rem -4rem -1.4rem -2rem;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--bg) 98%, transparent) 0%,
+    color-mix(in srgb, var(--bg) 88%, transparent) 42%,
+    color-mix(in srgb, var(--bg) 42%, transparent) 72%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+.mono-hero__label {
+  margin-bottom: 1.2rem;
+  font: 500 0.76rem/1.4 var(--font-mono);
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+}
+.mono-hero__title {
+  font: 600 clamp(2.9rem, 5.9vw, 5.5rem)/1 var(--font-display);
+  letter-spacing: -0.048em;
+}
+.mono-line { display: block; overflow: hidden; padding-bottom: 0.06em; }
+.mono-line__inner { display: block; }
+.mono-hero__title em { font-style: normal; color: var(--ink-faint); }
+.mono-hero__sub {
+  max-width: 46ch;
+  margin-top: 1.1rem;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.mono-hero__proof {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 1.1rem;
+  font: 500 0.78rem/1 var(--font-mono);
+  color: var(--ink-soft);
+}
+.mono-hero__stars { color: var(--ink); letter-spacing: 0.14em; }
+.mono-hero__cta { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.6rem; }
+
+.mono-hero__aside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.3rem;
+}
+.mono-hero__card {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  max-width: 255px;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--surface) 76%, transparent);
+  backdrop-filter: blur(10px);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 20px 44px -32px rgba(0, 0, 0, 0.55);
+  transition: transform 0.3s var(--ease-out), border-color 0.2s ease;
+}
+.mono-hero__card:hover { transform: translateY(-3px); border-color: var(--ink); }
+.mono-hero__card-logo {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 11px;
+  background: var(--ink);
+  color: var(--bg);
+}
+.mono-hero__card-copy strong { display: block; font-size: 0.86rem; letter-spacing: -0.01em; }
+.mono-hero__card-copy small {
+  display: block;
+  margin-top: 0.18rem;
+  color: var(--ink-soft);
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+.mono-hero__partners {
+  text-align: right;
+  font: 500 0.7rem/1.7 var(--font-mono);
+  color: var(--ink-soft);
+}
+.mono-hero__partners span {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.mono-hero__partners ul { display: flex; flex-direction: column; align-items: flex-end; }
+
+.mono-hero__stage {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-height: clamp(380px, 52vh, 640px);
+  margin-top: -3.6rem;
+}
+/* Funde retrato + letras hacia el fondo antes de la franja meta */
+.mono-hero__stage::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 110px;
+  z-index: 3;
+  background: linear-gradient(to top, var(--bg) 18%, transparent);
+  pointer-events: none;
+}
+.mono-hero__ghost {
+  position: absolute;
+  left: 50%;
+  bottom: 6%;
+  z-index: 1;
+  display: flex;
+  transform: translateX(-50%);
+  font: 700 clamp(6.5rem, 21vw, 19rem)/0.82 var(--font-display);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+}
+.mono-hero__ghost span {
+  display: inline-block;
+  background: linear-gradient(180deg, var(--mono-ghost-a) 10%, var(--mono-ghost-b) 92%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.mono-hero__img-wrap {
+  position: absolute;
+  left: 50%;
+  bottom: -4%;
+  z-index: 2;
+  width: min(980px, 88vw);
+  transform: translateX(-50%);
+  mix-blend-mode: multiply;
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0%, #000 13%, #000 84%, transparent 100%),
+    linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, transparent 0%, #000 13%, #000 84%, transparent 100%),
+    linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  mask-composite: intersect;
+}
+html[data-skin="mono"][data-theme="dark"] .mono-hero__img-wrap { mix-blend-mode: screen; }
+.mono-hero__img {
+  --mono-image-blur: 0px;
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: grayscale(1) contrast(1.08) brightness(1.01) blur(var(--mono-image-blur));
+  will-change: transform, clip-path;
+}
+html[data-skin="mono"][data-theme="dark"] .mono-hero__img {
+  filter: invert(1) grayscale(1) contrast(1.12) brightness(0.94) blur(var(--mono-image-blur));
+}
+.mono-hero__streak {
+  position: absolute;
+  z-index: 3;
+  top: 24%;
+  height: 34%;
+  width: 54%;
+  opacity: 0;
+  pointer-events: none;
+  filter: blur(22px);
+}
+.mono-hero__streak--a {
+  left: -8%;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--bg) 94%, transparent) 45%, transparent);
+}
+.mono-hero__streak--b {
+  right: -6%;
+  top: 40%;
+  height: 26%;
+  background: linear-gradient(270deg, transparent, color-mix(in srgb, var(--bg) 88%, transparent) 50%, transparent);
+}
+.mono-hero__meta {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.95rem 0.1rem 1.1rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
+  font: 500 0.72rem/1 var(--font-mono);
+  color: var(--ink-soft);
+}
+.mono-hero__meta a { color: var(--ink); text-decoration: none; }
+html[data-skin="mono"] .mono-hero .hero-cursors {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+  pointer-events: none;
+}
+html[data-skin="mono"] .hero-cursor__arrow {
+  fill: color-mix(in srgb, var(--ink) 86%, transparent);
+  stroke: var(--bg);
+  stroke-width: 1.25;
+  filter: drop-shadow(0 2px 3px color-mix(in srgb, var(--ink) 22%, transparent));
+}
+html[data-skin="mono"] .hero-cursor__label {
+  border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  color: var(--ink);
+  font: 600 0.68rem/1.2 var(--font-mono);
+  letter-spacing: 0;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 3px 8px -4px color-mix(in srgb, var(--ink) 28%, transparent);
+}
+html[data-skin="mono"] .hero-cursor__ring {
+  border-width: 1px;
+  border-color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+/* ---------- Quién soy ---------- */
+.mono-about { background: var(--bg); }
+.mono-about__grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.38fr) 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+.mono-about__aside {
+  position: sticky;
+  top: calc(var(--header-h) + 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.mono-globe {
+  position: relative;
+  width: min(360px, 100%);
+  aspect-ratio: 1;
+  overflow: visible;
+}
+.mono-globe__canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.mono-globe__label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  padding: 0.38rem 0.58rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--bg);
+  font: 600 0.62rem/1 var(--font-mono);
+  white-space: nowrap;
+  pointer-events: none;
+  will-change: transform;
+  transition: opacity 0.2s ease;
+}
+.mono-globe__label i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.mono-about__hub {
+  max-width: 26ch;
+  color: var(--ink-faint);
+  font: 500 0.74rem/1.7 var(--font-mono);
+}
+.mono-about__statement {
+  font: 500 clamp(1.5rem, 2.7vw, 2.4rem)/1.35 var(--font-display);
+  letter-spacing: -0.022em;
+}
+.mono-about__secondary {
+  max-width: 58ch;
+  margin-top: 1.7rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+.mono-about__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 2.6rem;
+}
+.mono-about__skills {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem 2.4rem;
+}
+.mono-about__skills li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+}
+.mono-about__skills span { font: 500 0.68rem/1 var(--font-mono); color: var(--ink-faint); }
+.mono-pills {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 4.6rem;
+}
+.mono-pill {
+  display: grid;
+  place-items: center;
+  min-height: clamp(84px, 10vw, 130px);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font: 600 clamp(1.15rem, 2.2vw, 1.9rem)/1 var(--font-display);
+  letter-spacing: -0.03em;
+  transition: transform 0.35s var(--ease-out);
+}
+.mono-pill:hover { transform: translateY(-4px); }
+.mono-pill--solid,
+.mono-pill--arrow { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.mono-pill--arrow { font-size: clamp(1.6rem, 2.6vw, 2.4rem); }
+.mono-pill--faint { background: transparent; color: var(--ink-faint); }
+
+/* ---------- Trayectoria ---------- */
+.mono-journey { background: var(--bg-alt); }
+.mono-journey__grid {
+  display: grid;
+  grid-template-columns: minmax(200px, 0.36fr) 1fr;
+  gap: 3.5rem;
+  align-items: start;
+}
+.mono-journey__side {
+  position: sticky;
+  top: calc(var(--header-h) + 3rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.mono-journey__year {
+  font: 700 clamp(4rem, 8vw, 7rem)/0.9 var(--font-display);
+  letter-spacing: -0.05em;
+  animation: mono-year 0.5s var(--ease-out);
+}
+@keyframes mono-year {
+  from { opacity: 0; transform: translateY(14px); }
+}
+.mono-journey__role {
+  min-height: 2.6em;
+  max-width: 26ch;
+  color: var(--ink-soft);
+  font-size: 0.86rem;
+}
+.mono-journey__rail {
+  position: relative;
+  width: 2px;
+  height: 96px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--ink) 14%, transparent);
+}
+.mono-journey__rail i {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: var(--ink);
+  transform-origin: top;
+}
+.mono-journey__count { font: 500 0.72rem/1 var(--font-mono); color: var(--ink-faint); }
+.mono-journey__entries { display: flex; flex-direction: column; }
+.mono-entry {
+  padding: 2.4rem 0;
+  border-top: 1px solid var(--line);
+  transition: opacity 0.35s ease;
+}
+.mono-entry:last-child { border-bottom: 1px solid var(--line); }
+.mono-entry:not(.is-active) { opacity: 0.5; }
+.mono-entry__period { font: 500 0.74rem/1 var(--font-mono); color: var(--ink-faint); }
+.mono-entry h3 {
+  margin-top: 0.7rem;
+  font: 600 clamp(1.5rem, 2.7vw, 2.2rem)/1.05 var(--font-display);
+  letter-spacing: -0.03em;
+}
+.mono-entry__role { margin-top: 0.3rem; font-weight: 600; font-size: 0.92rem; color: var(--ink-soft); }
+.mono-entry__desc {
+  max-width: 64ch;
+  margin-top: 0.85rem;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+.mono-entry__tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.1rem; }
+.mono-entry__tags li {
+  padding: 0.32rem 0.72rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font: 500 0.7rem/1 var(--font-mono);
+  color: var(--ink-soft);
+}
+
+/* ---------- Proyectos (deck apilado) ---------- */
+.mono-showcase { background: var(--bg); }
+.mono-deck { display: flex; flex-direction: column; gap: 2rem; }
+.mono-card {
+  position: sticky;
+  top: calc(var(--header-h) + 1.2rem + var(--i, 0) * 12px);
+  will-change: transform;
+}
+.mono-card__link {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  min-height: min(64vh, 560px);
+  padding: clamp(1.4rem, 3vw, 2.6rem);
+  border: 1px solid color-mix(in srgb, var(--mono-card-ink) 12%, transparent);
+  border-radius: 26px;
+  background: var(--mono-card-bg);
+  color: var(--mono-card-ink);
+  text-decoration: none;
+  overflow: hidden;
+  box-shadow: 0 34px 80px -50px rgba(0, 0, 0, 0.7);
+}
+.mono-card__top { display: flex; align-items: center; gap: 1rem; }
+.mono-card__index {
+  font: 600 0.9rem/1 var(--font-mono);
+  color: color-mix(in srgb, var(--mono-card-ink) 55%, transparent);
+}
+.mono-card__tags { display: flex; flex: 1; flex-wrap: wrap; gap: 0.4rem; }
+.mono-card__tags li {
+  padding: 0.32rem 0.72rem;
+  border: 1px solid color-mix(in srgb, var(--mono-card-ink) 24%, transparent);
+  border-radius: 999px;
+  font: 500 0.68rem/1 var(--font-mono);
+  color: color-mix(in srgb, var(--mono-card-ink) 78%, transparent);
+}
+.mono-card__year {
+  font: 500 0.74rem/1 var(--font-mono);
+  color: color-mix(in srgb, var(--mono-card-ink) 55%, transparent);
+}
+.mono-card__body { margin-top: auto; }
+.mono-card__body h3 {
+  font: 600 clamp(2.1rem, 4.6vw, 3.9rem)/0.98 var(--font-display);
+  letter-spacing: -0.04em;
+}
+.mono-card__body p {
+  max-width: 58ch;
+  margin-top: 1rem;
+  color: color-mix(in srgb, var(--mono-card-ink) 72%, transparent);
+  font-size: 0.96rem;
+  line-height: 1.6;
+}
+.mono-card__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid color-mix(in srgb, var(--mono-card-ink) 14%, transparent);
+}
+.mono-card__metric {
+  font: 500 0.78rem/1.4 var(--font-mono);
+  color: color-mix(in srgb, var(--mono-card-ink) 70%, transparent);
+}
+.mono-card__metric b { font-size: 1.35rem; color: var(--mono-card-ink); }
+.mono-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.mono-card__arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--mono-card-ink);
+  color: var(--mono-card-bg);
+  transition: transform 0.35s var(--ease-out);
+}
+.mono-card__link:hover .mono-card__arrow { transform: rotate(45deg); }
+
+/* Chat y contacto heredan tokens mono */
+html[data-skin="mono"] .chat-home {
+  background:
+    radial-gradient(ellipse 42% 54% at 15% 22%, color-mix(in srgb, #ffffff 62%, transparent), transparent 72%),
+    radial-gradient(ellipse 38% 50% at 88% 72%, color-mix(in srgb, var(--ink) 8%, transparent), transparent 75%),
+    var(--bg-alt);
+}
+html[data-skin="mono"] .chat-home__inner { max-width: 980px; }
+html[data-skin="mono"] .chat-home__experience { margin-top: 2.1rem; }
+html[data-skin="mono"] .chat-home__status {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 40px;
+  margin: 0 auto 1rem;
+  padding: 0.55rem 0.9rem;
+  border: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  line-height: 1;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+html[data-skin="mono"] .chat-home__status-dot {
+  width: 7px;
+  height: 7px;
+  margin-right: 0.55rem;
+  border-radius: 50%;
+  background: var(--ink);
+}
+html[data-skin="mono"] .chat-home__status strong {
+  margin-left: 0.35rem;
+  color: var(--ink);
+  font-weight: 600;
+}
+html[data-skin="mono"] .chat-home__composer-shell::before {
+  inset: 14% 4% -18%;
+  background: color-mix(in srgb, var(--ink) 16%, transparent);
+  filter: blur(24px);
+  opacity: 0.28;
+}
+html[data-skin="mono"] .chat-home__composer-shell::after { display: none; }
+html[data-skin="mono"] .chat-home__composer {
+  border: 0;
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(112%);
+  backdrop-filter: blur(18px) saturate(112%);
+  box-shadow: none;
+}
+html[data-skin="mono"] .chat-home__composer:hover {
+  background: var(--surface);
+}
+html[data-skin="mono"] .chat-home__composer > input {
+  min-height: 116px;
+  padding: 1.55rem 1.5rem 1.2rem;
+  font-size: clamp(1.05rem, 2vw, 1.18rem);
+}
+html[data-skin="mono"] .chat-home__composer-bar {
+  min-height: 64px;
+  padding: 0.65rem 0.85rem 0.75rem 1rem;
+  border-top: 0;
+  background: transparent;
+}
+html[data-skin="mono"] .chat-topic {
+  min-height: 40px;
+  padding-inline: 0.75rem;
+  border: 0;
+  color: var(--ink-soft);
+}
+html[data-skin="mono"] .chat-topic.is-active {
+  background: transparent;
+  color: var(--ink);
+}
+html[data-skin="mono"] .chat-topic.is-active::after {
+  display: none;
+}
+html[data-skin="mono"] .chat-home__actions { gap: 0.4rem; }
+html[data-skin="mono"] .chat-home__actions .chat-voice {
+  width: 44px;
+  height: 44px;
+  color: var(--ink);
+}
+html[data-skin="mono"] .chat-home__actions .chat-send {
+  width: 48px;
+  height: 48px;
+}
+html[data-skin="mono"] .chat-home__questions .chat-chip {
+  border: 0;
+  background: color-mix(in srgb, var(--surface) 40%, transparent);
+}
+html[data-skin="mono"][data-theme="dark"] .chat-home {
+  background:
+    radial-gradient(ellipse 42% 54% at 15% 22%, color-mix(in srgb, #ffffff 7%, transparent), transparent 72%),
+    radial-gradient(ellipse 38% 50% at 88% 72%, color-mix(in srgb, #ffffff 5%, transparent), transparent 75%),
+    var(--bg-alt);
+}
+html[data-skin="mono"][data-theme="dark"] .chat-home__status,
+html[data-skin="mono"][data-theme="dark"] .chat-home__composer {
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+}
+html[data-skin="mono"] .section--contact { background: var(--bg-alt); }
+
+/* ---------- Responsive mono ---------- */
+@media (max-width: 980px) {
+  .mono-hero__top { grid-template-columns: 1fr; gap: 1.6rem; }
+  .mono-hero__aside {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .mono-hero__partners { text-align: left; }
+  .mono-hero__partners ul { flex-direction: row; flex-wrap: wrap; gap: 0.2rem 0.8rem; align-items: flex-start; }
+  .mono-hero__stage { margin-top: 0.8rem; min-height: clamp(340px, 44vh, 520px); }
+  .mono-hero__img-wrap { width: min(840px, 108vw); }
+  html[data-skin="mono"] .mono-hero .hero-cursors { display: none; }
+  .mono-about__grid,
+  .mono-journey__grid { grid-template-columns: 1fr; gap: 2.2rem; }
+  .mono-about__aside { position: static; flex-direction: row; align-items: center; flex-wrap: wrap; }
+  .mono-globe { width: min(220px, 46vw); }
+  .mono-journey__side { position: static; flex-direction: row; align-items: center; flex-wrap: wrap; gap: 1.2rem; }
+  .mono-journey__year { font-size: clamp(3rem, 10vw, 4.4rem); }
+  .mono-journey__rail { width: 96px; height: 2px; }
+  .mono-journey__rail i { transform-origin: left; }
+  .mono-journey__role { min-height: 0; }
+  .mono-pills { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 640px) {
+  .mono-hero__title { font-size: clamp(2.5rem, 11.5vw, 3.4rem); }
+  .mono-hero__aside { flex-direction: column; align-items: flex-start; }
+  .mono-hero__card { max-width: none; }
+  .mono-hero__img-wrap { left: 47%; width: 135vw; bottom: 0; }
+  .mono-about__aside { flex-direction: column; align-items: flex-start; }
+  .mono-globe { width: min(300px, 82vw); align-self: center; }
+  html[data-skin="mono"] .chat-home__status {
+    min-height: 36px;
+    padding-inline: 0.75rem;
+    font-size: 0.72rem;
+  }
+  html[data-skin="mono"] .chat-home__status strong { display: none; }
+  html[data-skin="mono"] .chat-home__composer > input {
+    min-height: 104px;
+    padding: 1.3rem 1rem 1rem;
+  }
+  html[data-skin="mono"] .chat-home__composer-bar { padding-inline: 0.5rem; }
+  .mono-hero__meta { flex-wrap: wrap; gap: 0.5rem 1rem; }
+  .mono-card { position: static; }
+  .mono-card__link { min-height: 0; gap: 1.4rem; }
+  .mono-pill { min-height: 72px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mono-hero__streak { display: none; }
+  .mono-journey__year { animation: none; }
+  .mono-journey__rail i { transform: none !important; }
+  .mono-entry:not(.is-active) { opacity: 1; }
+  .mono-card { position: static; }
 }

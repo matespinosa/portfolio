@@ -65,9 +65,9 @@ const themeBootScript = `
     root.setAttribute('data-theme', storedTheme || (systemDark ? 'dark' : 'light'));
 
     var storedSkin = localStorage.getItem('visual-skin');
-    var skin = (storedSkin === 'agency' || storedSkin === 'terminal' || storedSkin === 'editorial' || storedSkin === 'signal')
+    var skin = (storedSkin === 'agency' || storedSkin === 'terminal' || storedSkin === 'editorial' || storedSkin === 'signal' || storedSkin === 'mono')
       ? storedSkin
-      : 'editorial';
+      : 'mono';
     root.setAttribute('data-skin', skin);
   } catch (e) {}
 })();
@@ -88,7 +88,7 @@ export default function RootLayout({
         inter.variable,
         jetbrainsMono.variable,
       ].join(" ")}
-      data-skin="editorial"
+      data-skin="mono"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
