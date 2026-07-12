@@ -89,6 +89,7 @@ export default function RootLayout({
         jetbrainsMono.variable,
       ].join(" ")}
       data-skin="editorial"
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <head>

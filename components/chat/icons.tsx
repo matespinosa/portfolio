@@ -103,3 +103,29 @@ export function MailIcon({ size = 16 }: { size?: number }) {
     </svg>
   );
 }
+
+export function MessageCircleIcon({ size = 20 }: { size?: number }) {
+  return (
+    <svg {...iconProps(size)}>
+      <path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9.5 9.5 0 0 1-3.7-.8L3 21l1.7-5A8.7 8.7 0 1 1 21 11.5Z" />
+      <path d="M8 12h.01M12 12h.01M16 12h.01" strokeWidth="2.6" />
+    </svg>
+  );
+}
+
+export function MicIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg {...iconProps(size)}>
+      <rect x="9" y="3" width="6" height="11" rx="3" />
+      <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3M9 21h6" />
+    </svg>
+  );
+}
+
+export function StopIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg {...iconProps(size)}>
+      <rect x="6.5" y="6.5" width="11" height="11" rx="2" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}

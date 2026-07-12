@@ -2,7 +2,8 @@
 
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
-import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useSpeechRecognition } from "@/lib/useSpeechRecognition";
 import { AssistantMessage } from "./AssistantMessage";
 import { useChatLauncher } from "./ChatProvider";
 import {
@@ -10,10 +11,12 @@ import {
   CloseIcon,
   CoinsIcon,
   GridIcon,
+  MicIcon,
   RestartIcon,
   RouteIcon,
   SearchIcon,
   SparkIcon,
+  StopIcon,
 } from "./icons";
 
 const SUGGESTIONS: { icon: React.ReactNode; text: string }[] = [
@@ -62,6 +65,17 @@ export function ChatDrawer() {
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const lastActiveRef = useRef<Element | null>(null);
+  const handleTranscript = useCallback((value: string) => {
+    setInput(value.slice(0, 1000));
+    inputRef.current?.focus();
+  }, []);
+  const {
+    supported: voiceSupported,
+    listening: voiceListening,
+    error: voiceError,
+    start: startVoice,
+    stop: stopVoice,
+  } = useSpeechRecognition({ onTranscript: handleTranscript });
 
   const transport = useMemo(
     () => new DefaultChatTransport({ api: "/api/chat" }),
@@ -84,11 +98,12 @@ export function ChatDrawer() {
   useEffect(() => {
     if (!open) {
       setShown(false);
+      stopVoice();
       return;
     }
     const t = setTimeout(() => setShown(true), 30);
     return () => clearTimeout(t);
-  }, [open]);
+  }, [open, stopVoice]);
 
   // Mensaje en cola desde la sección de la home o el FAB.
   // Guarda síncrona por ref: el efecto puede re-ejecutarse muchas veces
@@ -153,15 +168,25 @@ export function ChatDrawer() {
     e.preventDefault();
     const text = input.trim();
     if (!text || busy) return;
+    stopVoice();
     setInput("");
     await ask(text);
   }
 
   function reset() {
+    stopVoice();
     setMessages([]);
     clearError();
     setInput("");
     inputRef.current?.focus();
+  }
+
+  function toggleVoice() {
+    if (voiceListening) {
+      stopVoice();
+      return;
+    }
+    startVoice(input);
   }
 
   return (
@@ -277,11 +302,28 @@ export function ChatDrawer() {
             ref={inputRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Pregunta lo que quieras…"
+            placeholder={voiceListening ? "Te escucho…" : "Pregunta lo que quieras…"}
             autoComplete="off"
             aria-label="Tu pregunta"
             maxLength={1000}
           />
+          <button
+            type="button"
+            className={`chat-voice${voiceListening ? " is-listening" : ""}`}
+            aria-label={voiceListening ? "Detener dictado" : "Usar entrada por voz"}
+            aria-pressed={voiceListening}
+            title={
+              voiceSupported
+                ? voiceListening
+                  ? "Detener dictado"
+                  : "Hablar"
+                : "Tu navegador no admite entrada por voz"
+            }
+            disabled={!voiceSupported || busy}
+            onClick={toggleVoice}
+          >
+            {voiceListening ? <StopIcon /> : <MicIcon />}
+          </button>
           <button
             type="submit"
             className="chat-send"
@@ -291,7 +333,12 @@ export function ChatDrawer() {
             <ArrowUpIcon />
           </button>
         </form>
-        <p className="chat-panel__hint">Responde solo con el contenido de este portafolio.</p>
+        <p className={`chat-panel__hint${voiceError ? " is-error" : ""}`} aria-live="polite">
+          {voiceError ??
+            (voiceListening
+              ? "Escuchando — revisa el texto antes de enviarlo."
+              : "Responde solo con el contenido de este portafolio.")}
+        </p>
       </aside>
     </>
   );
