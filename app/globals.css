@@ -3557,16 +3557,158 @@ html[data-skin="mono"] .chat-home__questions .chat-chip {
   border: 0;
   background: color-mix(in srgb, var(--surface) 40%, transparent);
 }
+
+/* Dark: contraste gris + glass líquido para separar el chat del fondo */
 html[data-skin="mono"][data-theme="dark"] .chat-home {
+  --chat-glass: color-mix(in srgb, #4e4e48 92%, transparent);
+  --chat-glass-strong: color-mix(in srgb, #5c5c55 96%, transparent);
+  --chat-glass-edge: color-mix(in srgb, #ffffff 26%, transparent);
+  --chat-glass-edge-soft: color-mix(in srgb, #ffffff 16%, transparent);
   background:
-    radial-gradient(ellipse 42% 54% at 15% 22%, color-mix(in srgb, #ffffff 7%, transparent), transparent 72%),
-    radial-gradient(ellipse 38% 50% at 88% 72%, color-mix(in srgb, #ffffff 5%, transparent), transparent 75%),
+    radial-gradient(ellipse 52% 46% at 16% 16%, color-mix(in srgb, #ffffff 14%, transparent), transparent 70%),
+    radial-gradient(ellipse 48% 52% at 88% 80%, color-mix(in srgb, #9a9a90 18%, transparent), transparent 72%),
+    radial-gradient(ellipse 40% 38% at 50% 52%, color-mix(in srgb, #4a4a44 34%, transparent), transparent 68%),
     var(--bg-alt);
 }
-html[data-skin="mono"][data-theme="dark"] .chat-home__status,
-html[data-skin="mono"][data-theme="dark"] .chat-home__composer {
-  background: color-mix(in srgb, var(--surface) 86%, transparent);
+html[data-skin="mono"][data-theme="dark"] .chat-home::before {
+  inset: 18% 10% auto;
+  height: 60%;
+  border-radius: 48% 52% 46% 54% / 56% 44% 58% 42%;
+  background:
+    radial-gradient(circle at 30% 40%, color-mix(in srgb, #6e6e66 55%, transparent), transparent 62%),
+    radial-gradient(circle at 70% 60%, color-mix(in srgb, #4a4a44 60%, transparent), transparent 64%);
+  filter: blur(42px) saturate(120%);
+  opacity: 0.95;
+  animation: mono-chat-liquid 11s ease-in-out infinite alternate;
 }
+html[data-skin="mono"][data-theme="dark"] .chat-home__status {
+  border: 1px solid var(--chat-glass-edge-soft);
+  background: var(--chat-glass);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #ffffff 18%, transparent),
+    0 10px 28px -18px color-mix(in srgb, #000000 70%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
+}
+html[data-skin="mono"][data-theme="dark"] .chat-home__composer-shell::before {
+  inset: 6% -4% -24%;
+  border-radius: 46% 54% 48% 52% / 52% 46% 54% 48%;
+  background:
+    radial-gradient(ellipse at 40% 45%, color-mix(in srgb, #7a7a70 58%, transparent), transparent 62%),
+    radial-gradient(ellipse at 70% 60%, color-mix(in srgb, #4f4f48 62%, transparent), transparent 68%);
+  filter: blur(28px) saturate(130%);
+  opacity: 0.82;
+  animation: mono-chat-liquid 9s ease-in-out infinite alternate-reverse;
+}
+html[data-skin="mono"][data-theme="dark"] .chat-home__composer-shell::after {
+  display: block;
+  inset: 1px 8% auto;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, #ffffff 55%, transparent),
+    transparent
+  );
+  opacity: 0.85;
+}
+html[data-skin="mono"][data-theme="dark"] .chat-home__composer {
+  border: 1px solid var(--chat-glass-edge);
+  border-radius: 26px;
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, #6a6a63 94%, transparent) 0%,
+      color-mix(in srgb, #454540 96%, transparent) 42%,
+      color-mix(in srgb, #353530 98%, transparent) 100%
+    );
+  -webkit-backdrop-filter: blur(28px) saturate(150%);
+  backdrop-filter: blur(28px) saturate(150%);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #ffffff 34%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, #000000 35%, transparent),
+    0 18px 48px -24px color-mix(in srgb, #000000 78%, transparent),
+    0 0 0 1px color-mix(in srgb, #ffffff 8%, transparent);
+}
+html[data-skin="mono"][data-theme="dark"] .chat-home__composer:hover {
+  border-color: color-mix(in srgb, #ffffff 36%, transparent);
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, #76766e 96%, transparent) 0%,
+      color-mix(in srgb, #50504a 97%, transparent) 48%,
+      color-mix(in srgb, #3c3c37 98%, transparent) 100%
+    );
+}
+html[data-skin="mono"][data-theme="dark"] .chat-home__composer:focus-within {
+  border-color: color-mix(in srgb, #ffffff 44%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #ffffff 38%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, #000000 32%, transparent),
+    0 20px 52px -22px color-mix(in srgb, #000000 80%, transparent),
+    0 0 0 1px color-mix(in srgb, #ffffff 12%, transparent);
+}
+html[data-skin="mono"][data-theme="dark"] .chat-home__composer-bar {
+  border-top: 1px solid var(--chat-glass-edge-soft);
+  background: color-mix(in srgb, #1f1f1b 70%, transparent);
+}
+html[data-skin="mono"][data-theme="dark"] .chat-topic {
+  color: var(--ink-soft);
+}
+html[data-skin="mono"][data-theme="dark"] .chat-topic:hover {
+  background: color-mix(in srgb, #4a4a44 72%, transparent);
+  border-color: var(--chat-glass-edge-soft);
+  color: var(--ink);
+}
+html[data-skin="mono"][data-theme="dark"] .chat-topic.is-active {
+  background: color-mix(in srgb, #5a5a54 82%, transparent);
+  color: var(--ink);
+  border: 1px solid var(--chat-glass-edge-soft);
+}
+html[data-skin="mono"][data-theme="dark"] .chat-home__questions .chat-chip {
+  border: 1px solid var(--chat-glass-edge-soft);
+  background: var(--chat-glass);
+  color: var(--ink);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #ffffff 20%, transparent),
+    0 8px 22px -16px color-mix(in srgb, #000000 65%, transparent);
+}
+html[data-skin="mono"][data-theme="dark"] .chat-home__questions .chat-chip:hover {
+  border-color: color-mix(in srgb, #ffffff 34%, transparent);
+  background: var(--chat-glass-strong);
+  transform: translateY(-2px) scale(1.015);
+}
+html[data-skin="mono"][data-theme="dark"] .chat-home__composer > input::placeholder {
+  color: color-mix(in srgb, var(--ink-soft) 88%, #ffffff);
+}
+html[data-skin="mono"][data-theme="dark"] .chat-home__hint {
+  color: color-mix(in srgb, var(--ink-soft) 90%, #ffffff);
+}
+
+@keyframes mono-chat-liquid {
+  0% {
+    border-radius: 48% 52% 46% 54% / 56% 44% 58% 42%;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    border-radius: 54% 46% 58% 42% / 44% 56% 48% 52%;
+    transform: translate3d(1.5%, -1.2%, 0) scale(1.04);
+  }
+  100% {
+    border-radius: 42% 58% 50% 50% / 52% 48% 55% 45%;
+    transform: translate3d(-1.2%, 1%, 0) scale(1.02);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-skin="mono"][data-theme="dark"] .chat-home::before,
+  html[data-skin="mono"][data-theme="dark"] .chat-home__composer-shell::before {
+    animation: none;
+  }
+}
+
 html[data-skin="mono"] .section--contact { background: var(--bg-alt); }
 
 /* ---------- Responsive mono ---------- */
