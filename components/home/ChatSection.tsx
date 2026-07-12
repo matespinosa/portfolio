@@ -4,6 +4,7 @@ import { FormEvent, useCallback, useRef, useState } from "react";
 import { Reveal } from "@/components/ui/Reveal";
 import { useChatLauncher } from "@/components/chat/ChatProvider";
 import { useSpeechRecognition } from "@/lib/useSpeechRecognition";
+import { projects } from "@/content/projects";
 import {
   ArrowUpIcon,
   GridIcon,
@@ -123,6 +124,12 @@ export function ChatSection() {
         </Reveal>
 
         <Reveal className="chat-home__experience">
+          <div className="chat-home__status" aria-hidden="true">
+            <span className="chat-home__status-dot" />
+            <span>{projects.length} casos conectados</span>
+            <strong>listos para explorar</strong>
+          </div>
+
           <div className="chat-home__composer-shell">
             <form className="chat-home__composer" onSubmit={onSubmit}>
               <input

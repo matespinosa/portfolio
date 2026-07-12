@@ -79,8 +79,8 @@ export function MonoAbout() {
             <p className="mono-eyebrow">• Quién soy</p>
             {skin === "mono" ? <MonoGlobe /> : null}
             <p className="mono-about__hub">
-              <span aria-hidden="true">⊕</span> Diseño desde Bogotá para productos que
-              operan en toda LATAM
+              <span aria-hidden="true">⊕</span> Diseño desde Bogotá, Colombia para
+              productos que operan en toda LATAM
             </p>
           </div>
 

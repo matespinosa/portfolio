@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
+import mateoLandscape from "@/assets/masteo-landscape.png";
 import { profile } from "@/content/profile";
 import { useSkin } from "@/lib/useSkin";
 import { useChatLauncher } from "@/components/chat/ChatProvider";
@@ -44,11 +45,15 @@ export function MonoHero() {
         )
         .fromTo(
           ".mono-hero__img",
-          { clipPath: "inset(62% 10% 0% 10%)", scale: 1.12, filter: "blur(14px)" },
+          {
+            clipPath: "inset(62% 10% 0% 10%)",
+            scale: 1.12,
+            "--mono-image-blur": "14px",
+          },
           {
             clipPath: "inset(0% 0% 0% 0%)",
             scale: 1,
-            filter: "blur(0px)",
+            "--mono-image-blur": "0px",
             duration: 1.25,
             ease: "power4.inOut",
           },
@@ -197,19 +202,17 @@ export function MonoHero() {
           </div>
           <div className="mono-hero__img-wrap">
             <Image
-              src="/images/mateo-mono.jpg"
-              alt="Retrato en blanco y negro de Mateo Espinosa"
-              width={1136}
-              height={1385}
+              src={mateoLandscape}
+              alt="Mateo Espinosa con gafas, retratado en blanco y negro con efecto de movimiento"
               priority
-              sizes="(max-width: 720px) 92vw, 480px"
+              sizes="(max-width: 720px) 118vw, (max-width: 1100px) 94vw, 980px"
               className="mono-hero__img"
             />
           </div>
           <span className="mono-hero__streak mono-hero__streak--a" aria-hidden="true" />
           <span className="mono-hero__streak mono-hero__streak--b" aria-hidden="true" />
           <figcaption className="sr-only">
-            Mateo Espinosa — retrato editorial en blanco y negro.
+            Mateo Espinosa — retrato horizontal en blanco y negro con efecto de movimiento.
           </figcaption>
         </figure>
 
