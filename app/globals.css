@@ -3684,9 +3684,12 @@ html[data-skin="mono"] .section--contact { background: var(--bg-alt); }
   html[data-skin="mono"] .hero-cursor__label {
     font-size: 0.62rem;
     padding: 0.2rem 0.5rem;
-    max-width: 7.5ch;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  }
+
+  /* En el cursor derecho el label va a la izquierda para no rozar el borde */
+  html[data-skin="mono"] .mono-hero .hero-cursor:nth-child(2) .hero-cursor__label {
+    left: auto;
+    right: 14px;
   }
 
   .mono-about__grid,

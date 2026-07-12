@@ -36,12 +36,12 @@ const ZONES_DESKTOP = [
 
 /** En móvil orbitan el retrato circular, con margen seguro para labels. */
 const ZONES_MOBILE = [
-  { x: 12, y: 62, w: 18, h: 14 },
-  { x: 58, y: 64, w: 16, h: 14 },
+  { x: 14, y: 62, w: 18, h: 14 },
+  { x: 68, y: 64, w: 14, h: 14 },
 ];
 
 /** Padding interno (px) para que flecha + label no se salgan del hero. */
-const EDGE_PAD = { desktop: 8, mobile: 72 };
+const EDGE_PAD = { desktop: 8, mobile: 28 };
 
 type CursorConfig = { name: string; color: string };
 type Zone = { x: number; y: number; w: number; h: number };
