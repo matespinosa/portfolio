@@ -36,10 +36,8 @@ const ZONES_DESKTOP = [
 
 /** En móvil orbitan el retrato circular (mitad inferior del banner). */
 const ZONES_MOBILE = [
-  { x: 6, y: 62, w: 22, h: 16 },
-  { x: 68, y: 58, w: 24, h: 18 },
-  { x: 12, y: 82, w: 28, h: 12 },
-  { x: 58, y: 84, w: 30, h: 10 },
+  { x: 2, y: 64, w: 18, h: 12 },
+  { x: 78, y: 66, w: 18, h: 12 },
 ];
 
 type CursorConfig = { name: string; color: string };
@@ -73,7 +71,8 @@ export function HeroCursors() {
     applyZones();
     mq.addEventListener("change", applyZones);
 
-    const names = shuffle(NAMES).slice(0, ZONES_DESKTOP.length);
+    const zoneCount = mq.matches ? ZONES_MOBILE.length : ZONES_DESKTOP.length;
+    const names = shuffle(NAMES).slice(0, zoneCount);
     const colors = shuffle(COLORS);
     setCursors(names.map((name, i) => ({ name, color: colors[i % colors.length] })));
 
