@@ -2,46 +2,57 @@ import type { ExperienceItem } from "./types";
 
 export const experience: ExperienceItem[] = [
   {
-    period: "2023 — Presente",
-    role: "Senior Product Designer",
-    company: "Nubank · Remoto",
-    description:
-      "Lidero el diseño de la vertical de crédito. Diseñé la experiencia de préstamos que hoy usan +2M de clientes al mes.",
-    tags: ["Fintech", "Liderazgo", "Mobile"],
-  },
-  {
-    period: "2020 — 2023",
+    period: "2025 - Presente",
     role: "Product Designer",
-    company: "Rappi · Bogotá",
+    company: "Rappi",
     description:
-      "Diseñé features clave del checkout y del programa de fidelización. Co-creé el design system usado por +30 diseñadores.",
-    tags: ["Marketplace", "Design System"],
+      "Lidero UX/Product design para la vertical de Restaurants: onboarding de comercios, retención y eficiencia operativa. Diseño experiencias end-to-end en plataformas merchant (menú, promociones, ads y settings) y uso herramientas de AI como Claude Code para acelerar workflows, design system y prototipos vivos.",
+    tags: ["Marketplace", "Merchant", "AI workflows"],
   },
   {
-    period: "2018 — 2020",
-    role: "UX/UI Designer",
-    company: "Globant · Medellín",
+    period: "2025",
+    role: "Product Designer",
+    company: "Kapital Bank",
     description:
-      "Diseñé productos digitales para clientes de banca, retail y entretenimiento en LATAM y EE. UU.",
-    tags: ["Consultoría", "Multi-industria"],
+      "Lideré iniciativas UX/Product para el mercado Colombia. Diseñé el módulo de factoring end-to-end (venta de facturas y desembolsos) y optimicé operaciones y controles de la plataforma Kapital Colombia.",
+    tags: ["Fintech", "Factoring", "Colombia"],
   },
   {
-    period: "2016 — 2018",
-    role: "Diseñador Visual",
-    company: "Freelance",
+    period: "2024 - 2025",
+    role: "Sr Product Designer",
+    company: "Credicorp Capital",
     description:
-      "Identidad visual y diseño web para startups y pequeñas empresas. Aquí nació mi amor por el producto digital.",
-    tags: ["Branding", "Web"],
+      "UX/Product lead del canal enterprise unificado (brokerage + fiduciary). Entrevistas con clientes para identificar necesidades y pain points, y user testing para validar una sola experiencia para distintos tipos de cliente.",
+    tags: ["Banca de inversión", "Enterprise", "Research"],
+  },
+  {
+    period: "2022 - 2024",
+    role: "Product Designer · UX/UI Designer",
+    company: "Modyo",
+    description:
+      "Co-lideré el release Modyo 10. Construí el primer Design System (Figma + Storybook) y el Dynamic Framework UI. En services: design systems para miBanco, Banco Mundo Mujer y CFG | Bci (Chile); onboarding de consolidación de deuda y préstamos personales; discovery completo para portales en Chile y México.",
+    tags: ["DXP", "Design System", "Banking"],
+  },
+  {
+    period: "2021",
+    role: "Consulting — UI Developer",
+    company: "Brace Developers",
+    description:
+      "Documenté el proceso de diseño end-to-end y estandaricé análisis, diseño y entrega. Front-end con React/Next + NestJS y UI con Tailwind CSS, coordinando con backend, QA y diseño.",
+    tags: ["React", "Next.js", "Tailwind"],
   },
 ];
 
 export const tools = [
   "Figma",
   "FigJam",
+  "Storybook",
   "Framer",
-  "Protopie",
-  "Maze",
+  "VSCode",
+  "Claude Code",
+  "React",
+  "Next.js",
+  "Tailwind CSS",
   "Notion",
   "Jira",
-  "HTML/CSS",
 ] as const;

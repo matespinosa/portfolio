@@ -56,8 +56,8 @@ export type Project = {
   summary: string;
   mediaVariant: ProjectMediaVariant;
   art: ProjectArt;
-  /** Placeholder case-study content — replace with real details */
-  isPlaceholder: true;
+  /** true = contenido de ejemplo; false = caso real */
+  isPlaceholder: boolean;
   role: string;
   timeline: string;
   tools: string[];

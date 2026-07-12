@@ -6,10 +6,12 @@
     "node": ">=18.18.0"
   },
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "dev": "next dev -H 127.0.0.1 -p 3000",
+    "dev:turbo": "next dev --turbopack -H 127.0.0.1 -p 3000",
+    "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "clean": "rm -rf .next .next.nosync"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^4.0.12",
@@ -17,11 +19,13 @@
     "@ai-sdk/react": "^4.0.23",
     "ai": "^7.0.22",
     "framer-motion": "^12.42.2",
+    "gsap": "^3.15.0",
     "next": "15.5.20",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-markdown": "^10.1.0",
     "resend": "^6.17.2",
+    "three": "^0.185.1",
     "zod": "^4.4.3"
   },
   "devDependencies": {
@@ -29,6 +33,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/three": "^0.185.1",
     "eslint": "^9",
     "eslint-config-next": "15.5.20",
     "typescript": "^5"

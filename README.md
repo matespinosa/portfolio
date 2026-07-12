@@ -35,6 +35,11 @@ npm run dev
 
 Abre [http://localhost:3000](http://localhost:3000).
 
+> **Nota iCloud:** este repo está en iCloud Drive. `npm run dev` ya **no** borra
+> `.next` al arrancar (eso colgaba el terminal). Si ves errores raros de caché:
+> Ctrl+C y `npm run clean && npm run dev` (puede tardar). Ideal: mover el proyecto
+> fuera de iCloud (`~/Projects/...`).
+
 ## Chat del portafolio
 
 El chat es un asistente conversacional que responde **solo con el contenido del sitio**

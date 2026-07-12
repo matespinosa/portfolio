@@ -8,7 +8,7 @@ export function ContactSection() {
     <section className="section section--contact" id="contacto">
       <div className="container">
         <Reveal as="p" className="section__eyebrow section__eyebrow--center">
-          04 — Contacto
+          Contacto
         </Reveal>
         <Reveal as="h2" className="contact__title">
           ¿Tienes un proyecto
@@ -39,6 +39,10 @@ export function ContactSection() {
               <path d="M7 17L17 7M17 7H8M17 7v9" />
             </svg>
           </a>
+        </Reveal>
+
+        <Reveal as="p" className="contact__desc">
+          <a href={`tel:+57${profile.phone}`}>{profile.phone}</a>
         </Reveal>
 
         <Reveal as="ul" className="contact__socials">

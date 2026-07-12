@@ -2,17 +2,17 @@ import type { Project } from "./types";
 
 export const projects: Project[] = [
   {
-    slug: "fintia",
-    name: "Fintia",
-    title: "Fintia — Banca personal sin fricción",
-    year: "2025",
-    tags: ["Fintech", "App móvil"],
+    slug: "mibanco-onboarding",
+    name: "miBanco",
+    title: "miBanco — Onboarding de productos financieros",
+    year: "2023",
+    tags: ["Banking", "Onboarding", "UX Research"],
     summary:
-      "Rediseño end-to-end de la app de banca. El onboarding pasó de 9 a 3 pasos y la activación de cuentas creció un 47%.",
+      "Onboarding para consolidación de deuda y préstamos personales, con discovery completo y design system para miBanco.",
     mediaVariant: "a",
     art: {
       viewBox: "0 0 640 440",
-      ariaLabel: "Mockup de app financiera",
+      ariaLabel: "Mockup de onboarding financiero",
       shapes: `
         <rect x="200" y="60" width="240" height="420" rx="28" class="art-device"/>
         <rect x="222" y="92" width="196" height="44" rx="12" class="art-block"/>
@@ -25,70 +25,69 @@ export const projects: Project[] = [
         <rect x="486" y="240" width="110" height="110" rx="20" class="art-block"/>
       `,
     },
-    isPlaceholder: true,
-    role: "Lead Product Designer",
-    timeline: "6 meses · 2024–2025",
-    tools: ["Figma", "FigJam", "Maze", "Amplitude"],
+    isPlaceholder: false,
+    role: "Product Designer · Modyo Services",
+    timeline: "2022 - 2024 · Modyo",
+    tools: ["Figma", "FigJam", "Storybook", "User testing"],
     overview:
-      // TODO: reemplazar con contenido real del caso
-      "Fintia necesitaba reducir la fricción del primer uso sin comprometer compliance. Lideré el rediseño del onboarding, la home financiera y el flujo de activación de cuenta, trabajando con producto, compliance e ingeniería móvil.",
+      "En Modyo Services lideré el onboarding de consolidación de deuda y préstamos personales para miBanco, y aporté al design system del banco. El trabajo incluyó discovery completo: benchmarks, entrevistas, tests de usabilidad y journey maps.",
     challenge:
-      "El funnel perdía ~62% de usuarios entre registro y primera transferencia. El onboarding pedía demasiada información de golpe y la home no priorizaba la acción siguiente.",
+      "Productos financieros con flujos densos y regulatorios necesitaban una experiencia clara para usuarios que buscan crédito o consolidar deuda, sin perder confianza ni cumplimiento.",
     process: [
       {
-        title: "Descubrimiento",
-        body: "12 entrevistas con usuarios nuevos y 4 con soporte. Mapeamos los momentos de duda y los campos que generaban abandono.",
+        title: "Discovery",
+        body: "Benchmarks, entrevistas y journey maps para portales bancarios en Chile y México, identificando fricción en solicitud y seguimiento.",
       },
       {
-        title: "Síntesis & hipótesis",
-        body: "Priorizamos tres jobs: verificar identidad, fondear y completar la primera transferencia. Todo lo demás pasó a post-activación.",
+        title: "Design system",
+        body: "Componentes y patrones alineados al design system de miBanco para escalar pantallas de onboarding con consistencia.",
       },
       {
-        title: "Diseño & prototipos",
-        body: "Prototipos de alta fidelidad en Figma, tests moderados con 8 personas y dos iteraciones de copy + jerarquía visual.",
+        title: "Flujos de producto",
+        body: "Diseño end-to-end del onboarding de consolidación de deuda y préstamos personales, priorizando claridad en cada paso.",
       },
       {
-        title: "Handoff & medición",
-        body: "Especificaciones por estado, tokens compartidos y dashboard de activación con producto para validar el 47% de uplift.",
+        title: "Validación",
+        body: "User tests para iterar copy, jerarquía y estados de error antes del handoff a desarrollo.",
       },
     ],
     gallery: [
       {
-        title: "Onboarding en 3 pasos",
-        caption: "Menos pantallas, más claridad en cada decisión.",
+        title: "Onboarding de productos",
+        caption: "Pasos claros para solicitar y avanzar sin ruido.",
         variant: "a",
       },
       {
-        title: "Home de activación",
-        caption: "La siguiente acción siempre visible.",
+        title: "Patrones del sistema",
+        caption: "UI consistente con el design system del banco.",
         variant: "b",
       },
       {
-        title: "Transferencia guiada",
-        caption: "Confirmación sin ruido cognitivo.",
+        title: "Journeys mapeados",
+        caption: "De la necesidad de crédito a la activación del producto.",
         variant: "c",
       },
     ],
     results: [
-      { metric: "47%", label: "↑ activación de cuentas" },
-      { metric: "9 → 3", label: "pasos de onboarding" },
-      { metric: "-38%", label: "tiempo hasta primera transferencia" },
+      { metric: "2", label: "productos de crédito onboarded" },
+      { metric: "DS", label: "design system para miBanco" },
+      { metric: "LATAM", label: "discovery Chile & México" },
     ],
     outcome:
-      "El rediseño se lanzó a 100% de usuarios nuevos. El equipo adoptó el marco de jobs para features posteriores de crédito.",
+      "Onboarding de productos financieros listo para escalar sobre el design system de miBanco, con research documentado para el equipo de producto.",
   },
   {
-    slug: "orbita",
-    name: "Orbita",
-    title: "Orbita — Analytics para equipos de producto",
-    year: "2024",
-    tags: ["SaaS B2B", "Design System"],
+    slug: "credicorp-capital",
+    name: "Credicorp Capital",
+    title: "Credicorp Capital — Canal enterprise unificado",
+    year: "2025",
+    tags: ["B2B Banking", "Enterprise", "Research"],
     summary:
-      "Design system multi-marca y rediseño del dashboard. Redujo el tiempo de desarrollo de features un 30%.",
+      "UX/Product lead del canal unificado brokerage + fiduciary: una sola experiencia para clientes enterprise mixtos.",
     mediaVariant: "b",
     art: {
       viewBox: "0 0 640 440",
-      ariaLabel: "Mockup de dashboard",
+      ariaLabel: "Mockup de canal enterprise",
       shapes: `
         <rect x="90" y="70" width="460" height="310" rx="18" class="art-device"/>
         <rect x="90" y="70" width="120" height="310" rx="18" class="art-block"/>
@@ -99,70 +98,69 @@ export const projects: Project[] = [
         <circle cx="560" cy="110" r="36" class="art-accent"/>
       `,
     },
-    isPlaceholder: true,
-    role: "Product Designer · Design Systems",
-    timeline: "9 meses · 2023–2024",
-    tools: ["Figma", "Storybook", "Notion", "Jira"],
+    isPlaceholder: false,
+    role: "Sr Product Designer",
+    timeline: "2024 - 2025",
+    tools: ["Figma", "FigJam", "Customer interviews", "User testing"],
     overview:
-      // TODO: reemplazar con contenido real del caso
-      "Orbita crecía con tres marcas white-label y un dashboard inconsistente. Definí el sistema de componentes, tokens y patrones de analytics, y rediseñé las vistas core de producto.",
+      "Credicorp Capital es un banco de inversión latinoamericano con brokerage, asset management y servicios fiduciarios. Como Sr Product Designer lideré el canal enterprise unificado para clientes con necesidades mixtas.",
     challenge:
-      "Cada feature reinventaba tablas, filtros y empty states. El tiempo de diseño + ingeniería por release se alargaba y la deuda visual se notaba en demos enterprise.",
+      "Brokerage y fiduciary vivían en experiencias separadas. Había que validar una sola experiencia para distintos tipos de cliente enterprise sin romper flujos críticos ni confianza institucional.",
     process: [
       {
-        title: "Auditoría",
-        body: "Inventario de 180+ pantallas y clasificación de patrones repetidos vs. one-offs.",
+        title: "Entrevistas",
+        body: "Customer interviews para identificar necesidades, pain points y overlap entre perfiles brokerage y fiduciary.",
       },
       {
-        title: "Fundaciones",
-        body: "Tokens de color, tipografía, spacing y elevación multi-marca con temas por cliente.",
+        title: "Unificación",
+        body: "Definición del canal enterprise único: arquitectura de información, journeys y prioridades por tipo de cliente.",
       },
       {
-        title: "Componentes",
-        body: "Librería de data viz, filtros compuestos y layouts de página documentados en Figma + Storybook.",
+        title: "User testing",
+        body: "Tests con usuarios para validar que una sola experiencia sirviera a clientes mixtos sin fricción innecesaria.",
       },
       {
-        title: "Adopción",
-        body: "Workshops con diseño e ingeniería, checklist de contribución y métricas de uso del sistema.",
+        title: "Entrega",
+        body: "Specs y colaboración con producto e ingeniería para llevar el canal unificado a implementación.",
       },
     ],
     gallery: [
       {
-        title: "Dashboard rediseñado",
-        caption: "Jerarquía clara para métricas y exploración.",
+        title: "Canal unificado",
+        caption: "Brokerage + fiduciary en una sola experiencia.",
         variant: "b",
       },
       {
-        title: "Tokens multi-marca",
-        caption: "Un sistema, varias pieles.",
+        title: "Flujos enterprise",
+        caption: "Jerarquía clara para clientes institucionales.",
         variant: "a",
       },
       {
-        title: "Patrones de tabla",
-        caption: "Filtros, densidad y empty states unificados.",
+        title: "Validación con usuarios",
+        caption: "Decisiones respaldadas por entrevistas y tests.",
         variant: "d",
       },
     ],
     results: [
-      { metric: "30%", label: "↓ tiempo de desarrollo" },
-      { metric: "40+", label: "componentes documentados" },
-      { metric: "3", label: "marcas sobre el mismo sistema" },
+      { metric: "1", label: "canal enterprise unificado" },
+      { metric: "2", label: "líneas de negocio integradas" },
+      { metric: "UX", label: "lead de research & producto" },
     ],
     outcome:
-      "El design system pasó a ser el default de nuevas features. Diseño redujo variación innecesaria y QA visual bajó en releases.",
+      "Una experiencia enterprise validada con usuarios, alineada a brokerage y fiduciary, lista para operar como canal único.",
   },
   {
-    slug: "kuna",
-    name: "Kuna",
-    title: "Kuna — Marketplace de diseño local",
-    year: "2023",
-    tags: ["E-commerce", "UX Research"],
+    slug: "kapital-factoring",
+    name: "Kapital Bank",
+    title: "Kapital Bank — Módulo de factoring Colombia",
+    year: "2025",
+    tags: ["Fintech", "Factoring", "B2B"],
     summary:
-      "Investigación con +60 usuarios y rediseño del checkout. La conversión móvil subió un 28% en el primer trimestre.",
+      "Diseño end-to-end del módulo de factoring para Kapital Colombia: venta de facturas, desembolsos y controles de plataforma.",
     mediaVariant: "c",
     art: {
       viewBox: "0 0 640 440",
-      ariaLabel: "Mockup de e-commerce",
+      ariaLabel: "Mockup de módulo de factoring",
       shapes: `
         <rect x="120" y="90" width="180" height="270" rx="18" class="art-block"/>
         <rect x="330" y="90" width="180" height="270" rx="18" class="art-device"/>
@@ -174,70 +172,65 @@ export const projects: Project[] = [
         <rect x="142" y="146" width="136" height="120" rx="14" class="art-accent-soft"/>
       `,
     },
-    isPlaceholder: true,
+    isPlaceholder: false,
     role: "Product Designer",
-    timeline: "4 meses · 2023",
-    tools: ["Figma", "Maze", "Hotjar", "Looker"],
+    timeline: "2025",
+    tools: ["Figma", "FigJam", "Product ops"],
     overview:
-      // TODO: reemplazar con contenido real del caso
-      "Kuna vendía diseño local con un checkout móvil frágil. Conduje research cuantitativo y cualitativo, y rediseñé el funnel de compra priorizando mobile-first.",
+      "Kapital Bank es una fintech mexicana que ayuda a pymes a acceder a productos financieros. Lideré las iniciativas UX/Product para Colombia y diseñé el módulo de factoring de punta a punta.",
     challenge:
-      "La conversión móvil estaba ~40% por debajo de desktop. Usuarios abandonaban en envío y métodos de pago poco claros.",
+      "Las pymes necesitaban vender facturas y recibir desembolsos con claridad operativa. La plataforma también requería controles y operaciones estables para el mercado Colombia.",
     process: [
       {
-        title: "Research",
-        body: "60+ encuestas, 10 entrevistas y análisis de sesión para ubicar fricción real vs. percibida.",
+        title: "Scope Colombia",
+        body: "Priorización de iniciativas UX/Product para el mercado local y alineación con el modelo de factoring de Kapital.",
       },
       {
-        title: "Journey & priorización",
-        body: "Mapa del checkout con oportunidades rankeadas por impacto × esfuerzo.",
+        title: "Flujo de factoring",
+        body: "Diseño end-to-end de venta de facturas y desembolsos, con estados claros para comercio y operaciones.",
       },
       {
-        title: "Rediseño",
-        body: "Checkout en pasos cortos, preview de costos temprano y guías de pago local.",
-      },
-      {
-        title: "Validación",
-        body: "A/B test en tráfico móvil y seguimiento de funnel por dispositivo.",
+        title: "Operaciones & controles",
+        body: "Optimización de operaciones y controles de plataforma para Kapital Colombia.",
       },
     ],
     gallery: [
       {
-        title: "Checkout móvil",
-        caption: "Costos visibles antes del compromiso.",
+        title: "Venta de facturas",
+        caption: "Flujo B2B para liquidar cartera.",
         variant: "c",
       },
       {
-        title: "Catálogo",
-        caption: "Descubrimiento más rápido de makers locales.",
+        title: "Desembolsos",
+        caption: "Estados y confirmaciones sin ambigüedad.",
         variant: "a",
       },
       {
-        title: "Confirmación",
-        caption: "Expectativas claras post-compra.",
+        title: "Controles de plataforma",
+        caption: "Operaciones visibles para el equipo local.",
         variant: "b",
       },
     ],
     results: [
-      { metric: "28%", label: "↑ conversión móvil" },
-      { metric: "-22%", label: "abandono en envío" },
-      { metric: "60+", label: "usuarios en research" },
+      { metric: "E2E", label: "módulo de factoring diseñado" },
+      { metric: "CO", label: "mercado Colombia" },
+      { metric: "Ops", label: "controles de plataforma" },
     ],
     outcome:
-      "El nuevo checkout se convirtió en plantilla para campañas estacionales y marketplaces verticales del grupo.",
+      "Módulo de factoring listo para pymes en Colombia, con flujos de venta/desembolso y operaciones de plataforma alineadas.",
   },
   {
-    slug: "vita",
-    name: "Vita",
-    title: "Vita — Salud preventiva en tu bolsillo",
-    year: "2022",
-    tags: ["HealthTech", "iOS · Android"],
+    slug: "modyo-platform",
+    name: "Modyo Platform",
+    title: "Modyo Platform — Design System, Modyo 10 & low-code",
+    year: "2024",
+    tags: ["Design System", "Product Design", "Research"],
     summary:
-      "Diseño desde cero de una app de hábitos saludables. 4.8★ en las stores y +200K descargas el primer año.",
+      "Design system de 60+ componentes, reestructuración de Modyo 10 y el primer módulo low-code. −48% tiempo de desarrollo y 92% task-success en tests moderados.",
     mediaVariant: "d",
     art: {
       viewBox: "0 0 640 440",
-      ariaLabel: "Mockup de app de salud",
+      ariaLabel: "Mockup de Modyo Platform y design system",
       shapes: `
         <rect x="230" y="50" width="220" height="400" rx="30" class="art-device"/>
         <circle cx="340" cy="170" r="62" class="art-accent"/>
@@ -248,57 +241,57 @@ export const projects: Project[] = [
         <rect x="500" y="120" width="90" height="90" rx="18" class="art-block"/>
       `,
     },
-    isPlaceholder: true,
-    role: "Founding Product Designer",
-    timeline: "8 meses · 2021–2022",
-    tools: ["Figma", "Protopie", "Notion"],
+    isPlaceholder: false,
+    role: "Product Designer — Design system, Product Design, Research",
+    timeline: "2022 - 2024 · Cliente: Modyo",
+    tools: ["Figma", "Storybook", "FigJam", "Mixpanel", "User interviews"],
     overview:
-      // TODO: reemplazar con contenido real del caso
-      "Vita partió de cero: positioning, IA visual y producto móvil para hábitos preventivos. Diseñé onboarding motivacional, tracking diario y loops de retención sin culpa.",
+      "Modyo es una Digital Experience Platform (DXP) usada por bancos y fintechs en Latinoamérica para crear, desplegar y operar sitios seguros sobre arquitectura micro-frontend. Con el tiempo la DXP creció a base de features sueltos: equipos distintos, estilos visuales mezclados y componentes duplicados sin fin. Investigué, diseñé, validé y shippeé las piezas clave — design system, Modyo 10 y el primer módulo low-code — para que diseño, código y negocio remaran juntos.",
     challenge:
-      "Apps de salud suelen saturar con métricas. Necesitábamos hábitos sostenibles, accesibles y con tono humano — no un dashboard clínico.",
+      "Terminología confusa (Spaces vs Channels), navegación arbitraria y una librería oficial incompleta que obligaba a reescribir componentes. Había que unificar la plataforma sin frenar a engineers, PMs y marketers que ya sufrían el flujo viejo.",
     process: [
       {
-        title: "Concepto",
-        body: "Workshops con founders y coaches para definir el job: constancia amable, no perfección.",
+        title: "Research & benchmark",
+        body: "10 entrevistas con engineers, platform managers y marketing (21–35 años). Dolor principal: Spaces vs Channels y navegación poco clara. Benchmark de 7 productos (Stripe Docs, Zapier, Terraform Cloud, Jira Admin, Framer…): UI de alto contraste, sidebar colapsable, docs in-product y builders low-code.",
       },
       {
-        title: "Flujos core",
-        body: "Onboarding de 90s, check-in diario y racha flexible con recuperación sin castigo.",
+        title: "Design System architect",
+        body: "Paleta accesible, tipografía modular y 60+ componentes en Figma & Storybook para que dev y QA hablaran el mismo idioma. Docs vivas dentro de la app: adiós al “¿cuál azul es ese?”.",
       },
       {
-        title: "Sistema visual",
-        body: "Paleta calmada, tipografía clara y micro-copy que reduce ansiedad.",
+        title: "Modyo 10 — IA & módulos",
+        body: "Menú plano → seis grupos (Overview, Pages, Widgets, Templates, Navigation, Settings). Spaces → Experiences, Channels → Sites, con descripciones inline. Empty states ilustrados, breadcrumb fijo, side panel persistente en Widgets/Templates, Code Editor in-app (dark, linting, hot-reload) y Content Library unificada.",
       },
       {
-        title: "Lanzamiento",
-        body: "Beta cerrada, iteración de notificaciones y pulido de accesibilidad iOS/Android.",
+        title: "Low-code: Forms & Onboarding",
+        body: "Editor drag-and-drop para formularios multi-step sin tocar front. Integración plug-and-play con APIs de KYC, scoring y anti-fraude. Lógica condicional, versionado/rollback y eventos de adopción trackeados en Mixpanel.",
       },
     ],
     gallery: [
       {
-        title: "Check-in diario",
-        caption: "Un gesto, no un formulario.",
+        title: "Design System",
+        caption: "60+ componentes listos en Figma & Storybook.",
         variant: "d",
       },
       {
-        title: "Progreso semanal",
-        caption: "Tendencias sin vergüenza.",
+        title: "Modyo 10",
+        caption: "Nueva IA, terminología clara y módulos unificados.",
         variant: "c",
       },
       {
-        title: "Onboarding",
-        caption: "Personalización en menos de dos minutos.",
+        title: "Forms & Onboarding",
+        caption: "Primer módulo low-code con builder visual.",
         variant: "a",
       },
     ],
     results: [
-      { metric: "4.8★", label: "rating en stores" },
-      { metric: "200K+", label: "descargas año 1" },
-      { metric: "41%", label: "retención D30" },
+      { metric: "48%", label: "↓ tiempo de desarrollo (meta 40%)" },
+      { metric: "92%", label: "task-success en tests moderados" },
+      { metric: "78%", label: "índice de mejora UX (inconsistencias resueltas)" },
+      { metric: "7", label: "bancos negociando Origination Builder (meta 5)" },
     ],
     outcome:
-      "Vita validó product-market fit en hábitos preventivos y abrió partnerships con clínicas digitales.",
+      "Rol híbrido: user detective, arquitecto de design system, prototipador, guardian de handoff (PRs + QA) y coach entre branding, producto y desarrollo. El sistema y Modyo 10 quedaron shippeados con documentación viva y un pipeline low-code que abrió prospectos de ventas.",
   },
 ];
 

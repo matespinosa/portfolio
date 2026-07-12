@@ -2,10 +2,12 @@ import Link from "next/link";
 import { profile } from "@/content/profile";
 import { Reveal } from "@/components/ui/Reveal";
 import { StatCounter } from "@/components/ui/StatCounter";
+import { SignalHeroFx } from "@/components/home/SignalHeroFx";
 
 export function Hero() {
   return (
     <section className="hero" id="home">
+      <SignalHeroFx />
       <div className="container">
         <Reveal as="p" className="hero__badge">
           <span className="pulse-dot" aria-hidden="true" />
@@ -18,10 +20,17 @@ export function Hero() {
             </Reveal>
           ))}
         </h1>
+        <h1 className="hero__signal-title">
+          <Reveal as="span">Diseño productos.</Reveal>
+          <Reveal as="span">También los construyo.</Reveal>
+        </h1>
         <div className="hero__bottom">
           <Reveal as="p" className="hero__intro">
-            Soy <strong>{profile.name}</strong>, Senior Product Designer con +8 años
-            transformando problemas complejos en experiencias simples, útiles y memorables.
+            {profile.intro}
+          </Reveal>
+          <Reveal as="p" className="hero__signal-intro">
+            Product Designer &amp; dev enthusiast en {profile.location}. Diseño y código
+            para llevar mejores decisiones desde el insight hasta producción.
           </Reveal>
           <Reveal className="hero__cta">
             <Link href="/#proyectos" className="btn btn--primary">
@@ -39,8 +48,11 @@ export function Hero() {
                 <path d="M7 17L17 7M17 7H8M17 7v9" />
               </svg>
             </Link>
-            <Link href="/#contacto" className="btn btn--ghost">
+            <Link href="/#contacto" className="btn btn--ghost hero__contact">
               Contáctame
+            </Link>
+            <Link href="/#workflow" className="btn btn--ghost hero__workflow-link">
+              Explorar proceso
             </Link>
           </Reveal>
         </div>
