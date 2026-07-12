@@ -31,9 +31,9 @@ export const SKINS: SkinOption[] = [
     id: "terminal",
     label: "Terminal",
     short: "Term",
-    description: "GitHub / IDE - verde terminal + mono",
+    description: "Dev mode - terminal moderno + Three.js",
     swatch: "#39d353",
-    source: "portfolio-frontend-nextjs",
+    source: "green-proposal-redesign",
   },
   {
     id: "signal",

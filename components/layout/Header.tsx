@@ -17,6 +17,15 @@ const NAV = [
 /** Secciones con contraparte propia en el skin Mono (id + sufijo -mono). */
 const MONO_SECTIONS = new Set(["home", "proyectos", "sobre-mi", "experiencia"]);
 
+/** Secciones con contraparte propia en el skin Terminal (id + sufijo -term). */
+const TERM_SECTIONS = new Set(["home", "proyectos", "sobre-mi", "experiencia", "contacto"]);
+
+function sectionHref(skin: string | null, id: string, hash: string): string {
+  if (skin === "mono" && MONO_SECTIONS.has(id)) return `${hash}-mono`;
+  if (skin === "terminal" && TERM_SECTIONS.has(id)) return `${hash}-term`;
+  return hash;
+}
+
 function ThemeToggle() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
@@ -83,7 +92,7 @@ export function Header() {
   useEffect(() => {
     // Toma como marcador el primer candidato visible en el skin activo
     const candidates = document.querySelectorAll<HTMLElement>(
-      ".mono-hero__label, .hero__badge, .case-hero",
+      ".mono-hero__label, .term-hero__bar, .hero__badge, .case-hero",
     );
     const marker =
       Array.from(candidates).find((el) => el.offsetParent !== null) ?? candidates[0];
@@ -111,7 +120,7 @@ export function Header() {
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          setActiveId(entry.target.id.replace(/-mono$/, ""));
+          setActiveId(entry.target.id.replace(/-(mono|term)$/, ""));
         });
       },
       { rootMargin: "-40% 0px -55% 0px" },
@@ -131,11 +140,7 @@ export function Header() {
           {NAV.map((item) => (
             <li key={item.id}>
               <Link
-                href={
-                  skin === "mono" && MONO_SECTIONS.has(item.id)
-                    ? `${item.hash}-mono`
-                    : item.hash
-                }
+                href={sectionHref(skin, item.id, item.hash)}
                 className={`nav__link${activeId === item.id ? " is-active" : ""}`}
                 onClick={() => setMenuOpen(false)}
               >
@@ -146,7 +151,10 @@ export function Header() {
         </ul>
         <div className="nav__actions">
           <ThemeToggle />
-          <Link href="/#contacto" className="btn btn--primary btn--sm nav__cta">
+          <Link
+            href={skin === "terminal" ? "/#contacto-term" : "/#contacto"}
+            className="btn btn--primary btn--sm nav__cta"
+          >
             Hablemos
           </Link>
           <button

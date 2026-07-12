@@ -1,7 +1,7 @@
 # Portfolio — Mateo Espinosa
 
 Portafolio de Senior Product Designer migrado a **Next.js 15 (App Router) + TypeScript**.
-Tres variantes visuales conmutables (sin Tailwind): Editorial, Agency y Terminal.
+Cinco variantes visuales conmutables (sin Tailwind): Editorial, Agency, Terminal, Signal y Mono.
 
 ## Variantes visuales
 
@@ -11,7 +11,9 @@ Pill flotante abajo a la izquierda para cambiar de skin (persiste en `localStora
 |---|---|---|
 | **Editorial** | `designer-portfolio` + `case-study-pages` | Cálida, Space Grotesk + Instrument Serif, acento terracota |
 | **Agency** | `portfolio-ai-enhanced` | Monocromo + lima, Sora/Inter, grid blueprint |
-| **Terminal** | `portfolio-frontend-nextjs` | IDE/GitHub, verde terminal, JetBrains Mono |
+| **Terminal** | `green-proposal-redesign` | Dev mode: secciones de terminal moderna (prompt tipeado, repos, git log, ssh), domo dither Three.js, fósforo verde + JetBrains Mono |
+| **Signal** | `signal-skin-globe-chat-cursors` | Dark-tech violeta, globo 3D, cursores colaborativos |
+| **Mono** | `portfolio-professional-black-and-white` | B&N editorial, retrato integrado, GSAP |
 
 ## Stack
 
