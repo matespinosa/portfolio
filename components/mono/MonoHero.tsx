@@ -3,26 +3,12 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { profile } from "@/content/profile";
-import { useSkin } from "@/lib/useSkin";
-import { useChatLauncher } from "@/components/chat/ChatProvider";
-import { HeroCursors } from "@/components/home/HeroCursors";
-import { SparkIcon } from "@/components/chat/icons";
+import { useCommandSurface } from "@/components/command/CommandProvider";
 import { getGsap, prefersReducedMotion } from "@/components/mono/monoGsap";
 
 const WORDMARK = "ESPINOSA";
 const PARTNERS = ["Rappi", "Kapital Bank", "Credicorp Capital", "Modyo"];
 const GRID_COLUMNS = 12;
-
-/**
- * Dos cursores, solo en escritorio. Viven en el vacío central-derecho —el
- * único hueco realmente libre de la composición: debajo del panel, a la
- * derecha del párrafo y por encima del apellido—. En móvil el hero se apila
- * sin márgenes libres y se ocultan por CSS.
- */
-const CURSOR_ZONES_DESKTOP = [
-  { x: 57, y: 43, w: 11, h: 8 },
-  { x: 75, y: 51, w: 11, h: 8 },
-];
 
 /**
  * Reloj de Bogotá. Para un perfil remoto evaluado desde otros husos, la hora
@@ -61,13 +47,12 @@ function LocalTime() {
  * que está construida la página, dibujada al entrar.
  */
 export function MonoHero() {
-  const skin = useSkin();
-  const { openChat } = useChatLauncher();
+  const { openSurface } = useCommandSurface();
   const rootRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const root = rootRef.current;
-    if (!root || skin !== "mono" || prefersReducedMotion()) return;
+    if (!root || prefersReducedMotion()) return;
 
     const { gsap, ScrollTrigger } = getGsap();
     const isCompact = window.matchMedia("(max-width: 980px)").matches;
@@ -155,7 +140,7 @@ export function MonoHero() {
       ctx.revert();
       ScrollTrigger.refresh();
     };
-  }, [skin]);
+  }, []);
 
   return (
     <section ref={rootRef} className="mono-hero" id="home-mono" aria-label="Presentación">
@@ -194,21 +179,20 @@ export function MonoHero() {
               </span>
             </p>
             <div className="mono-hero__cta">
-              <button type="button" className="mono-btn mono-btn--solid" onClick={() => openChat()}>
-                Chatea con mi IA
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M7 17L17 7M17 7H8M17 7v9" />
-                </svg>
+              {/* Única entrada a la superficie de comando: con aspecto de
+                  campo, porque eso es lo que abre. En móvil es el trigger
+                  táctil; en desktop, la pista del atajo. */}
+              <button
+                type="button"
+                className="cmd-affordance"
+                onClick={() => openSurface()}
+                aria-haspopup="dialog"
+              >
+                <span className="cmd-affordance__prompt" aria-hidden="true">
+                  &gt;
+                </span>
+                <span className="cmd-affordance__label">comando o pregunta</span>
+                <kbd className="cmd-affordance__kbd" aria-hidden="true">⌘K</kbd>
               </button>
               <Link href="/#proyectos-mono" className="mono-btn mono-btn--ghost">
                 Ver proyectos
@@ -218,15 +202,8 @@ export function MonoHero() {
 
           <aside className="mono-hero__aside">
             <div className="mono-hero__panel">
-              <button type="button" className="mono-hero__card" onClick={() => openChat()}>
-                <span className="mono-hero__card-logo" aria-hidden="true">
-                  <SparkIcon size={17} />
-                </span>
-                <span className="mono-hero__card-copy">
-                  <strong>Diseño para explorar.</strong>
-                  <small>Pregúntale a mi IA por cualquier caso&nbsp;→</small>
-                </span>
-              </button>
+              {/* Fase 3: aquí entra el panel de instrumento (stack, build,
+                  repo) — datos verificables, nunca decoración. */}
               <div className="mono-hero__partners">
                 <span>He construido para</span>
                 <ul>
@@ -275,11 +252,10 @@ export function MonoHero() {
         <div className="mono-hero__meta">
           <span className="mono-hero__status">{profile.availability}</span>
           <LocalTime />
-          <a href="#pregunta">Scroll ↓</a>
+          <a href="#sobre-mi-mono">Scroll ↓</a>
         </div>
       </div>
 
-      {skin === "mono" ? <HeroCursors zonesDesktop={CURSOR_ZONES_DESKTOP} /> : null}
     </section>
   );
 }
