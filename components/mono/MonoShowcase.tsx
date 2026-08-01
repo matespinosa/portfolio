@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { projects } from "@/content/projects";
-import { useSkin } from "@/lib/useSkin";
 import { getGsap, prefersReducedMotion } from "@/components/mono/monoGsap";
 
 /**
@@ -11,12 +10,11 @@ import { getGsap, prefersReducedMotion } from "@/components/mono/monoGsap";
  * entrar la siguiente, la anterior se escala y oscurece (scrub con GSAP).
  */
 export function MonoShowcase() {
-  const skin = useSkin();
   const rootRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const root = rootRef.current;
-    if (!root || skin !== "mono" || prefersReducedMotion()) return;
+    if (!root || prefersReducedMotion()) return;
 
     const { gsap, ScrollTrigger } = getGsap();
     const ctx = gsap.context(() => {
@@ -43,7 +41,7 @@ export function MonoShowcase() {
       ctx.revert();
       ScrollTrigger.refresh();
     };
-  }, [skin]);
+  }, []);
 
   return (
     <section

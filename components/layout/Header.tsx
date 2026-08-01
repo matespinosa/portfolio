@@ -4,27 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { profile } from "@/content/profile";
-import { useSkin } from "@/lib/useSkin";
 
 const NAV = [
-  { id: "home", label: "Home", hash: "/#home" },
-  { id: "proyectos", label: "Proyectos", hash: "/#proyectos" },
-  { id: "sobre-mi", label: "Sobre mí", hash: "/#sobre-mi" },
-  { id: "experiencia", label: "Experiencia", hash: "/#experiencia" },
+  { id: "home", label: "Home", hash: "/#home-mono" },
+  { id: "proyectos", label: "Proyectos", hash: "/#proyectos-mono" },
+  { id: "sobre-mi", label: "Sobre mí", hash: "/#sobre-mi-mono" },
+  { id: "experiencia", label: "Experiencia", hash: "/#experiencia-mono" },
   { id: "contacto", label: "Contacto", hash: "/#contacto" },
 ] as const;
-
-/** Secciones con contraparte propia en el skin Mono (id + sufijo -mono). */
-const MONO_SECTIONS = new Set(["home", "proyectos", "sobre-mi", "experiencia"]);
-
-/** Secciones con contraparte propia en el skin Terminal (id + sufijo -term). */
-const TERM_SECTIONS = new Set(["home", "proyectos", "sobre-mi", "experiencia", "contacto"]);
-
-function sectionHref(skin: string | null, id: string, hash: string): string {
-  if (skin === "mono" && MONO_SECTIONS.has(id)) return `${hash}-mono`;
-  if (skin === "terminal" && TERM_SECTIONS.has(id)) return `${hash}-term`;
-  return hash;
-}
 
 function ThemeToggle() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
@@ -84,7 +71,6 @@ function ThemeToggle() {
 export function Header() {
   const pathname = usePathname();
   const isHome = pathname === "/";
-  const skin = useSkin();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeId, setActiveId] = useState("home");
@@ -92,7 +78,7 @@ export function Header() {
   useEffect(() => {
     // Toma como marcador el primer candidato visible en el skin activo
     const candidates = document.querySelectorAll<HTMLElement>(
-      ".mono-hero__label, .term-hero__bar, .hero__badge, .case-hero",
+      ".mono-hero__label, .case-hero",
     );
     const marker =
       Array.from(candidates).find((el) => el.offsetParent !== null) ?? candidates[0];
@@ -103,7 +89,7 @@ export function Header() {
     );
     observer.observe(marker);
     return () => observer.disconnect();
-  }, [skin]);
+  }, []);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -140,7 +126,7 @@ export function Header() {
           {NAV.map((item) => (
             <li key={item.id}>
               <Link
-                href={sectionHref(skin, item.id, item.hash)}
+                href={item.hash}
                 className={`nav__link${activeId === item.id ? " is-active" : ""}`}
                 onClick={() => setMenuOpen(false)}
               >
@@ -152,7 +138,7 @@ export function Header() {
         <div className="nav__actions">
           <ThemeToggle />
           <Link
-            href={skin === "terminal" ? "/#contacto-term" : "/#contacto"}
+            href="/#contacto"
             className="btn btn--primary btn--sm nav__cta"
           >
             Hablemos

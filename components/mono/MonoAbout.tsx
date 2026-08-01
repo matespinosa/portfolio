@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { profile } from "@/content/profile";
-import { useSkin } from "@/lib/useSkin";
 import { getGsap, prefersReducedMotion } from "@/components/mono/monoGsap";
 
 const MonoGlobe = dynamic(
@@ -22,12 +21,11 @@ const PILLS = [
 
 /** Quién soy: statement con reveal palabra a palabra, globo line-art y pills. */
 export function MonoAbout() {
-  const skin = useSkin();
   const rootRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const root = rootRef.current;
-    if (!root || skin !== "mono" || prefersReducedMotion()) return;
+    if (!root || prefersReducedMotion()) return;
 
     const { gsap, ScrollTrigger } = getGsap();
     const ctx = gsap.context(() => {
@@ -69,7 +67,7 @@ export function MonoAbout() {
       ctx.revert();
       ScrollTrigger.refresh();
     };
-  }, [skin]);
+  }, []);
 
   return (
     <section ref={rootRef} className="mono-about section" id="sobre-mi-mono" aria-label="Quién soy">
@@ -77,7 +75,7 @@ export function MonoAbout() {
         <div className="mono-about__grid">
           <div className="mono-about__aside">
             <p className="mono-eyebrow">• Quién soy</p>
-            {skin === "mono" ? <MonoGlobe /> : null}
+            <MonoGlobe />
             <p className="mono-about__hub">
               <span aria-hidden="true">⊕</span> Diseño desde Bogotá, Colombia para
               productos que operan en toda LATAM

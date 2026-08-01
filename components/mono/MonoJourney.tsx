@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { experience } from "@/content/experience";
-import { useSkin } from "@/lib/useSkin";
 import { getGsap, prefersReducedMotion } from "@/components/mono/monoGsap";
 
 /**
@@ -10,13 +9,12 @@ import { getGsap, prefersReducedMotion } from "@/components/mono/monoGsap";
  * activa, riel de progreso scrubbed y entradas que se revelan al hacer scroll.
  */
 export function MonoJourney() {
-  const skin = useSkin();
   const rootRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
 
   useEffect(() => {
     const root = rootRef.current;
-    if (!root || skin !== "mono" || prefersReducedMotion()) return;
+    if (!root || prefersReducedMotion()) return;
 
     const { gsap, ScrollTrigger } = getGsap();
     const ctx = gsap.context(() => {
@@ -59,7 +57,7 @@ export function MonoJourney() {
       ctx.revert();
       ScrollTrigger.refresh();
     };
-  }, [skin]);
+  }, []);
 
   const current = experience[active] ?? experience[0];
   const year = current.period.slice(0, 4);

@@ -1,44 +1,14 @@
 import type { Metadata } from "next";
-import {
-  Instrument_Serif,
-  Inter,
-  JetBrains_Mono,
-  Sora,
-  Space_Grotesk,
-} from "next/font/google";
+import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { VisualPill } from "@/components/layout/VisualPill";
-import { ChatProvider } from "@/components/chat/ChatProvider";
-import { ChatFab } from "@/components/chat/ChatFab";
+import { CommandProvider } from "@/components/command/CommandProvider";
 import { profile } from "@/content/profile";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space-grotesk",
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
-
-const instrumentSerif = Instrument_Serif({
-  subsets: ["latin"],
-  variable: "--font-instrument-serif",
-  display: "swap",
-  weight: "400",
-  style: ["normal", "italic"],
-});
-
-const sora = Sora({
-  subsets: ["latin"],
-  variable: "--font-sora",
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
   display: "swap",
   weight: ["400", "500", "600", "700"],
 });
@@ -63,12 +33,6 @@ const themeBootScript = `
     var storedTheme = localStorage.getItem('theme');
     var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     root.setAttribute('data-theme', storedTheme || (systemDark ? 'dark' : 'light'));
-
-    var storedSkin = localStorage.getItem('visual-skin');
-    var skin = (storedSkin === 'agency' || storedSkin === 'terminal' || storedSkin === 'editorial' || storedSkin === 'signal' || storedSkin === 'mono')
-      ? storedSkin
-      : 'mono';
-    root.setAttribute('data-skin', skin);
   } catch (e) {}
 })();
 `;
@@ -81,13 +45,10 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={[
-        spaceGrotesk.variable,
-        instrumentSerif.variable,
-        sora.variable,
-        inter.variable,
-        jetbrainsMono.variable,
-      ].join(" ")}
+      className={[spaceGrotesk.variable, jetbrainsMono.variable].join(" ")}
+      // El sitio se comprometió a una sola dirección (la antigua "mono").
+      // El atributo se conserva porque todo el CSS vive bajo ese scope;
+      // la purga de los estilos de los otros skins es tarea de la fase 4.
       data-skin="mono"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
@@ -99,14 +60,12 @@ export default function RootLayout({
           href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23e8541f'/></svg>"
         />
       </head>
-      <body>
-        <ChatProvider>
+      <body suppressHydrationWarning>
+        <CommandProvider>
           <Header />
           <main>{children}</main>
           <Footer />
-          <VisualPill />
-          <ChatFab />
-        </ChatProvider>
+        </CommandProvider>
       </body>
     </html>
   );
