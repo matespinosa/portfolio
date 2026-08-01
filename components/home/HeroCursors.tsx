@@ -43,6 +43,12 @@ const ZONES_MOBILE = [
 type CursorConfig = { name: string; color: string };
 type Zone = { x: number; y: number; w: number; h: number };
 
+type HeroCursorsProps = {
+  /** Zonas propias del skin, por si su composición ocupa otras áreas del hero. */
+  zonesDesktop?: Zone[];
+  zonesMobile?: Zone[];
+};
+
 function shuffle<T>(list: T[]): T[] {
   const copy = [...list];
   for (let i = copy.length - 1; i > 0; i -= 1) {
@@ -56,22 +62,29 @@ function easeInOutCubic(t: number): number {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 }
 
-export function HeroCursors() {
+export function HeroCursors({
+  zonesDesktop = ZONES_DESKTOP,
+  zonesMobile = ZONES_MOBILE,
+}: HeroCursorsProps = {}) {
   const [cursors, setCursors] = useState<CursorConfig[] | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   const nodesRef = useRef<(HTMLDivElement | null)[]>([]);
   const arrowsRef = useRef<(SVGSVGElement | null)[]>([]);
-  const zonesRef = useRef<Zone[]>(ZONES_DESKTOP);
+  const zonesRef = useRef<Zone[]>(zonesDesktop);
+  // Por ref: las zonas son constantes por skin y así el efecto conserva su
+  // lista de dependencias vacía.
+  const configRef = useRef({ desktop: zonesDesktop, mobile: zonesMobile });
+  configRef.current = { desktop: zonesDesktop, mobile: zonesMobile };
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 980px)");
     const applyZones = () => {
-      zonesRef.current = mq.matches ? ZONES_MOBILE : ZONES_DESKTOP;
+      zonesRef.current = mq.matches ? configRef.current.mobile : configRef.current.desktop;
     };
     applyZones();
     mq.addEventListener("change", applyZones);
 
-    const zoneCount = mq.matches ? ZONES_MOBILE.length : ZONES_DESKTOP.length;
+    const zoneCount = zonesRef.current.length;
     const names = shuffle(NAMES).slice(0, zoneCount);
     const colors = shuffle(COLORS);
     setCursors(names.map((name, i) => ({ name, color: colors[i % colors.length] })));

@@ -2837,14 +2837,23 @@ html[data-skin="mono"] {
   --line: #cfcfca;
   --radius: 18px;
   --radius-sm: 12px;
+  /* Sistema de dos familias, al modo Vercel/Cursor: un solo palo seco para
+     todo —display y texto— y una mono real para etiquetas y metadatos. */
   --font-sans: var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;
   --font-serif: var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;
-  --font-display: var(--font-sora), "Sora", system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, monospace;
   --mono-card-bg: #101010;
   --mono-card-ink: #f2f2ef;
-  --mono-ghost-a: #d4d4cf;
-  --mono-ghost-b: #a0a09a;
+  /* El apellido es marca de agua, no titular: sube a ~1.8:1 sobre el fondo
+     para que no se evapore en pantallas brillantes sin llegar a competir. */
+  --mono-ghost: #c2c2bc;
+  /* Un solo contenedor para header, hero y secciones del skin */
+  --mono-shell: min(1280px, 100% - 3.4rem);
+  /* Dos tamaños de micro-etiqueta, no cinco */
+  --mono-label: 0.75rem;
+  --mono-overline: 0.72rem;
+  --mono-title-mute: #7a7a75;
 }
 
 html[data-skin="mono"][data-theme="dark"] {
@@ -2861,8 +2870,8 @@ html[data-skin="mono"][data-theme="dark"] {
   --line: #2b2b28;
   --mono-card-bg: #1a1a18;
   --mono-card-ink: #f1f1ee;
-  --mono-ghost-a: #404046;
-  --mono-ghost-b: #222226;
+  --mono-ghost: #35353a;
+  --mono-title-mute: #8f8f8a;
 }
 
 /* En mono, fuera las secciones de los otros skins */
@@ -2878,18 +2887,26 @@ html[data-skin="mono"] .mono-journey,
 html[data-skin="mono"] .mono-showcase { display: block; }
 
 /* Utilidades mono */
-.mono-container { width: min(1280px, 100% - 3.4rem); margin-inline: auto; }
+.mono-container { width: var(--mono-shell); margin-inline: auto; }
+/* El header comparte contenedor con el hero y las secciones: un solo margen */
+html[data-skin="mono"] .nav.container { width: var(--mono-shell); }
+/* `em` no debe cambiar de familia ni de peso dentro de un titular mono */
+html[data-skin="mono"] :is(h1, h2, h3) em {
+  font-family: inherit;
+  font-weight: inherit;
+  font-style: normal;
+}
 .mono-eyebrow {
   margin-bottom: 1.1rem;
-  font: 500 0.72rem/1 var(--font-mono);
+  font: 500 var(--mono-overline)/1 var(--font-mono);
   letter-spacing: 0.07em;
   text-transform: uppercase;
   color: var(--ink-soft);
 }
 .mono-section-head { max-width: 720px; margin-bottom: 3.4rem; }
 .mono-section-head h2 {
-  font: 600 clamp(2rem, 3.8vw, 3.3rem)/1.04 var(--font-display);
-  letter-spacing: -0.04em;
+  font: 600 clamp(2rem, 3.8vw, 3.3rem)/1.06 var(--font-display);
+  letter-spacing: -0.03em;
   text-wrap: balance;
 }
 .mono-section-head__meta {
@@ -2907,9 +2924,16 @@ html[data-skin="mono"] .mono-showcase { display: block; }
   text-decoration: none;
   border-bottom: 1.5px solid color-mix(in srgb, var(--ink) 30%, transparent);
   padding-bottom: 0.2rem;
-  transition: border-color 0.2s ease, gap 0.25s var(--ease-out);
+  transition: border-color 0.25s var(--ease-out), gap 0.25s var(--ease-out);
 }
 .mono-link:hover { border-color: var(--ink); gap: 0.7rem; }
+
+/* Foco visible: el skin mono no tenía ninguno (PRODUCT.md lo exige) */
+html[data-skin="mono"] :is(.mono-btn, .mono-link, .mono-hero__card, .mono-hero__meta a):focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
 .mono-btn {
   display: inline-flex;
   align-items: center;
@@ -2921,18 +2945,26 @@ html[data-skin="mono"] .mono-showcase { display: block; }
   letter-spacing: -0.01em;
   cursor: pointer;
   text-decoration: none;
-  transition: transform 0.3s var(--ease-out), background-color 0.2s ease,
-              color 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.3s var(--ease-out), background-color 0.25s var(--ease-out),
+              color 0.25s var(--ease-out), border-color 0.25s var(--ease-out);
 }
-.mono-btn--solid { background: var(--ink); color: var(--bg); }
+.mono-btn--solid {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
 .mono-btn--ghost {
   background: transparent;
   color: var(--ink);
   border-color: color-mix(in srgb, var(--ink) 30%, transparent);
 }
+/* Ambas variantes responden igual: elevación + refuerzo del borde */
 .mono-btn--solid:hover,
 .mono-btn--ghost:hover { transform: translateY(-2px); }
+.mono-btn--solid:hover { background: color-mix(in srgb, var(--ink) 86%, var(--bg)); }
 .mono-btn--ghost:hover { border-color: var(--ink); }
+.mono-btn--solid:active,
+.mono-btn--ghost:active { transform: translateY(0); }
 
 /* ---------- Hero mono ---------- */
 .mono-hero {
@@ -2943,23 +2975,30 @@ html[data-skin="mono"] .mono-showcase { display: block; }
   background:
     radial-gradient(90% 60% at 50% -8%, color-mix(in srgb, #ffffff 55%, transparent), transparent 70%),
     var(--bg);
-  padding-top: calc(var(--header-h) + 1.8rem);
+  padding-top: calc(var(--header-h) + 1rem);
+  /* Deja libre la banda inferior donde flotan la píldora de skin y el FAB del
+     chat: si no, se comen la franja meta cuando el hero mide justo 100dvh. */
+  padding-bottom: 5rem;
 }
 html[data-skin="mono"][data-theme="dark"] .mono-hero {
   --ink-soft: #c0c0ba;
   --ink-faint: #8c8c86;
-  --mono-ghost-a: #4a4a50;
-  --mono-ghost-b: #27272b;
+  --mono-ghost: #3d3d43;
   background:
     radial-gradient(90% 60% at 50% -8%, color-mix(in srgb, #ffffff 5%, transparent), transparent 70%),
     var(--bg);
 }
 .mono-hero__inner {
   position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   flex: 1;
-  width: min(1280px, 100% - 3.4rem);
+  /* Centrado, no estirado: con `flex: 1` en el escenario, las pantallas altas
+     abrían un vacío muerto entre los CTA y el apellido. Así el bloque respira
+     con aire simétrico arriba y abajo. */
+  justify-content: center;
+  width: var(--mono-shell);
   margin-inline: auto;
 }
 .mono-hero__top {
@@ -2989,67 +3028,95 @@ html[data-skin="mono"][data-theme="dark"] .mono-hero__intro::before {
   pointer-events: none;
 }
 .mono-hero__label {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
   margin-bottom: 1.2rem;
-  font: 500 0.76rem/1.4 var(--font-mono);
-  letter-spacing: 0.02em;
+  font: 500 var(--mono-label)/1.4 var(--font-mono);
+  letter-spacing: 0.01em;
   color: var(--ink-soft);
 }
+/* Filete real, no un glifo "|" prestado de la fuente */
+.mono-hero__label::before {
+  content: "";
+  flex: none;
+  width: 26px;
+  height: 1px;
+  background: color-mix(in srgb, currentColor 65%, transparent);
+}
+/* Sin fotografía el titular es la pieza: sube hasta el techo de 6rem.
+   Space Grotesk ya es condensada: a -0.048em (además, por debajo del suelo
+   de -0.04em) las letras se tocaban. -0.035em es el registro Vercel/Cursor. */
 .mono-hero__title {
-  font: 600 clamp(2.9rem, 5.9vw, 5.5rem)/1 var(--font-display);
-  letter-spacing: -0.048em;
+  font: 600 clamp(3rem, 6.8vw, 6rem)/1 var(--font-display);
+  letter-spacing: -0.035em;
+  text-wrap: balance;
 }
 .mono-line { display: block; overflow: hidden; padding-bottom: 0.06em; }
 .mono-line__inner { display: block; }
-.mono-hero__title em { font-style: normal; color: var(--ink-faint); }
+.mono-hero__title em { color: var(--mono-title-mute); }
 .mono-hero__sub {
   max-width: 46ch;
-  margin-top: 1.1rem;
+  margin-top: 0.95rem;
   color: var(--ink-soft);
   font-size: 1rem;
   line-height: 1.6;
+  text-wrap: pretty;
 }
 .mono-hero__proof {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
-  margin-top: 1.1rem;
-  font: 500 0.78rem/1 var(--font-mono);
+  flex-wrap: wrap;
+  gap: 0.35rem 0.6rem;
+  margin-top: 1rem;
+  font: 500 var(--mono-label)/1.5 var(--font-mono);
+  letter-spacing: 0.01em;
   color: var(--ink-soft);
 }
-.mono-hero__stars { color: var(--ink); letter-spacing: 0.14em; }
-.mono-hero__cta { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.6rem; }
+/* El énfasis lo llevan las cifras, no un glifo de estrellas ajeno a la fuente */
+.mono-hero__proof b { font-weight: 600; color: var(--ink); }
+.mono-hero__cta { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.3rem; }
 
 .mono-hero__aside {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 1.3rem;
+  align-items: stretch;
 }
+/* Un solo panel: antes eran dos bloques sueltos con alineaciones opuestas
+   (tarjeta a la izquierda, lista a la derecha) flotando sobre la foto. */
+.mono-hero__panel {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 24px 48px -34px color-mix(in srgb, var(--ink) 55%, transparent);
+  transition: border-color 0.25s var(--ease-out), transform 0.3s var(--ease-out);
+}
+.mono-hero__panel:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--ink) 42%, transparent); }
 .mono-hero__card {
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  max-width: 255px;
-  padding: 0.85rem 1rem;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: color-mix(in srgb, var(--surface) 76%, transparent);
-  backdrop-filter: blur(10px);
+  width: 100%;
+  padding: 0.95rem 1rem;
+  border: 0;
+  background: transparent;
   color: var(--ink);
   font: inherit;
   text-align: left;
   cursor: pointer;
-  box-shadow: 0 20px 44px -32px rgba(0, 0, 0, 0.55);
-  transition: transform 0.3s var(--ease-out), border-color 0.2s ease;
+  transition: background-color 0.25s var(--ease-out);
 }
-.mono-hero__card:hover { transform: translateY(-3px); border-color: var(--ink); }
+.mono-hero__card:hover { background: color-mix(in srgb, var(--ink) 6%, transparent); }
 .mono-hero__card-logo {
   display: grid;
   place-items: center;
   width: 38px;
   height: 38px;
   flex-shrink: 0;
-  border-radius: 11px;
+  border-radius: var(--radius-sm);
   background: var(--ink);
   color: var(--bg);
 }
@@ -3058,148 +3125,116 @@ html[data-skin="mono"][data-theme="dark"] .mono-hero__intro::before {
   display: block;
   margin-top: 0.18rem;
   color: var(--ink-soft);
-  font-size: 0.72rem;
-  line-height: 1.35;
+  font-size: 0.75rem;
+  line-height: 1.4;
 }
 .mono-hero__partners {
-  text-align: right;
-  font: 500 0.7rem/1.7 var(--font-mono);
+  padding: 0.9rem 1rem 1rem;
+  border-top: 1px solid var(--line);
+  text-align: left;
+  font: 500 var(--mono-label)/1.7 var(--font-mono);
+  letter-spacing: 0.01em;
   color: var(--ink-soft);
 }
 .mono-hero__partners span {
   display: block;
-  margin-bottom: 0.35rem;
-  font-size: 0.6rem;
-  letter-spacing: 0.09em;
+  margin-bottom: 0.5rem;
+  font-size: var(--mono-overline);
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: var(--ink-faint);
+  color: var(--ink-soft);
 }
-.mono-hero__partners ul { display: flex; flex-direction: column; align-items: flex-end; }
+.mono-hero__partners ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 0.9rem;
+  color: var(--ink);
+}
 
+/* ---- Escenario tipográfico: el apellido cierra la composición ---- */
 .mono-hero__stage {
   position: relative;
   z-index: 1;
-  flex: 1;
-  min-height: clamp(380px, 52vh, 640px);
-  margin-top: -3.6rem;
-}
-/* Funde retrato + letras hacia el fondo antes de la franja meta */
-.mono-hero__stage::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 -1px;
-  height: 110px;
-  z-index: 3;
-  background: linear-gradient(to top, var(--bg) 18%, transparent);
-  pointer-events: none;
-}
-.mono-hero__ghost {
-  position: absolute;
-  left: 50%;
-  bottom: 6%;
-  z-index: 1;
   display: flex;
-  transform: translateX(-50%);
-  font: 700 clamp(6.5rem, 21vw, 19rem)/0.82 var(--font-display);
-  letter-spacing: -0.02em;
-  white-space: nowrap;
-  user-select: none;
-  pointer-events: none;
+  align-items: flex-end;
+  /* El alto lo define el propio wordmark (ancho ÷ ratio del viewBox) */
+  flex: 0 1 auto;
+  margin-top: clamp(1.2rem, 2.4vh, 3.5rem);
+  padding-bottom: clamp(0.25rem, 0.7vh, 0.9rem);
 }
-.mono-hero__ghost span {
-  display: inline-block;
-  background: linear-gradient(180deg, var(--mono-ghost-a) 10%, var(--mono-ghost-b) 92%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-.mono-hero__img-wrap {
-  position: absolute;
-  left: 50%;
-  bottom: -4%;
-  z-index: 2;
-  width: min(980px, 88vw);
-  transform: translateX(-50%);
-  mix-blend-mode: multiply;
-  -webkit-mask-image:
-    linear-gradient(to bottom, transparent 0%, #000 13%, #000 84%, transparent 100%),
-    linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-image:
-    linear-gradient(to bottom, transparent 0%, #000 13%, #000 84%, transparent 100%),
-    linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
-  mask-composite: intersect;
-}
-html[data-skin="mono"][data-theme="dark"] .mono-hero__img-wrap { mix-blend-mode: screen; }
-.mono-hero__img {
-  --mono-image-blur: 0px;
+/* `textLength` fuerza el ancho exacto del contenedor ajustando solo el
+   tracking (`lengthAdjust="spacing"`), nunca los glifos: el apellido calza
+   de filete a filete en cualquier viewport sin deformar una sola letra. */
+.mono-hero__wordmark {
   display: block;
   width: 100%;
   height: auto;
-  filter: grayscale(1) contrast(1.08) brightness(1.01) blur(var(--mono-image-blur));
+  overflow: visible;
+  fill: var(--mono-ghost);
   will-change: transform, clip-path;
 }
-html[data-skin="mono"][data-theme="dark"] .mono-hero__img {
-  filter: invert(1) grayscale(1) contrast(1.12) brightness(0.94) blur(var(--mono-image-blur));
+.mono-hero__wordmark text {
+  font-family: var(--font-display);
+  font-size: 216px;
+  font-weight: 700;
 }
-/* Retrato circular (solo móvil; oculto en desktop) */
-.mono-hero__portrait {
-  display: none;
-  position: relative;
-  z-index: 2;
-  width: min(212px, 54vw);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
-  box-shadow:
-    0 0 0 10px color-mix(in srgb, var(--bg) 88%, transparent),
-    0 28px 48px -28px color-mix(in srgb, var(--ink) 40%, transparent);
-  background: color-mix(in srgb, var(--surface) 70%, transparent);
-}
-.mono-hero__portrait-img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 18%;
-  filter: grayscale(1) contrast(1.06) brightness(1.02);
-}
-html[data-skin="mono"][data-theme="dark"] .mono-hero__portrait-img {
-  filter: invert(1) grayscale(1) contrast(1.1) brightness(0.95);
-}
-.mono-hero__streak {
+
+/* ---- Retícula de 12 columnas: el sistema sobre el que está construido ---- */
+.mono-hero__grid {
   position: absolute;
-  z-index: 3;
-  top: 24%;
-  height: 34%;
-  width: 54%;
-  opacity: 0;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  width: var(--mono-shell);
+  transform: translateX(-50%);
   pointer-events: none;
-  filter: blur(22px);
 }
-.mono-hero__streak--a {
-  left: -8%;
-  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--bg) 94%, transparent) 45%, transparent);
+.mono-hero__grid i {
+  border-left: 1px solid color-mix(in srgb, var(--ink) 7%, transparent);
+  transform-origin: top center;
 }
-.mono-hero__streak--b {
-  right: -6%;
-  top: 40%;
-  height: 26%;
-  background: linear-gradient(270deg, transparent, color-mix(in srgb, var(--bg) 88%, transparent) 50%, transparent);
+.mono-hero__grid i:last-child {
+  border-right: 1px solid color-mix(in srgb, var(--ink) 7%, transparent);
 }
+
 .mono-hero__meta {
   position: relative;
   z-index: 4;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.95rem 0.1rem 1.1rem;
-  border-top: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
-  font: 500 0.72rem/1 var(--font-mono);
+  padding: 0.95rem 0 1.1rem;
+  border-top: 1px solid var(--line);
+  font: 500 var(--mono-label)/1.4 var(--font-mono);
+  letter-spacing: 0.01em;
   color: var(--ink-soft);
 }
-.mono-hero__meta a { color: var(--ink); text-decoration: none; }
+.mono-hero__status { display: inline-flex; align-items: center; gap: 0.55rem; }
+.mono-hero__clock {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+}
+.mono-hero__clock time { color: var(--ink-soft); }
+.mono-hero__status::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ink);
+}
+.mono-hero__meta a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 0.15rem;
+  transition: border-color 0.25s var(--ease-out);
+}
+.mono-hero__meta a:hover { border-bottom-color: var(--ink); }
 html[data-skin="mono"] .mono-hero .hero-cursors {
   display: block;
   position: absolute;
@@ -3352,8 +3387,8 @@ html[data-skin="mono"] .hero-cursor__ring {
   gap: 0.9rem;
 }
 .mono-journey__year {
-  font: 700 clamp(4rem, 8vw, 7rem)/0.9 var(--font-display);
-  letter-spacing: -0.05em;
+  font: 700 clamp(4rem, 8vw, 7rem)/0.92 var(--font-display);
+  letter-spacing: -0.035em;
   animation: mono-year 0.5s var(--ease-out);
 }
 @keyframes mono-year {
@@ -3452,8 +3487,8 @@ html[data-skin="mono"] .hero-cursor__ring {
 }
 .mono-card__body { margin-top: auto; }
 .mono-card__body h3 {
-  font: 600 clamp(2.1rem, 4.6vw, 3.9rem)/0.98 var(--font-display);
-  letter-spacing: -0.04em;
+  font: 600 clamp(2.1rem, 4.6vw, 3.9rem)/1 var(--font-display);
+  letter-spacing: -0.03em;
 }
 .mono-card__body p {
   max-width: 58ch;
@@ -3602,22 +3637,21 @@ html[data-skin="mono"] .section--contact { background: var(--bg-alt); }
 
 /* ---------- Responsive mono ---------- */
 @media (max-width: 980px) {
+  /* El contenedor sigue siendo uno solo: header, hero y secciones se mueven juntos */
+  html[data-skin="mono"] { --mono-shell: min(1280px, 100% - 2.6rem); }
   .mono-hero {
     min-height: auto;
     overflow: visible;
     padding-top: calc(var(--header-h) + 1.5rem);
     padding-bottom: 1.75rem;
   }
-  .mono-hero__inner {
-    width: min(1280px, 100% - 2.2rem);
-    gap: 0;
-  }
+  .mono-hero__inner { gap: 0; }
   .mono-hero__top {
     grid-template-columns: 1fr;
     gap: 2.4rem;
   }
   .mono-hero__label { margin-bottom: 1.15rem; }
-  .mono-hero__title { letter-spacing: -0.04em; }
+  .mono-hero__title { letter-spacing: -0.03em; }
   .mono-hero__sub {
     margin-top: 1.55rem;
     max-width: none;
@@ -3635,59 +3669,33 @@ html[data-skin="mono"] .section--contact { background: var(--bg-alt); }
     margin-top: 2rem;
     gap: 0.8rem;
   }
-  .mono-hero__aside {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1.65rem;
+  .mono-hero__card { padding: 1.05rem 1.1rem; }
+  .mono-hero__partners {
+    padding: 1rem 1.1rem 1.1rem;
   }
-  .mono-hero__card { max-width: none; }
-  .mono-hero__partners { text-align: left; }
-  .mono-hero__partners span { margin-bottom: 0.55rem; }
-  .mono-hero__partners ul {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 0.55rem 1.1rem;
-    align-items: flex-start;
-  }
-  .mono-hero__partners li {
-    color: var(--ink-soft);
-    font-size: 0.8rem;
-  }
+  .mono-hero__partners ul { gap: 0.3rem 1.1rem; }
 
-  /* Stage móvil: círculo centrado + aire alrededor para cursores */
   .mono-hero__stage {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     flex: none;
     min-height: 0;
-    margin-top: 3.1rem;
-    padding: 2.35rem 0 0.75rem;
+    margin-top: clamp(2.6rem, 7vh, 4rem);
+    padding-bottom: 0.4rem;
   }
-  .mono-hero__stage::after,
-  .mono-hero__ghost,
-  .mono-hero__streak,
-  .mono-hero__img-wrap { display: none; }
-  .mono-hero__portrait { display: block; }
+  /* Cuatro columnas: doce quedan demasiado juntas para leerse como retícula */
+  .mono-hero__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .mono-hero__grid i:nth-child(n + 5) { display: none; }
 
   .mono-hero__meta {
     margin-top: 1.85rem;
-    padding: 1.25rem 0.1rem 0.5rem;
+    padding: 1.25rem 0 0.5rem;
     flex-wrap: wrap;
     gap: 0.7rem 1.2rem;
-    font-size: 0.76rem;
     color: color-mix(in srgb, var(--ink-soft) 80%, var(--ink));
   }
 
-  /* Cursores visibles alrededor del retrato circular */
-  html[data-skin="mono"] .mono-hero .hero-cursors {
-    display: block;
-    overflow: visible;
-  }
-  html[data-skin="mono"] .hero-cursor__label {
-    font-size: 0.62rem;
-    padding: 0.2rem 0.5rem;
-  }
+  /* Sin foto, el hero móvil se apila sin márgenes libres: los cursores caían
+     encima del panel. Fuera. */
+  html[data-skin="mono"] .mono-hero .hero-cursors { display: none; }
 
   .mono-about__grid,
   .mono-journey__grid { grid-template-columns: 1fr; gap: 2.2rem; }
@@ -3703,26 +3711,27 @@ html[data-skin="mono"] .section--contact { background: var(--bg-alt); }
 
 @media (max-width: 640px) {
   .mono-hero__title { font-size: clamp(2.4rem, 10.5vw, 3.15rem); line-height: 1.04; }
+  /* Apilados de forma explícita: antes `flex: 1 1 auto` los dejaba a ancho
+     completo o a mitades según el espacio sobrante, sin criterio. */
+  .mono-hero__cta { flex-direction: column; align-items: stretch; gap: 0.65rem; }
+  /* Dos columnas: con `flex-wrap` los cuatro nombres dejaban "Modyo" huérfano */
+  .mono-hero__partners ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.3rem 0.9rem;
+  }
   .mono-hero__cta .mono-btn {
-    flex: 1 1 auto;
+    width: 100%;
     justify-content: center;
     min-height: 48px;
   }
-  .mono-hero__portrait {
-    width: min(176px, 46vw);
-    box-shadow:
-      0 0 0 8px color-mix(in srgb, var(--bg) 90%, transparent),
-      0 22px 40px -24px color-mix(in srgb, var(--ink) 38%, transparent);
-  }
   .mono-hero__stage {
-    margin-top: 2.85rem;
-    padding: 2.2rem 0 0.55rem;
+    margin-top: clamp(2.2rem, 6vh, 3rem);
+    padding-bottom: 0.3rem;
   }
-  .mono-hero__meta {
-    margin-top: 1.55rem;
-    justify-content: flex-start;
-  }
-  .mono-hero__meta a { margin-left: auto; }
+  .mono-hero__meta { margin-top: 1.55rem; }
+  /* El reloj cede primero: estado y "Scroll ↓" son lo que debe sobrevivir */
+  .mono-hero__clock { display: none; }
   .mono-about__aside { flex-direction: column; align-items: flex-start; }
   .mono-globe { width: min(300px, 82vw); align-self: center; }
   html[data-skin="mono"] .chat-home__status {
@@ -3742,7 +3751,6 @@ html[data-skin="mono"] .section--contact { background: var(--bg-alt); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mono-hero__streak { display: none; }
   .mono-journey__year { animation: none; }
   .mono-journey__rail i { transform: none !important; }
   .mono-entry:not(.is-active) { opacity: 1; }
